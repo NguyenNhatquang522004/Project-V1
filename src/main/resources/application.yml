@@ -1,0 +1,46 @@
+spring:
+  security.oauth2.client.registration.google:
+   client-id: 140217861806-smn2vmvjbn4ht825865aip3509lqouff.apps.googleusercontent.com
+   client-secret: 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
+  mail: 
+    host: smtp.gmail.com
+    port: 587
+    username: nguyennhatquang522004@gmail.com
+    password: cmdgffgymlcujwqq
+    protocol: smtp
+    tls: true
+    properties.mail.smtp:
+     auth: true
+     starttls.enable:  true
+     ssl.trust: smtp.gmail.com
+   
+  application:
+    name: my-app
+  
+  datasource:
+    url: jdbc:mysql://localhost:3306/bank
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  main:
+    allow-bean-definition-overriding: true
+  data:
+    mongodb:
+     uri: mongodb://localhost:27017/chats
+  redis:
+   host: 127.0.0.1
+   port: 6379
+   database: 0
+   timeout : 60000
+   password : ""
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+
+server:
+ servlet:
+  contextPath: /api/v1
+  
