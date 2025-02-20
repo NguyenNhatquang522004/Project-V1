@@ -9,14 +9,16 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.my_app.Enum.StatusRole;
-import com.example.my_app.Mapper.RegisterMapper;
-import com.example.my_app.Repository.RoleRepository;
-import com.example.my_app.Repository.UserRepository;
+import com.example.my_app.Mapper.UserMapper;
+import com.example.my_app.Repository.Role.RoleCustom;
+import com.example.my_app.Repository.Role.RoleRepository;
+import com.example.my_app.Repository.User.UserRepository;
 import com.example.my_app.model.Role_Permission.Role;
 import com.example.my_app.model.User.User;
 import com.example.my_app.modules.Register.DTO.RegisterStepOneDTO;
 import com.example.my_app.modules.Register.DTO.RegisterStepThreeDTO;
 
+import jakarta.transaction.Transactional;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 
@@ -30,15 +32,18 @@ public class RegisterServices {
 
     RoleRepository roleRepository;
 
-    RegisterMapper userMapper;
+    UserMapper userMapper;
+
+    RoleCustom roleCustom;
 
     @Autowired
-    public RegisterServices(UserRepository userRepository, RegisterMapper userMapper, PasswordEncoder passwordEncoder,
-            RoleRepository roleRepository) {
+    public RegisterServices(UserRepository userRepository, UserMapper userMapper, PasswordEncoder passwordEncoder,
+            RoleRepository roleRepository, RoleCustom roleCustom) {
         this.userMapper = userMapper;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.roleRepository = roleRepository;
+        this.roleCustom = roleCustom;
     }
 
     public boolean CheckEmail(String data) throws Exception {
@@ -55,6 +60,7 @@ public class RegisterServices {
         return userRepository.findByEmail(data);
     }
 
+    @Transactional
     boolean handleaddUser(RegisterStepOneDTO data) throws Exception {
         try {
             User user = userMapper.toUser(data);
@@ -67,6 +73,7 @@ public class RegisterServices {
 
     }
 
+    @Transactional
     boolean handleUpdateUser(RegisterStepOneDTO data, User user) throws Exception {
         try {
             data.setCode(null);
@@ -81,13 +88,14 @@ public class RegisterServices {
 
     }
 
+    @Transactional
     boolean handleUpdateUser(RegisterStepThreeDTO data, User user) throws Exception {
         try {
-
-            Role role = new Role();
-            role.setRole_user(user);
-            role.setDescription(StatusRole.customers);
-            roleRepository.save(role);
+            Role initRole = roleCustom.handleInitPermissionRole(StatusRole.Customers, user);
+            if (initRole == null) {
+                return false;
+            }
+            data.setUser_role(initRole);
             userMapper.UpdateCreatAccountUser(user, data);
             userRepository.save(user);
             return true;

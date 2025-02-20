@@ -1,4 +1,4 @@
-package com.example.my_app.Repository;
+package com.example.my_app.Repository.User;
 
 import java.util.Optional;
 import java.util.UUID;

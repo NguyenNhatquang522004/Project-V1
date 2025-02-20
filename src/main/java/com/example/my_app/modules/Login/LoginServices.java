@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.example.my_app.Mapper.LoginMapper;
-import com.example.my_app.Repository.UserRepository;
+import com.example.my_app.Mapper.UserMapper;
+import com.example.my_app.Repository.User.UserRepository;
 import com.example.my_app.model.User.User;
 import com.example.my_app.modules.Login.DTO.LoginNormalDTO;
 
@@ -18,13 +18,13 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class LoginServices {
     UserRepository userRepository;
-    LoginMapper loginMapper;
+    UserMapper userMapper;
     PasswordEncoder passwordEncoder;
 
     @Autowired
-    public LoginServices(LoginMapper loginMapper, UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public LoginServices(UserMapper userMapper, UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
-        this.loginMapper = loginMapper;
+        this.userMapper = userMapper;
         this.passwordEncoder = passwordEncoder;
     }
 

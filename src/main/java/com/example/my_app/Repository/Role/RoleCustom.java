@@ -1,0 +1,108 @@
+package com.example.my_app.Repository.Role;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.example.my_app.Enum.StatusPermission;
+import com.example.my_app.Enum.StatusRole;
+import com.example.my_app.Repository.Permission.PermissionRepository;
+import com.example.my_app.common.ResponedGlobal;
+import com.example.my_app.model.Role_Permission.Permission;
+import com.example.my_app.model.Role_Permission.Role;
+import com.example.my_app.model.User.User;
+
+import jakarta.transaction.Transactional;
+
+@Repository
+public class RoleCustom implements IRoleCustom {
+    @Autowired
+    PermissionRepository permissionRepository;
+    @Autowired
+    RoleRepository roleRepository;
+
+    public Set<Permission> handleGetSpecificPermission(List<StatusPermission> data) {
+        List<Permission> searchPermission = permissionRepository.findAll();
+        return searchPermission.stream()
+                .filter(permission -> data.contains(permission.getDescription()))
+                .collect(Collectors.toSet());
+    }
+
+    @Override
+    @Transactional
+    public Role handleInitPermissionRole(StatusRole request, User user) throws Exception {
+        try {
+            Role role = new Role();
+            switch (request) {
+                case Customers:
+
+                    List<StatusPermission> allowedPermissionscustomers = List.of(
+                            StatusPermission.Order,
+                            StatusPermission.Payment,
+                            StatusPermission.Comment);
+                    System.out.println(allowedPermissionscustomers.size());
+                    Set<Permission> searchSpecificPermissionCustomers = handleGetSpecificPermission(
+                            allowedPermissionscustomers);
+                    if (searchSpecificPermissionCustomers != null
+                            && searchSpecificPermissionCustomers.isEmpty() == true) {
+                        return null;
+                    }
+                    role.setDescription(StatusRole.Customers);
+                    role.setRole_user(user);
+                    role.setRole_permission(searchSpecificPermissionCustomers);
+                    roleRepository.save(role);
+                    break;
+                case Owner:
+
+                    List<StatusPermission> allowedPermissionsOwner = List.of(
+                            StatusPermission.Update,
+                            StatusPermission.Create,
+                            StatusPermission.Delete,
+                            StatusPermission.Read);
+
+                    Set<Permission> searchSpecificPermissionOwner = handleGetSpecificPermission(
+                            allowedPermissionsOwner);
+
+                    if (searchSpecificPermissionOwner != null && !searchSpecificPermissionOwner.isEmpty()) {
+                        return null;
+                    }
+                    role.setDescription(StatusRole.Owner);
+                    role.setRole_user(user);
+                    role.setRole_permission(searchSpecificPermissionOwner);
+                    roleRepository.save(role);
+                    break;
+                case Staff:
+
+                    List<StatusPermission> allowedPermissionsStaff = List.of(
+                            StatusPermission.Update,
+                            StatusPermission.Create,
+                            StatusPermission.Delete,
+                            StatusPermission.Read);
+
+                    Set<Permission> searchSpecificPermissionStaff = handleGetSpecificPermission(
+                            allowedPermissionsStaff);
+
+                    if (searchSpecificPermissionStaff != null && !searchSpecificPermissionStaff.isEmpty()) {
+                        return null;
+                    }
+                    role.setDescription(StatusRole.Staff);
+                    role.setRole_user(user);
+                    role.setRole_permission(searchSpecificPermissionStaff);
+                    roleRepository.save(role);
+                    break;
+                default:
+
+                    break;
+            }
+            return role;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+
+    }
+}

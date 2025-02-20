@@ -19,14 +19,7 @@
 		<mapstruct.version>1.6.3</mapstruct.version>
 	</properties>
 
-<dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-oauth2-client</artifactId>
-    <version>3.3.4</version>
-</dependency>
-
 	<dependencies>
-		<!-- Spring Boot Starters -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -59,7 +52,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-mongodb</artifactId>
 		</dependency>
-
+ 	<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-oauth2-client</artifactId>
+    <version>3.3.4</version>
+</dependency>
 		<!-- Database -->
 		<dependency>
 			<groupId>mysql</groupId>

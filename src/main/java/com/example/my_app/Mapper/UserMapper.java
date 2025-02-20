@@ -9,7 +9,7 @@ import com.example.my_app.modules.Register.DTO.RegisterStepOneDTO;
 import com.example.my_app.modules.Register.DTO.RegisterStepThreeDTO;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface RegisterMapper {
+public interface UserMapper {
     User toUser(RegisterStepOneDTO request);
 
     void updateUser(@MappingTarget User user, RegisterStepOneDTO request);

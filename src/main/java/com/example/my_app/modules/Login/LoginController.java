@@ -20,7 +20,7 @@ import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 
 @RestController
-@RequestMapping("/Login")
+@RequestMapping
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class LoginController {
     LoginServices loginServices;
@@ -30,7 +30,7 @@ public class LoginController {
         this.loginServices = loginServices;
     }
 
-    @PatchMapping(path = "/Normal", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PatchMapping(path = "/Public/Login/Normal", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponedGlobal> handleNormalLogin(@RequestBody @Valid LoginNormalDTO request)
             throws Exception {
         try {

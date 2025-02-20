@@ -1,6 +1,10 @@
 package com.example.my_app.modules.Register.DTO;
+
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+
+import com.example.my_app.model.Role_Permission.Role;
+
 import groovy.transform.builder.Builder;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -29,4 +33,5 @@ public class RegisterStepThreeDTO {
     @Size(min = 0, max = 200)
     String username;
 
+    Role user_role;
 }

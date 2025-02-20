@@ -1,6 +1,4 @@
 package com.example.my_app.modules.Register;
-
-import lombok.*;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +23,7 @@ import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 
 @RestController
-@RequestMapping(path = "/Register")
+@RequestMapping(path = "/Public/Register")
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class RegisterController {
 
@@ -43,6 +41,7 @@ public class RegisterController {
     public ResponseEntity<ResponedGlobal> handleRegisterStepOne(
             @RequestBody @Validated RegisterStepOneDTO request) throws Exception {
         try {
+
             boolean searchEmail = registerServices.CheckEmail(request.getEmail());
             if (searchEmail) {
                 return new ResponseEntity<ResponedGlobal>(
@@ -127,7 +126,7 @@ public class RegisterController {
             boolean updateUser = registerServices.handleUpdateUser(request, searchUser.get());
             if (!updateUser) {
                 return new ResponseEntity<ResponedGlobal>(
-                        ResponedGlobal.builder().data("").code("0").messages("không tìm thấy User").build(),
+                        ResponedGlobal.builder().data("").code("0").messages("update lỗi").build(),
                         HttpStatusCode.valueOf(400));
             }
             return new ResponseEntity<ResponedGlobal>(

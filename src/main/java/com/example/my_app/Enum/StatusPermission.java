@@ -1,5 +1,5 @@
 package com.example.my_app.Enum;
 
 public enum StatusPermission {
-    order, view
+    Create, Read, Update, Delete, Order, Payment, Comment,
 }
