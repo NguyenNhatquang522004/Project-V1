@@ -3,6 +3,7 @@ package com.example.my_app.modules.Register.DTO;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import com.example.my_app.Enum.StatusUserEntry;
 import com.example.my_app.model.Role_Permission.Role;
 
 import groovy.transform.builder.Builder;
@@ -32,6 +33,8 @@ public class RegisterStepThreeDTO {
     @NotEmpty(message = "username cannot be empty")
     @Size(min = 0, max = 200)
     String username;
+
+    StatusUserEntry statusEntry;
 
     Role user_role;
 }

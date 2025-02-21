@@ -1,4 +1,5 @@
 package com.example.my_app.modules.Register;
+
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -129,6 +130,7 @@ public class RegisterController {
                         ResponedGlobal.builder().data("").code("0").messages("update lỗi").build(),
                         HttpStatusCode.valueOf(400));
             }
+
             return new ResponseEntity<ResponedGlobal>(
                     ResponedGlobal.builder().data(request.getEmail()).code("1").messages("thành công").build(),
                     HttpStatusCode.valueOf(200));

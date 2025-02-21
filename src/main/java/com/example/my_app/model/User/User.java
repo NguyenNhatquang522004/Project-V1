@@ -7,6 +7,7 @@ import java.util.Set;
 import java.util.UUID;
 
 import com.example.my_app.Enum.GenderUser;
+import com.example.my_app.Enum.StatusUserEntry;
 import com.example.my_app.model.Base.TimeBase;
 import com.example.my_app.model.Order.Order;
 import com.example.my_app.model.Role_Permission.Role;
@@ -57,11 +58,24 @@ public class User extends TimeBase {
     @Column(nullable = true)
     GenderUser Gender;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = true)
+    StatusUserEntry statusEntry;
+
     @Column(columnDefinition = "nvarchar(255)", nullable = true)
     String password = null;
 
     @Column(columnDefinition = "nvarchar(255)", nullable = true)
     String code;
+
+    @Column(columnDefinition = "nvarchar(255)", nullable = true)
+    String url;
+
+    @Column(columnDefinition = "nvarchar(255)", nullable = true)
+    String accessToken;
+
+    @Column(columnDefinition = "nvarchar(255)", nullable = true)
+    String refreshToken;
 
     @Temporal(TemporalType.TIMESTAMP)
     LocalDateTime code_expired;

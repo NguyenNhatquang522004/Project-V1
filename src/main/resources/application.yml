@@ -1,7 +1,10 @@
 spring:
-  security.oauth2.client.registration.google:
-   client-id: 140217861806-smn2vmvjbn4ht825865aip3509lqouff.apps.googleusercontent.com
-   client-secret: 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
+  security:
+   user.password: Test12345_
+   oauth2.client.registration.google:
+    client-id: 140217861806-smn2vmvjbn4ht825865aip3509lqouff.apps.googleusercontent.com
+    client-secret: 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
+    scope: profile , email
   mail: 
     host: smtp.gmail.com
     port: 587
@@ -39,8 +42,12 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
-
 server:
  servlet:
   contextPath: /api/v1
+
+jwt:
+ secret: a String you want to write but it need to be longest possible
+ expiration: 3600000
+
   

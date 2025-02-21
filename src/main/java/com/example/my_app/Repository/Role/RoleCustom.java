@@ -1,7 +1,6 @@
 package com.example.my_app.Repository.Role;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Repository;
 import com.example.my_app.Enum.StatusPermission;
 import com.example.my_app.Enum.StatusRole;
 import com.example.my_app.Repository.Permission.PermissionRepository;
-import com.example.my_app.common.ResponedGlobal;
 import com.example.my_app.model.Role_Permission.Permission;
 import com.example.my_app.model.Role_Permission.Role;
 import com.example.my_app.model.User.User;
@@ -34,12 +32,11 @@ public class RoleCustom implements IRoleCustom {
 
     @Override
     @Transactional
-    public Role handleInitPermissionRole(StatusRole request, User user) throws Exception {
+    public Role handleDefaultPermissionRole(StatusRole request, User user) throws Exception {
         try {
             Role role = new Role();
             switch (request) {
                 case Customers:
-
                     List<StatusPermission> allowedPermissionscustomers = List.of(
                             StatusPermission.Order,
                             StatusPermission.Payment,
@@ -52,8 +49,8 @@ public class RoleCustom implements IRoleCustom {
                         return null;
                     }
                     role.setDescription(StatusRole.Customers);
-                    role.setRole_user(user);
                     role.setRole_permission(searchSpecificPermissionCustomers);
+
                     roleRepository.save(role);
                     break;
                 case Owner:

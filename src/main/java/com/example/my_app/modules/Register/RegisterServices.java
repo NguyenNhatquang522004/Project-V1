@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.my_app.Enum.StatusRole;
+import com.example.my_app.Enum.StatusUserEntry;
 import com.example.my_app.Mapper.UserMapper;
 import com.example.my_app.Repository.Role.RoleCustom;
 import com.example.my_app.Repository.Role.RoleRepository;
@@ -91,11 +92,12 @@ public class RegisterServices {
     @Transactional
     boolean handleUpdateUser(RegisterStepThreeDTO data, User user) throws Exception {
         try {
-            Role initRole = roleCustom.handleInitPermissionRole(StatusRole.Customers, user);
+            Role initRole = roleCustom.handleDefaultPermissionRole(StatusRole.Customers, user);
             if (initRole == null) {
                 return false;
             }
             data.setUser_role(initRole);
+            data.setStatusEntry(StatusUserEntry.Local);
             userMapper.UpdateCreatAccountUser(user, data);
             userRepository.save(user);
             return true;

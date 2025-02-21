@@ -7,6 +7,7 @@ import com.example.my_app.Enum.StatusRole;
 import com.example.my_app.model.Base.TimeBase;
 import com.example.my_app.model.User.User;
 
+import groovy.transform.ToString;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -40,7 +41,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @NoArgsConstructor(force = true)
 @EqualsAndHashCode(callSuper = true)
-
+@ToString
 public class Role extends TimeBase {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
