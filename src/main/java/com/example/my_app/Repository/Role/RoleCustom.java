@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.example.my_app.Enum.StatusPermission;
 import com.example.my_app.Enum.StatusRole;
 import com.example.my_app.Repository.Permission.PermissionRepository;
+
 import com.example.my_app.model.Role_Permission.Permission;
 import com.example.my_app.model.Role_Permission.Role;
 import com.example.my_app.model.User.User;
@@ -49,9 +50,10 @@ public class RoleCustom implements IRoleCustom {
                         return null;
                     }
                     role.setDescription(StatusRole.Customers);
+                    role.setRole_user(user);
                     role.setRole_permission(searchSpecificPermissionCustomers);
-
                     roleRepository.save(role);
+
                     break;
                 case Owner:
 
@@ -71,6 +73,7 @@ public class RoleCustom implements IRoleCustom {
                     role.setRole_user(user);
                     role.setRole_permission(searchSpecificPermissionOwner);
                     roleRepository.save(role);
+
                     break;
                 case Staff:
 

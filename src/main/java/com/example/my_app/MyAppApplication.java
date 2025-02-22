@@ -1,26 +1,35 @@
 package com.example.my_app;
 
+import java.util.Collections;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.my_app.Enum.StatusPermission;
 import com.example.my_app.Enum.StatusRole;
 import com.example.my_app.Repository.Permission.PermissionRepository;
 import com.example.my_app.Repository.Role.RoleCustom;
+import com.example.my_app.Repository.Role.RoleRepository;
 import com.example.my_app.Repository.User.UserRepository;
 import com.example.my_app.model.Role_Permission.Permission;
 import com.example.my_app.model.Role_Permission.Role;
 import com.example.my_app.model.User.User;
 
+import jakarta.persistence.EntityManager;
+
 @SpringBootApplication
 @EnableCaching
+
 public class MyAppApplication implements CommandLineRunner {
 
 	@Autowired
@@ -28,17 +37,25 @@ public class MyAppApplication implements CommandLineRunner {
 
 	@Autowired
 	UserRepository userRepository;
+
 	@Autowired
 	PasswordEncoder passwordEncoder;
 
 	@Autowired
 	RoleCustom roleCustom;
 
+	@Autowired
+	RoleRepository roleRepository;
+
+	@Autowired
+	EntityManager entityManager;
+
 	public static void main(String[] args) {
 		SpringApplication.run(MyAppApplication.class, args);
 	}
 
 	@Override
+	@Transactional
 	public void run(String... args) throws Exception {
 
 		for (StatusPermission value : StatusPermission.values()) {
@@ -55,6 +72,7 @@ public class MyAppApplication implements CommandLineRunner {
 		Role check = roleCustom.handleDefaultPermissionRole(StatusRole.Customers, user);
 		user.setUser_role(check);
 		userRepository.save(user);
+
 	}
 
 }

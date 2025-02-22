@@ -33,7 +33,7 @@ import lombok.experimental.FieldDefaults;
 @Table(name = "Products")
 @AllArgsConstructor
 @NoArgsConstructor(force = true)
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
 public class Products extends TimeBase {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

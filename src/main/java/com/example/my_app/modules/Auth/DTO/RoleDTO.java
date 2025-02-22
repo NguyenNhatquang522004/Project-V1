@@ -1,13 +1,12 @@
 package com.example.my_app.modules.Auth.DTO;
 
-import java.security.Permission;
 import java.util.Set;
 
-import com.example.my_app.Enum.StatusRole;
+import com.example.my_app.model.Role_Permission.Permission;
 
+import groovy.transform.builder.Builder;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -17,9 +16,8 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @NoArgsConstructor
 @AllArgsConstructor
-public class AuthDTO {
-    String username;
-    StatusRole role;
-    Set<String> permission;
+public class RoleDTO {
+    String description;
+    Set<Permission> permission;
 
 }

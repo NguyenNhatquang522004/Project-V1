@@ -35,13 +35,11 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @Setter
 @Entity
-@Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "Role")
 @AllArgsConstructor
 @NoArgsConstructor(force = true)
-@EqualsAndHashCode(callSuper = true)
-@ToString
+@EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
 public class Role extends TimeBase {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

@@ -41,7 +41,7 @@ import lombok.experimental.FieldDefaults;
 @Table(name = "User")
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
 public class User extends TimeBase {
 
     @Id
@@ -83,7 +83,7 @@ public class User extends TimeBase {
     @Column(precision = 10, scale = 2)
     BigDecimal balance;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
     Set<Address> user_address;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
