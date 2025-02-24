@@ -1,21 +1,43 @@
 spring:
+  payment:
+    vnPay:
+      url: https://sandbox.vnpayment.vn/paymentv2/vpcpay.html
+      tmnCode: JJSAKDR0
+      secretKey: 4F8UQP2VLL2JB3R4P9UDU5JK48ZM284T
+      returnUrl: http://localhost:8080/api/v1/Public/vn-pay-callback
+      version: 2.1.0
+      command: pay
+      orderType: other
+  card:
+   bank: NCB
+   id: 9704198526191432198
+   name: NGUYEN VAN A
+   date: 07/15
+   otp: 123456
+   
+
   security:
-   user.password: Test12345_
-   oauth2.client.registration.google:
-    client-id: 140217861806-smn2vmvjbn4ht825865aip3509lqouff.apps.googleusercontent.com
-    client-secret: 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
-    scope: profile , email
+    user:
+      password: Test12345_
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 140217861806-smn2vmvjbn4ht825865aip3509lqouff.apps.googleusercontent.com
+            client-secret: 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
+            scope: profile, email
+
   mail: 
     host: smtp.gmail.com
     port: 587
     username: nguyennhatquang522004@gmail.com
-    password: cmdgffgymlcujwqq
+    password: cmdgffgymlcujwqq 
     protocol: smtp
     tls: true
-    properties.mail.smtp:
-     auth: true
-     starttls.enable:  true
-     ssl.trust: smtp.gmail.com
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+      mail.smtp.ssl.trust: smtp.gmail.com
    
   application:
     name: my-app
@@ -25,29 +47,34 @@ spring:
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
+
   main:
     allow-bean-definition-overriding: true
+
   data:
     mongodb:
-     uri: mongodb://localhost:27017/chats
+      uri: mongodb://localhost:27017/chats
+
   redis:
-   host: 127.0.0.1
-   port: 6379
-   database: 0
-   timeout : 60000
-   password : ""
+    host: 127.0.0.1
+    port: 6379
+    database: 0
+    timeout: 60000
+    password: ""
+
   jpa:
     hibernate:
       ddl-auto: create-drop
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
+
 server:
- servlet:
-  contextPath: /api/v1
+  servlet:
+    contextPath: /api/v1
 
 jwt:
- secret: a String you want to write but it need to be longest possible
- expiration: 3600000
+  secret: "a String you want to write but it need to be longest possible"
+  expiration: 3600000
+ 
 
-  

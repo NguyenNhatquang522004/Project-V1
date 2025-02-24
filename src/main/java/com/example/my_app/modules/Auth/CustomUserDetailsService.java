@@ -17,20 +17,21 @@ import com.example.my_app.model.User.User;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
-    @Autowired
-    UserRepository userRepository;
+        @Autowired
+        UserRepository userRepository;
 
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(email).orElseThrow(
-                () -> new UsernameNotFoundException("User Not Found with username: " + email));
-        List<GrantedAuthority> authorities = Optional.ofNullable(user.getUser_role())
-                .stream()
-                .map(role -> new SimpleGrantedAuthority(role.getDescription().toString()))
-                .collect(Collectors.toList());
-        return new org.springframework.security.core.userdetails.User(
-                user.getEmail(),
-                user.getPassword(),
-                authorities);
-    }
+        @Override
+        public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+                User user = userRepository.findByEmail(email).orElseThrow(
+                                () -> new UsernameNotFoundException("User Not Found with username: " + email));
+                List<GrantedAuthority> authorities = Optional.ofNullable(user.getUser_role())
+                                .stream()
+                                .map(role -> new SimpleGrantedAuthority(
+                                                "ROLE_" + role.getDescription().toString().toUpperCase()))
+                                .collect(Collectors.toList());
+                return new org.springframework.security.core.userdetails.User(
+                                user.getEmail(),
+                                user.getPassword(),
+                                authorities);
+        }
 }

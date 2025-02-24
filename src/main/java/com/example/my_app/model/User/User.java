@@ -11,6 +11,7 @@ import com.example.my_app.Enum.StatusUserEntry;
 import com.example.my_app.model.Base.TimeBase;
 import com.example.my_app.model.Order.Order;
 import com.example.my_app.model.Role_Permission.Role;
+import com.example.my_app.model.ShopEmployee.Shop;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -89,6 +90,10 @@ public class User extends TimeBase {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinColumn(name = "Role_id", referencedColumnName = "id")
     Role user_role;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @JoinColumn(name = "Shop_id", referencedColumnName = "id")
+    Shop user_shop;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "order_id")
     Set<Order> user_order;

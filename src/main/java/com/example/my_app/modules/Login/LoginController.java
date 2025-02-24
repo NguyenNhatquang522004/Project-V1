@@ -1,21 +1,15 @@
 package com.example.my_app.modules.Login;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
-import java.util.Random;
+
 import java.util.Set;
 import java.util.UUID;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -28,11 +22,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.my_app.Enum.StatusPermission;
-import com.example.my_app.Repository.User.UserRepository;
+
 import com.example.my_app.common.ResponedGlobal;
-import com.example.my_app.model.Role_Permission.Permission;
-import com.example.my_app.model.Role_Permission.Role;
 import com.example.my_app.model.User.User;
 import com.example.my_app.modules.Auth.JwtServices;
 import com.example.my_app.modules.Auth.DTO.AuthDTO;
@@ -40,12 +31,10 @@ import com.example.my_app.modules.Login.DTO.GetDataGoogleDTO;
 import com.example.my_app.modules.Login.DTO.LoginNormalDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import jakarta.persistence.EntityManager;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
-import lombok.val;
 import lombok.experimental.FieldDefaults;
 
 @RestController
@@ -60,18 +49,13 @@ public class LoginController {
 
         AuthenticationManager authenticationManager;
 
-        UserRepository userRepository;
-
-        EntityManager entityManager;
-
         @Autowired
         public LoginController(LoginServices loginServices, AuthenticationManager authenticationManager,
-                        JwtServices jwtServices, UserRepository userRepository, EntityManager entityManager) {
+                        JwtServices jwtServices) {
                 this.loginServices = loginServices;
                 this.authenticationManager = authenticationManager;
                 this.jwtServices = jwtServices;
-                this.userRepository = userRepository;
-                this.entityManager = entityManager;
+
         }
 
         @Transactional
@@ -113,7 +97,8 @@ public class LoginController {
                         response.addCookie(cookieAccessToken);
                         response.addCookie(cookieRefreshToken);
                         return new ResponseEntity<ResponedGlobal>(
-                                        ResponedGlobal.builder().data("").code("1").messages("thành công").build(),
+                                        ResponedGlobal.builder().data(jwtServices.generateToken(data)).code("1")
+                                                        .messages("thành công").build(),
                                         HttpStatusCode.valueOf(200));
                 } catch (Exception e) {
                         return new ResponseEntity<ResponedGlobal>(
@@ -121,7 +106,6 @@ public class LoginController {
                                         HttpStatusCode.valueOf(400));
                 }
         }
-
         @GetMapping(path = "Public/oauth2/redirect", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.ALL_VALUE)
 
         public ResponseEntity<ResponedGlobal> handleLoginGoogleSucess1(OAuth2AuthenticationToken request,
@@ -151,6 +135,7 @@ public class LoginController {
                                         new UsernamePasswordAuthenticationToken(
                                                         request.getPrincipal().getAttribute("email"),
                                                         request.getPrincipal().getAttribute("name")));
+                        System.out.println(authentication.getAuthorities());
                         Set<String> permissions = loginServices.handleGetPermisson(addUser);
                         AuthDTO authDTO = AuthDTO.builder()
                                         .username(addUser.get().getEmail())
@@ -167,7 +152,8 @@ public class LoginController {
                         response.addCookie(cookieAccessToken);
                         response.addCookie(cookieRefreshToken);
                         return new ResponseEntity<ResponedGlobal>(
-                                        ResponedGlobal.builder().data(data).code("1").messages("thành công").build(),
+                                        ResponedGlobal.builder().data(jwtServices.generateToken(data)).code("1")
+                                                        .messages("thành công").build(),
                                         HttpStatusCode.valueOf(200));
                 } catch (Exception e) {
                         System.out.println(e.getMessage());

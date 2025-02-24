@@ -1,12 +1,12 @@
 package com.example.my_app.model.Product;
 
-
 import java.util.Set;
 import java.util.UUID;
 
 import com.example.my_app.Enum.StatusCategory;
 import com.example.my_app.model.Base.TimeBase;
 import com.example.my_app.model.Order.Order_Products;
+import com.example.my_app.model.ShopEmployee.Shop;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -17,6 +17,8 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
@@ -25,7 +27,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
-
 
 @Entity
 @Data
@@ -43,10 +44,15 @@ public class Products extends TimeBase {
     @Column(nullable = true)
     int quantity;
     @Column(nullable = true)
-    float price;
-    @Enumerated(EnumType.STRING)
+    float minPrice;
+
     @Column(nullable = true)
-    StatusCategory statusCategory;
+    float maxPrice;
+
+    @Column(nullable = true)
+    float totalBUY;
+
+    @Column(nullable = true)
     Boolean isActive = false;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "products_id", orphanRemoval = true)
@@ -60,4 +66,17 @@ public class Products extends TimeBase {
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "products_id", orphanRemoval = true)
     Set<Order_Products> products_order;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "shop_id", nullable = false)
+    Shop shop_id;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "Category_id", nullable = false)
+    ProductsCategory productsCategory;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "products_state_id", nullable = false)
+    ProductsState products_state_id;
+
 }

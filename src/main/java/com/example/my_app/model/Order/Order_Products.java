@@ -20,7 +20,6 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
-
 @Entity
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)

@@ -4,6 +4,7 @@ import java.util.Set;
 import java.util.UUID;
 
 import com.example.my_app.model.Base.TimeBase;
+import com.example.my_app.model.Product.Products;
 import com.example.my_app.model.User.User;
 
 import jakarta.persistence.CascadeType;
@@ -23,7 +24,6 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
-
 @Entity
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -35,7 +35,7 @@ public class Order extends TimeBase {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
-    
+
     UUID shop_id;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "order_id", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -44,4 +44,8 @@ public class Order extends TimeBase {
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "User_id", nullable = false)
     User order_id;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "Products_id", nullable = false)
+    Order_Payment order_Payment_id;
 }
