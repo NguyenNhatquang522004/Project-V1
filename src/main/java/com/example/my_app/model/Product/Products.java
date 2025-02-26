@@ -3,16 +3,15 @@ package com.example.my_app.model.Product;
 import java.util.Set;
 import java.util.UUID;
 
-import com.example.my_app.Enum.StatusCategory;
+
 import com.example.my_app.model.Base.TimeBase;
 import com.example.my_app.model.Order.Order_Products;
-import com.example.my_app.model.ShopEmployee.Shop;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+
+
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -66,10 +65,6 @@ public class Products extends TimeBase {
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "products_id", orphanRemoval = true)
     Set<Order_Products> products_order;
-
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "shop_id", nullable = false)
-    Shop shop_id;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "Category_id", nullable = false)

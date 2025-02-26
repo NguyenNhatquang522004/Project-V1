@@ -7,7 +7,6 @@ import com.example.my_app.Enum.StatusRole;
 import com.example.my_app.model.Base.TimeBase;
 import com.example.my_app.model.User.User;
 
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -24,7 +23,6 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

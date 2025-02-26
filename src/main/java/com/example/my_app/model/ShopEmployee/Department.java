@@ -3,19 +3,22 @@ package com.example.my_app.model.ShopEmployee;
 import java.util.Set;
 import java.util.UUID;
 
+import com.example.my_app.Enum.StatusDepartment;
+import com.example.my_app.Enum.StatusRole;
 import com.example.my_app.model.Base.TimeBase;
-import com.example.my_app.model.Order.Order;
-import com.example.my_app.model.Product.Products;
-import com.example.my_app.model.User.User;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -27,22 +30,19 @@ import lombok.experimental.FieldDefaults;
 @Entity
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(name = "Shop")
+@Table(name = "Department")
 @AllArgsConstructor
-@NoArgsConstructor(force = true)
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
-public class Shop extends TimeBase {
+public class Department extends TimeBase {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
 
-    @OneToOne(mappedBy = "user_shop", fetch = FetchType.EAGER)
-    User shop_user;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    StatusDepartment description;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "shop_id")
-    Set<ShopEmployee> shop_Employees;
-
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "shop_id")
-    Set<Products> shop_products;
-
+    @ManyToMany(mappedBy = "employee_Departments", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    Set<Employee> department_Employee;
 }

@@ -1,17 +1,13 @@
-package com.example.my_app.model.Order;
+package com.example.my_app.model.Purchasing;
 
-import java.util.Set;
 import java.util.UUID;
 
 import com.example.my_app.model.Base.TimeBase;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -23,15 +19,12 @@ import lombok.experimental.FieldDefaults;
 @Entity
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(name = "Order_Products")
+@Table(name = "Purchase_Order")
 @AllArgsConstructor
-@NoArgsConstructor(force = true)
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
-public class Order_Payment extends TimeBase {
+public class Purchase_Order extends TimeBase {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
-
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "order_Payment_id", orphanRemoval = true)
-    Set<Order> order_payment;
 }

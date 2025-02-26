@@ -2,7 +2,6 @@ package com.example.my_app.model.Product;
 
 import java.util.UUID;
 
-
 import com.example.my_app.model.Base.TimeBase;
 
 import jakarta.persistence.CascadeType;
@@ -23,7 +22,6 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
-
 @Entity
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -40,10 +38,9 @@ public class Products_Supports extends TimeBase {
     int quantity;
     String description;
 
+    
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "Products_id", nullable = false)
     Products products_id;
-
-   
 
 }
