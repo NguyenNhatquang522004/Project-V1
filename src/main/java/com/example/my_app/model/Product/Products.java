@@ -3,14 +3,12 @@ package com.example.my_app.model.Product;
 import java.util.Set;
 import java.util.UUID;
 
-
 import com.example.my_app.model.Base.TimeBase;
 import com.example.my_app.model.Order.Order_Products;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-
 
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;

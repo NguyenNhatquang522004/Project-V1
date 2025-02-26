@@ -1,13 +1,17 @@
-package com.example.my_app.model.Purchasing;
+package com.example.my_app.model.Role_Permisson_Admin;
 
+import java.util.Set;
 import java.util.UUID;
 
 import com.example.my_app.model.Base.TimeBase;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -19,12 +23,15 @@ import lombok.experimental.FieldDefaults;
 @Entity
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(name = "Purchase_Order_Detail")
+@Table(name = "Admin_Permisson")
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
-public class Purchase_Order_Detail extends TimeBase {
+public class Admin_Permisson extends TimeBase {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
+
+    @ManyToMany(mappedBy = "admin_Role_Permisson", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    Set<Admin_Role> admin_Permisson_Role;
 }

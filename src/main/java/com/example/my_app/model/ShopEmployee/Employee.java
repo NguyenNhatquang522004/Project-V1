@@ -1,30 +1,15 @@
 package com.example.my_app.model.ShopEmployee;
 
+import com.example.my_app.model.Base.TimeBase;
+import com.example.my_app.model.Role_Permission.Role;
+import com.example.my_app.model.Role_Permisson_Admin.Admin_Role;
+
+import jakarta.persistence.*;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
 import java.util.Set;
 import java.util.UUID;
-
-import com.example.my_app.model.Base.TimeBase;
-import com.example.my_app.model.Order.Order;
-import com.example.my_app.model.Role_Permission.Role;
-
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.experimental.FieldDefaults;
 
 @Entity
 @Data
@@ -52,5 +37,12 @@ public class Employee extends TimeBase {
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "Employee_Attendance", joinColumns = @JoinColumn(name = "Employee_id"), inverseJoinColumns = @JoinColumn(name = "Attendance_id"))
     Set<Attendance> employee_Attendance;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "employee_id")
+    Set<Payroll> employee_Payroll;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @JoinColumn(name = "Role_id", referencedColumnName = "id")
+    Admin_Role employee_Role;
 
 }
