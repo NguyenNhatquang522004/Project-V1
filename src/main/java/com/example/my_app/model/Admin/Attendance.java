@@ -1,8 +1,10 @@
-package com.example.my_app.model.ShopEmployee;
+package com.example.my_app.model.Admin;
 
+import java.util.Set;
 import java.util.UUID;
 
 import com.example.my_app.model.Base.TimeBase;
+import com.example.my_app.model.User.User;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -10,8 +12,9 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -23,24 +26,18 @@ import lombok.experimental.FieldDefaults;
 @Entity
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(name = "LeaveRequests")
+@Table(name = "Attendance")
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
-public class LeaveRequests extends TimeBase {
+public class Attendance extends TimeBase {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "employee_id", nullable = false)
-    Employee employee_id;
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "attendance_id")
+    Set<Employee_Attendance> Attendance_Employee;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "Schedule_id", nullable = false)
-    Work_Schedule schedule_id;
-
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "Attendance_id", nullable = false)
-    Attendance attendance_id;
+    @OneToOne(fetch = FetchType.EAGER)
+    Work_Schedule attendance_Work_Schedule;
 }

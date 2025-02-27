@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.example.my_app.Enum.StatusRole;
-import com.example.my_app.Enum.StatusUserEntry;
+import com.example.my_app.Enum.Role_Permission.StatusRole;
+import com.example.my_app.Enum.user.StatusUserEntry;
 import com.example.my_app.Mapper.UserMapper;
 import com.example.my_app.Repository.Role.RoleCustom;
 import com.example.my_app.Repository.Role.RoleRepository;

@@ -7,8 +7,8 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.example.my_app.Enum.StatusPermission;
-import com.example.my_app.Enum.StatusRole;
+import com.example.my_app.Enum.Role_Permission.StatusPermission;
+import com.example.my_app.Enum.Role_Permission.StatusRole;
 import com.example.my_app.Repository.Permission.PermissionRepository;
 
 import com.example.my_app.model.Role_Permission.Permission;

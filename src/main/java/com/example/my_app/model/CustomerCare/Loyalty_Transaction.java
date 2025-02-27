@@ -3,11 +3,14 @@ package com.example.my_app.model.CustomerCare;
 import java.util.UUID;
 
 import com.example.my_app.model.Base.TimeBase;
+import com.example.my_app.model.User.User;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -27,4 +30,7 @@ public class Loyalty_Transaction extends TimeBase {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    User role_user;
 }

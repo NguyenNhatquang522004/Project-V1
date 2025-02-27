@@ -3,7 +3,7 @@ package com.example.my_app.model.Role_Permission;
 import java.util.Set;
 import java.util.UUID;
 
-import com.example.my_app.Enum.StatusRole;
+import com.example.my_app.Enum.Role_Permission.StatusRole;
 import com.example.my_app.model.Base.TimeBase;
 import com.example.my_app.model.User.User;
 

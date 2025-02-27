@@ -1,21 +1,17 @@
-package com.example.my_app.model.Role_Permission;
+package com.example.my_app.model.Admin;
 
-import java.util.Set;
 import java.util.UUID;
 
-import com.example.my_app.Enum.Role_Permission.StatusPermission;
 import com.example.my_app.model.Base.TimeBase;
 
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -27,19 +23,24 @@ import lombok.experimental.FieldDefaults;
 @Entity
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(name = "Permission")
+@Table(name = "Employee_Attendance")
 @AllArgsConstructor
-@NoArgsConstructor(force = true)
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
-public class Permission extends TimeBase {
+public class Employee_Attendance extends TimeBase {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    StatusPermission description;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "Attendance_id", nullable = false)
+    Attendance attendance_id;
 
-    @ManyToMany(mappedBy = "role_permission", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    Set<Role> permission_role;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "Employee_id", nullable = false)
+    Employee employee_id;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "Payroll_id", nullable = false)
+    Payroll payroll_id;
 }

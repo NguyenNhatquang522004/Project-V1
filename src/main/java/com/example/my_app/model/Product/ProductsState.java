@@ -37,7 +37,7 @@ public class ProductsState extends TimeBase {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = true)
-    com.example.my_app.Enum.ProductsState statusCategory;
+    com.example.my_app.Enum.Products.ProductsState statusCategory;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "products_state_id", orphanRemoval = true)
     Set<Products> products_state;

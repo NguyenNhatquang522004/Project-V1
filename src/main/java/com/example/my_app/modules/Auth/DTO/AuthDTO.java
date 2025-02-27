@@ -3,7 +3,7 @@ package com.example.my_app.modules.Auth.DTO;
 
 import java.util.Set;
 
-import com.example.my_app.Enum.StatusRole;
+import com.example.my_app.Enum.Role_Permission.StatusRole;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

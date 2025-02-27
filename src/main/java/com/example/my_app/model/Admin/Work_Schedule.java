@@ -1,24 +1,21 @@
-package com.example.my_app.model.ShopEmployee;
+package com.example.my_app.model.Admin;
 
 import java.util.Set;
 import java.util.UUID;
 
-import com.example.my_app.Enum.StatusDepartment;
-import com.example.my_app.Enum.StatusRole;
 import com.example.my_app.model.Base.TimeBase;
+import com.example.my_app.model.Role_Permission.Role;
 
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -30,19 +27,20 @@ import lombok.experimental.FieldDefaults;
 @Entity
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(name = "Department")
+@Table(name = "Work_Schedule")
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
-public class Department extends TimeBase {
+public class Work_Schedule extends TimeBase {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    StatusDepartment description;
+    @ManyToMany(mappedBy = "employee_Schedule", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    Set<Employee> schedule_Employee;
 
-    @ManyToMany(mappedBy = "employee_Departments", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    Set<Employee> department_Employee;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @JoinColumn(name = "Attendance_id", referencedColumnName = "id")
+    Attendance work_Schedule_Attendance;
+
 }

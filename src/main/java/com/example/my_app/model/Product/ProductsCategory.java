@@ -3,7 +3,7 @@ package com.example.my_app.model.Product;
 import java.util.Set;
 import java.util.UUID;
 
-import com.example.my_app.Enum.StatusCategory;
+import com.example.my_app.Enum.Products.StatusCategory;
 import com.example.my_app.model.Base.TimeBase;
 
 import jakarta.persistence.CascadeType;

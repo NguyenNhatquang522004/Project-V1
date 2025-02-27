@@ -41,13 +41,13 @@ public class Products extends TimeBase {
     @Column(nullable = true)
     int quantity;
     @Column(nullable = true)
-    float minPrice;
+    double minPrice;
 
     @Column(nullable = true)
-    float maxPrice;
+    double maxPrice;
 
     @Column(nullable = true)
-    float totalBUY;
+    double totalBUY;
 
     @Column(nullable = true)
     Boolean isActive = false;

@@ -27,4 +27,8 @@ public class Products_Support_Attribute extends TimeBase {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
+
+    String sellingPrice;
+    String costPrice;
+    String quantity;
 }

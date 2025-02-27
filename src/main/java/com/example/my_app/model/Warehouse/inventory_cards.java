@@ -1,12 +1,15 @@
-package com.example.my_app.model.Role_Permisson_Admin;
+package com.example.my_app.model.Warehouse;
 
-import java.util.Set;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
-import com.example.my_app.Enum.StatusDepartment;
-import com.example.my_app.Enum.Role_Permission.StatusRole;
-import com.example.my_app.model.Admin.Employee;
+import com.example.my_app.Enum.inventory_cards.StatusPartner;
+import com.example.my_app.Enum.inventory_cards.StatusTransactionType;
 import com.example.my_app.model.Base.TimeBase;
+import com.example.my_app.model.Order.Order;
+import com.example.my_app.model.Product.Products_Supports;
+import com.example.my_app.model.User.User;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -18,8 +21,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
@@ -32,24 +34,35 @@ import lombok.experimental.FieldDefaults;
 @Entity
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(name = "Admin_Role")
+@Table(name = "inventory_cards")
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
-public class Admin_Role extends TimeBase {
+public class inventory_cards extends TimeBase {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
 
+    String document;
+
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    StatusDepartment description;
+    @Column(nullable = true)
+    StatusPartner partner;
 
-    @OneToOne(mappedBy = "employee_Role", fetch = FetchType.EAGER)
-    Employee role_Employee;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = true)
+    StatusTransactionType transactionType;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "Admin_Role_Permisson", joinColumns = @JoinColumn(name = "Admin_Role_id"), inverseJoinColumns = @JoinColumn(name = "Admin_Permission_id"))
-    Set<Admin_Permisson> admin_Role_Permisson;
+    BigDecimal unitPrice;
+
+    Integer quantity;
+
+    BigDecimal costPrice;
+    @OneToOne(fetch = FetchType.EAGER)
+    Order order_id;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "User_id", nullable = false)
+    Products_Supports products_Supports_id;
 
 }

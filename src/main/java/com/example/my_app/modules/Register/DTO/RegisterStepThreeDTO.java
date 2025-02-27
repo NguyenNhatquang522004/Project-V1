@@ -3,7 +3,7 @@ package com.example.my_app.modules.Register.DTO;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import com.example.my_app.Enum.StatusUserEntry;
+import com.example.my_app.Enum.user.StatusUserEntry;
 import com.example.my_app.model.Role_Permission.Role;
 
 import groovy.transform.builder.Builder;

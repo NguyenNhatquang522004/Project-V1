@@ -6,9 +6,10 @@ import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.UUID;
 
-import com.example.my_app.Enum.GenderUser;
-import com.example.my_app.Enum.StatusUserEntry;
+import com.example.my_app.Enum.user.GenderUser;
+import com.example.my_app.Enum.user.StatusUserEntry;
 import com.example.my_app.model.Base.TimeBase;
+import com.example.my_app.model.CustomerCare.Loyalty_Transaction;
 import com.example.my_app.model.Order.Order;
 import com.example.my_app.model.Role_Permission.Role;
 import jakarta.persistence.CascadeType;
@@ -89,7 +90,11 @@ public class User extends TimeBase {
     @JoinColumn(name = "Role_id", referencedColumnName = "id")
     Role user_role;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "order_id")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "order_User")
     Set<Order> user_order;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @JoinColumn(name = "Loyalty_Transaction;_id", referencedColumnName = "id")
+    Loyalty_Transaction user_Loyalty_Transaction;
 
 }

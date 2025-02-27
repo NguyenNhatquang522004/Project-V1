@@ -1,6 +1,7 @@
-package com.example.my_app.model.ShopEmployee;
+package com.example.my_app.model.Admin;
 
 import com.example.my_app.model.Base.TimeBase;
+import com.example.my_app.model.Purchasing.Purchase_Transaction;
 import com.example.my_app.model.Role_Permission.Role;
 import com.example.my_app.model.Role_Permisson_Admin.Admin_Role;
 
@@ -34,9 +35,8 @@ public class Employee extends TimeBase {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "employee_id")
     Set<LeaveRequests> employee_LeaveRequests;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "Employee_Attendance", joinColumns = @JoinColumn(name = "Employee_id"), inverseJoinColumns = @JoinColumn(name = "Attendance_id"))
-    Set<Attendance> employee_Attendance;
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "employee_id")
+    Set<Employee_Attendance> employee_Attendance;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "employee_id")
     Set<Payroll> employee_Payroll;
@@ -45,4 +45,6 @@ public class Employee extends TimeBase {
     @JoinColumn(name = "Role_id", referencedColumnName = "id")
     Admin_Role employee_Role;
 
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "employee_id")
+    Set<Purchase_Transaction> employee_Purchase_Transaction;
 }

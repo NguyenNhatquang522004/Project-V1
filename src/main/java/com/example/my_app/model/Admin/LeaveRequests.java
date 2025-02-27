@@ -1,6 +1,5 @@
-package com.example.my_app.model.ShopEmployee;
+package com.example.my_app.model.Admin;
 
-import java.util.Set;
 import java.util.UUID;
 
 import com.example.my_app.model.Base.TimeBase;
@@ -11,8 +10,8 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -24,19 +23,17 @@ import lombok.experimental.FieldDefaults;
 @Entity
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(name = "Attendance")
+@Table(name = "LeaveRequests")
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
-public class Attendance extends TimeBase {
+public class LeaveRequests extends TimeBase {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "attendance_id")
-    Set<LeaveRequests> attendance_LeaveRequests;
-
-    @ManyToMany(mappedBy = "employee_Attendance", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    Set<Employee> attendance_Employee;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "Employee_id", nullable = false)
+    Employee employee_id;
 
 }
