@@ -34,6 +34,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @NoArgsConstructor(force = true)
 @EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
+// sản phẩm gốc
 public class Products extends TimeBase {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

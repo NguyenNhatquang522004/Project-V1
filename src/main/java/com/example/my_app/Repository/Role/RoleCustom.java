@@ -46,7 +46,7 @@ public class RoleCustom implements IRoleCustom {
                     System.out.println(allowedPermissionscustomers.size());
                     Set<Permission> searchSpecificPermissionCustomers = handleGetSpecificPermission(
                             allowedPermissionscustomers);
-                    if (searchSpecificPermissionCustomers != null
+                    if (searchSpecificPermissionCustomers == null
                             && searchSpecificPermissionCustomers.isEmpty() == true) {
                         return null;
                     }
@@ -69,7 +69,7 @@ public class RoleCustom implements IRoleCustom {
                     Set<Permission> searchSpecificPermissionOwner = handleGetSpecificPermission(
                             allowedPermissionsOwner);
 
-                    if (searchSpecificPermissionOwner != null && !searchSpecificPermissionOwner.isEmpty()) {
+                    if (searchSpecificPermissionOwner == null && searchSpecificPermissionOwner.isEmpty()) {
                         return null;
                     }
                     for (Permission value : searchSpecificPermissionOwner) {
@@ -79,7 +79,7 @@ public class RoleCustom implements IRoleCustom {
                     role.setRole_user(user);
                     role.setRole_permission(searchSpecificPermissionOwner);
                     roleRepository.saveAndFlush(role);
-                    permissionRepository.saveAllAndFlush(searchSpecificPermissionOwner);
+
                     break;
                 case Staff:
 
@@ -92,7 +92,7 @@ public class RoleCustom implements IRoleCustom {
                     Set<Permission> searchSpecificPermissionStaff = handleGetSpecificPermission(
                             allowedPermissionsStaff);
 
-                    if (searchSpecificPermissionStaff != null && !searchSpecificPermissionStaff.isEmpty()) {
+                    if (searchSpecificPermissionStaff == null && searchSpecificPermissionStaff.isEmpty()) {
                         return null;
                     }
                     for (Permission value : searchSpecificPermissionStaff) {
@@ -102,7 +102,7 @@ public class RoleCustom implements IRoleCustom {
                     role.setRole_user(user);
                     role.setRole_permission(searchSpecificPermissionStaff);
                     roleRepository.saveAndFlush(role);
-                    permissionRepository.saveAllAndFlush(searchSpecificPermissionStaff);
+
                     break;
                 default:
 

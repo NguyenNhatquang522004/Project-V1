@@ -1,13 +1,14 @@
 package com.example.my_app.model.Purchasing;
 
+import java.math.BigDecimal;
 import java.util.Set;
 import java.util.UUID;
 
 import com.example.my_app.Enum.StatusPurchasing;
 import com.example.my_app.model.Admin.Employee;
-import com.example.my_app.model.Admin.Payroll;
+
 import com.example.my_app.model.Base.TimeBase;
-import com.example.my_app.model.Role_Permisson_Admin.Admin_Permisson;
+
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -23,6 +24,7 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -38,14 +40,17 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
+// nhập hàng
 public class Purchase_Transaction extends TimeBase {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
 
+    BigDecimal totalPrice;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = true)
-    StatusPurchasing description;
+    StatusPurchasing description = StatusPurchasing.in;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "purchase_Transaction_id", orphanRemoval = true)
     Set<Purchase_Transaction_Detail> purchase_Transaction_toDetail;
@@ -57,5 +62,9 @@ public class Purchase_Transaction extends TimeBase {
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "Employee_id", nullable = false)
     Employee employee_id;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @JoinColumn(name = "Purchase_Transaction_Return_id", referencedColumnName = "id")
+    Purchase_Transaction_Return purchase_Transaction_Purchase_Transaction_Return;
 
 }

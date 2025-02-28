@@ -11,6 +11,7 @@ import com.example.my_app.Enum.user.StatusUserEntry;
 import com.example.my_app.model.Base.TimeBase;
 import com.example.my_app.model.CustomerCare.Loyalty_Transaction;
 import com.example.my_app.model.Order.Order;
+import com.example.my_app.model.Order.OrderStatusHistory;
 import com.example.my_app.model.Role_Permission.Role;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -85,6 +86,9 @@ public class User extends TimeBase {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
     Set<Address> user_address = new HashSet<>();
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user_id", orphanRemoval = true)
+    Set<OrderStatusHistory> user_orderHistory = new HashSet<>();
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinColumn(name = "Role_id", referencedColumnName = "id")

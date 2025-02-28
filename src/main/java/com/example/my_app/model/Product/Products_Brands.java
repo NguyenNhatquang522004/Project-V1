@@ -4,10 +4,13 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+import com.example.my_app.Enum.Products.StatusBrandsProducts;
 import com.example.my_app.model.Base.TimeBase;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,10 +31,14 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @NoArgsConstructor(force = true)
 @EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
+// các brand
 public class Products_Brands extends TimeBase {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
+
+    @Enumerated(EnumType.STRING)
+    StatusBrandsProducts description;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "products_Brands_id", orphanRemoval = true)
     Set<Products> products_sales = new HashSet<>();

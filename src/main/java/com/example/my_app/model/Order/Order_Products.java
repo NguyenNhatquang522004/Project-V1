@@ -2,10 +2,13 @@ package com.example.my_app.model.Order;
 
 import java.util.UUID;
 
+import com.example.my_app.Enum.Products.StutusSizeProducts;
 import com.example.my_app.model.Base.TimeBase;
 import com.example.my_app.model.Product.Products;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,10 +30,16 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @NoArgsConstructor(force = true)
 @EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
+// chi tiết sản phẩm order
 public class Order_Products extends TimeBase {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
+
+    String color;
+    int quantity;
+    @Enumerated(EnumType.STRING)
+    StutusSizeProducts stutusSizeProducts;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Order_id", nullable = false)

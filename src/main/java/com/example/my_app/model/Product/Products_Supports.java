@@ -1,15 +1,15 @@
 package com.example.my_app.model.Product;
 
-import java.math.BigDecimal;
+
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
 import com.example.my_app.Enum.Products.StatusActiveProducts;
-import com.example.my_app.Enum.user.StatusUserEntry;
+
 import com.example.my_app.model.Base.TimeBase;
-import com.example.my_app.model.Order.Order;
-import com.example.my_app.model.Order.Order_Products;
+
+import com.example.my_app.model.Purchasing.Purchase_Transaction_Detail;
 import com.example.my_app.model.Warehouse.Warehouse_Products;
 import com.example.my_app.model.Warehouse.inventory_cards;
 
@@ -23,6 +23,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -40,11 +41,11 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @NoArgsConstructor(force = true)
 @EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
+// cách sản phẩm con
 public class Products_Supports extends TimeBase {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
-    
     String url;
     String color;
 
@@ -55,6 +56,10 @@ public class Products_Supports extends TimeBase {
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "Products_id", nullable = false)
     Products products_id;
+
+    @ManyToMany(mappedBy = "purchase_Transaction_Detail_Products_Support", fetch = FetchType.EAGER, cascade = {
+            CascadeType.ALL })
+    Set<Purchase_Transaction_Detail> products_Supports_Purchase_Transaction_Detail = new HashSet<>();
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "products_Supports_id", cascade = CascadeType.ALL, orphanRemoval = true)
     Set<inventory_cards> products_Supports_Inventory_Cards = new HashSet<>();

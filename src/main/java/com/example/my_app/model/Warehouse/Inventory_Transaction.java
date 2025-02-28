@@ -25,6 +25,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
+// thẻ kiểm kho
 public class Inventory_Transaction extends TimeBase {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

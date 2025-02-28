@@ -1,20 +1,27 @@
 package com.example.my_app.model.Admin;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.time.LocalDate;
+import java.util.Date;
+
+
 import java.util.UUID;
 
+import com.example.my_app.Enum.StatusAttendance;
 import com.example.my_app.model.Base.TimeBase;
-import com.example.my_app.model.User.User;
+
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+
+import jakarta.persistence.ManyToOne;
+
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
@@ -36,9 +43,21 @@ public class Attendance extends TimeBase {
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "attendance_id")
-    Set<Employee_Attendance> Attendance_Employee = new HashSet<>();
+    LocalDate workDate;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    Date check_in;
+
+    Date check_out;
+
+    @Enumerated(EnumType.STRING)
+    StatusAttendance status_Attendance;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "Employee_id", nullable = false)
+    Employee employee_id;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @JoinColumn(name = "Work_Schedule_id", referencedColumnName = "id")
     Work_Schedule attendance_Work_Schedule;
+
 }

@@ -29,6 +29,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
+// nhà cung cấp
 public class Supplier extends TimeBase {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -64,6 +65,11 @@ public class Supplier extends TimeBase {
     @Column(name = "supplier_group")
     String supplierGroup;
 
+    @Column(name = "Total_buy")
+    String totalbuy;
+
+    @Column(name = "accounts_payable")
+    String accounts_payable;
     @ManyToMany(mappedBy = "purchase_Transaction_Supplier", fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
     Set<Purchase_Transaction> Supplier_Purchase_Transaction = new HashSet<>();
 

@@ -26,6 +26,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
+// thẻ tích điểm
 public class Loyalty_Transaction extends TimeBase {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

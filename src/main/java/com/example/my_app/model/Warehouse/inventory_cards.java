@@ -1,7 +1,6 @@
 package com.example.my_app.model.Warehouse;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 import com.example.my_app.Enum.inventory_cards.StatusPartner;
@@ -9,7 +8,6 @@ import com.example.my_app.Enum.inventory_cards.StatusTransactionType;
 import com.example.my_app.model.Base.TimeBase;
 import com.example.my_app.model.Order.Order;
 import com.example.my_app.model.Product.Products_Supports;
-import com.example.my_app.model.User.User;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -38,6 +36,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
+// thẻ xuất nhập kho của mỗi sản phẩm
 public class inventory_cards extends TimeBase {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

@@ -1,16 +1,22 @@
 package com.example.my_app.model.Order;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+import com.example.my_app.Enum.StatusPayment;
 import com.example.my_app.model.Base.TimeBase;
-import com.example.my_app.model.Role_Permission.Role;
+
 import com.example.my_app.model.User.User;
 import com.example.my_app.model.Warehouse.inventory_cards;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -34,11 +40,33 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @NoArgsConstructor(force = true)
 @EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
+// đặt hàng
 public class Order extends TimeBase {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
 
+    @Column(name = "order_date", nullable = false)
+    LocalDateTime orderDate;
+
+    @Column(name = "total_amount", nullable = false)
+    BigDecimal totalAmount;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "payment_status", nullable = false)
+    StatusPayment paymentStatus;
+
+    @Column(columnDefinition = "nvarchar(255)", nullable = true)
+    String Country;
+    @Column(columnDefinition = "nvarchar(255)", nullable = true)
+    String Province;
+    @Column(columnDefinition = "nvarchar(255)", nullable = true)
+    String City;
+    @Column(columnDefinition = "nvarchar(255)", nullable = true)
+    String Ward;
+
+    @Column(name = "notes", length = 500)
+    String notes;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "order_id", cascade = CascadeType.ALL, orphanRemoval = true)
     Set<Order_Products> order_products = new HashSet<>();
 

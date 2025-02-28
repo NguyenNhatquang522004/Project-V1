@@ -20,7 +20,6 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
-
 @Entity
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -28,6 +27,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @NoArgsConstructor(force = true)
 @EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
+// giảm giá sản phẩm gốc
 public class Products_sales extends TimeBase {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

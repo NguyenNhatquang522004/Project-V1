@@ -27,4 +27,6 @@ public class Order_Return extends TimeBase {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
+
+    
 }

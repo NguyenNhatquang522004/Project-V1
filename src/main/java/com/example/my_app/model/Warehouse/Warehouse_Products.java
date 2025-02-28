@@ -4,7 +4,6 @@ import java.util.UUID;
 
 import com.example.my_app.model.Base.TimeBase;
 import com.example.my_app.model.Product.Products_Supports;
-import com.example.my_app.model.User.User;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -29,10 +28,13 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
+// sản phẩm tồn kho
 public class Warehouse_Products extends TimeBase {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
+
+    int quantity;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "Warehouse_id", nullable = false)

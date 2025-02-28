@@ -28,6 +28,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @NoArgsConstructor(force = true)
 @EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
+// hình ảnh của sản phẩm gốc
 public class Products_img extends TimeBase {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

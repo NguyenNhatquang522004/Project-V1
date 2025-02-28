@@ -25,6 +25,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
+// thông tin chi tiết một sản phẩm con
 public class Products_Support_Attribute extends TimeBase {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

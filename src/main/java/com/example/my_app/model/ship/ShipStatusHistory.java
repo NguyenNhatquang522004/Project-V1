@@ -31,6 +31,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
+// lịch sử giao hàng của từng hóa đơn vận đơn 
 public class ShipStatusHistory extends TimeBase {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

@@ -31,6 +31,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
+// thông tin tổng hợp về giao dịch với đối tác ship
 public class ShipmentInfo extends TimeBase {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
