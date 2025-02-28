@@ -40,19 +40,19 @@ public class Inventory_Transaction extends TimeBase {
     private LocalDateTime balanceDate;
 
     @Column(name = "actual_quantity", nullable = false)
-    private Integer actualQuantity;
+    private int actualQuantity;
 
     @Column(name = "total_actual_quantity", nullable = false)
-    private Integer totalActualQuantity;
+    private int totalActualQuantity;
 
     @Column(name = "total_discrepancy", nullable = false)
-    private Integer totalDiscrepancy;
+    private int totalDiscrepancy;
 
     @Column(name = "increased_discrepancy_quantity", nullable = false)
-    private Integer increasedDiscrepancyQuantity;
+    private int increasedDiscrepancyQuantity;
 
     @Column(name = "decreased_discrepancy_quantity", nullable = false)
-    private Integer decreasedDiscrepancyQuantity;
+    private int decreasedDiscrepancyQuantity;
 
     @Column(name = "notes")
     private String notes;

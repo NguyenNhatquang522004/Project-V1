@@ -1,5 +1,7 @@
 package com.example.my_app.model.Product;
 
+import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -41,28 +43,28 @@ public class Products extends TimeBase {
     @Column(nullable = true)
     int quantity;
     @Column(nullable = true)
-    double minPrice;
+    BigDecimal minPrice;
 
     @Column(nullable = true)
-    double maxPrice;
+    BigDecimal maxPrice;
 
     @Column(nullable = true)
-    double totalBUY;
+    int totalBUY;
 
     @Column(nullable = true)
     Boolean isActive = false;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "products_id", orphanRemoval = true)
-    Set<Products_Supports> products_support;
+    Set<Products_Supports> products_support  = new HashSet<>();
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "products_id", orphanRemoval = true)
-    Set<Products_img> products_img;
+    Set<Products_img> products_img  = new HashSet<>();
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "products_id", orphanRemoval = true)
-    Set<Products_sales> products_sales;
+    Set<Products_sales> products_sales  = new HashSet<>();
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "products_id", orphanRemoval = true)
-    Set<Order_Products> products_order;
+    Set<Order_Products> products_order  = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "Category_id", nullable = false)

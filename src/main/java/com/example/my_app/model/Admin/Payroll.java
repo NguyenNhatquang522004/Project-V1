@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -25,6 +26,6 @@ public class Payroll extends TimeBase {
     Employee employee_id;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "payroll_id")
-    Set<Employee_Attendance> payroll_Employee_Attendance;
+    Set<Employee_Attendance> payroll_Employee_Attendance  = new HashSet<>();
 
 }

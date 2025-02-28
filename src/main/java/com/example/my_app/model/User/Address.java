@@ -1,6 +1,5 @@
 package com.example.my_app.model.User;
 
-
 import java.util.UUID;
 
 import com.example.my_app.model.Base.TimeBase;

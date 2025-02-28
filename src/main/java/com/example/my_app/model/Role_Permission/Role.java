@@ -1,5 +1,6 @@
 package com.example.my_app.model.Role_Permission;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -28,8 +29,10 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 
+@ToString
 @Getter
 @Setter
 @Entity
@@ -49,7 +52,7 @@ public class Role extends TimeBase {
     @OneToOne(mappedBy = "user_role", fetch = FetchType.EAGER)
     User role_user;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinTable(name = "Role_Permission", joinColumns = @JoinColumn(name = "Role_id"), inverseJoinColumns = @JoinColumn(name = "Permission_id"))
-    Set<Permission> role_permission;
+    Set<Permission> role_permission = new HashSet<>();
 }

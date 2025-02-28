@@ -1,5 +1,6 @@
 package com.example.my_app.model.Admin;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -36,7 +37,7 @@ public class Attendance extends TimeBase {
     UUID id;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "attendance_id")
-    Set<Employee_Attendance> Attendance_Employee;
+    Set<Employee_Attendance> Attendance_Employee = new HashSet<>();
 
     @OneToOne(fetch = FetchType.EAGER)
     Work_Schedule attendance_Work_Schedule;

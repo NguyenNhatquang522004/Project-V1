@@ -18,6 +18,6 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 public class RoleDTO {
     String description;
-    Set<Permission> permission;
+    Set<Permission> permission ;
 
 }

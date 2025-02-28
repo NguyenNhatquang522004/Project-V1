@@ -38,6 +38,7 @@ public class RoleCustom implements IRoleCustom {
             Role role = new Role();
             switch (request) {
                 case Customers:
+
                     List<StatusPermission> allowedPermissionscustomers = List.of(
                             StatusPermission.Order,
                             StatusPermission.Payment,
@@ -49,11 +50,13 @@ public class RoleCustom implements IRoleCustom {
                             && searchSpecificPermissionCustomers.isEmpty() == true) {
                         return null;
                     }
-                    role.setDescription(StatusRole.Customers);
+                    for (Permission value : searchSpecificPermissionCustomers){
+                        value.getPermission_role().add(role);
+                    }
+                        role.setDescription(StatusRole.Customers);
                     role.setRole_user(user);
                     role.setRole_permission(searchSpecificPermissionCustomers);
-                    roleRepository.save(role);
-
+                    roleRepository.saveAndFlush(role);
                     break;
                 case Owner:
 
@@ -69,11 +72,14 @@ public class RoleCustom implements IRoleCustom {
                     if (searchSpecificPermissionOwner != null && !searchSpecificPermissionOwner.isEmpty()) {
                         return null;
                     }
+                    for (Permission value : searchSpecificPermissionOwner) {
+                        value.getPermission_role().add(role);
+                    }
                     role.setDescription(StatusRole.Owner);
                     role.setRole_user(user);
                     role.setRole_permission(searchSpecificPermissionOwner);
-                    roleRepository.save(role);
-
+                    roleRepository.saveAndFlush(role);
+                    permissionRepository.saveAllAndFlush(searchSpecificPermissionOwner);
                     break;
                 case Staff:
 
@@ -89,10 +95,14 @@ public class RoleCustom implements IRoleCustom {
                     if (searchSpecificPermissionStaff != null && !searchSpecificPermissionStaff.isEmpty()) {
                         return null;
                     }
+                    for (Permission value : searchSpecificPermissionStaff) {
+                        value.getPermission_role().add(role);
+                    }
                     role.setDescription(StatusRole.Staff);
                     role.setRole_user(user);
                     role.setRole_permission(searchSpecificPermissionStaff);
-                    roleRepository.save(role);
+                    roleRepository.saveAndFlush(role);
+                    permissionRepository.saveAllAndFlush(searchSpecificPermissionStaff);
                     break;
                 default:
 

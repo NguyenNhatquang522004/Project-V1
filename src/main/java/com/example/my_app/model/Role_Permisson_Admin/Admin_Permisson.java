@@ -1,5 +1,6 @@
 package com.example.my_app.model.Role_Permisson_Admin;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -32,6 +33,7 @@ public class Admin_Permisson extends TimeBase {
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
 
-    @ManyToMany(mappedBy = "admin_Role_Permisson", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    Set<Admin_Role> admin_Permisson_Role;
+    @ManyToMany(mappedBy = "admin_Role_Permisson", fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST,
+            CascadeType.MERGE })
+    Set<Admin_Role> admin_Permisson_Role = new HashSet<>();
 }

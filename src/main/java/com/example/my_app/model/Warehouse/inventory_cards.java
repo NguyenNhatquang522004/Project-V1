@@ -55,7 +55,7 @@ public class inventory_cards extends TimeBase {
 
     BigDecimal unitPrice;
 
-    Integer quantity;
+    int quantity;
 
     BigDecimal costPrice;
     @OneToOne(fetch = FetchType.EAGER)

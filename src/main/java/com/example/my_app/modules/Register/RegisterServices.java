@@ -92,6 +92,7 @@ public class RegisterServices {
     @Transactional
     boolean handleUpdateUser(RegisterStepThreeDTO data, User user) throws Exception {
         try {
+       
             Role initRole = roleCustom.handleDefaultPermissionRole(StatusRole.Customers, user);
             if (initRole == null) {
                 return false;

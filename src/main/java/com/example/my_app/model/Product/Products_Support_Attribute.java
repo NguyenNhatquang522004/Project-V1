@@ -1,7 +1,9 @@
 package com.example.my_app.model.Product;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
+import com.example.my_app.Enum.Products.StutusSizeProducts;
 import com.example.my_app.model.Base.TimeBase;
 
 import jakarta.persistence.Entity;
@@ -28,7 +30,11 @@ public class Products_Support_Attribute extends TimeBase {
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
 
-    String sellingPrice;
-    String costPrice;
-    String quantity;
+    StutusSizeProducts size;
+
+    BigDecimal sellingPrice;
+
+    BigDecimal costPrice;
+
+    int quantity;
 }

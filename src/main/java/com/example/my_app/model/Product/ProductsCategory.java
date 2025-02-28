@@ -1,5 +1,6 @@
 package com.example.my_app.model.Product;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -41,6 +42,6 @@ public class ProductsCategory extends TimeBase {
     StatusCategory statusCategory;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "productsCategory", orphanRemoval = true)
-    Set<Products> products;
+    Set<Products> products  = new HashSet<>();
 
 }

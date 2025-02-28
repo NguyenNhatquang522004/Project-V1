@@ -1,5 +1,6 @@
 package com.example.my_app.model.Order;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -38,10 +39,8 @@ public class Order extends TimeBase {
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
 
-    UUID shop_id;
-
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "order_id", cascade = CascadeType.ALL, orphanRemoval = true)
-    Set<Order_Products> order_products;
+    Set<Order_Products> order_products  = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "User_id", nullable = false)
@@ -58,5 +57,9 @@ public class Order extends TimeBase {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinColumn(name = "order_bill_id", referencedColumnName = "id")
     Order_Bill orders_bill;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @JoinColumn(name = "Order_Status_History_id", referencedColumnName = "id")
+    OrderStatusHistory orders_OrderStatusHistory;
 
 }

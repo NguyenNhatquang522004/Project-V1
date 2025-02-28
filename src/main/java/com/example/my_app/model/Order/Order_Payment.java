@@ -1,5 +1,6 @@
 package com.example.my_app.model.Order;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -33,5 +34,5 @@ public class Order_Payment extends TimeBase {
     UUID id;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "order_Payment_id", orphanRemoval = true)
-    Set<Order> order_payment;
+    Set<Order> order_payment  = new HashSet<>();
 }

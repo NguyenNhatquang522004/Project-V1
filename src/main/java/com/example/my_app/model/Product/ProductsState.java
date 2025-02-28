@@ -1,5 +1,6 @@
 package com.example.my_app.model.Product;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -40,5 +41,5 @@ public class ProductsState extends TimeBase {
     com.example.my_app.Enum.Products.ProductsState statusCategory;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "products_state_id", orphanRemoval = true)
-    Set<Products> products_state;
+    Set<Products> products_state  = new HashSet<>(); 
 }

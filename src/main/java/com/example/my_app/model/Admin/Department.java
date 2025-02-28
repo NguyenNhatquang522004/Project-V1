@@ -1,10 +1,10 @@
 package com.example.my_app.model.Admin;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
 import com.example.my_app.Enum.StatusDepartment;
-import com.example.my_app.Enum.Role_Permission.StatusRole;
 import com.example.my_app.model.Base.TimeBase;
 
 import jakarta.persistence.CascadeType;
@@ -16,8 +16,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
+
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
@@ -43,6 +42,7 @@ public class Department extends TimeBase {
     @Column(nullable = false)
     StatusDepartment description;
 
-    @ManyToMany(mappedBy = "employee_Departments", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    Set<Employee> department_Employee;
+    @ManyToMany(mappedBy = "employee_Departments", fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST,
+            CascadeType.MERGE })
+    Set<Employee> department_Employee = new HashSet<>();
 }
