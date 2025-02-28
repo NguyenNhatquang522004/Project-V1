@@ -1,9 +1,11 @@
-package com.example.my_app.model.Order;
+package com.example.my_app.model.ship;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import com.example.my_app.model.Base.TimeBase;
-import com.example.my_app.model.User.User;
+import com.example.my_app.model.Order.Order_WayBill;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -12,6 +14,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
@@ -24,20 +27,29 @@ import lombok.experimental.FieldDefaults;
 @Entity
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(name = "Order_Bill")
+@Table(name = "ShipStatusHistory")
 @AllArgsConstructor
-@NoArgsConstructor(force = true)
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
-public class Order_Bill extends TimeBase {
+public class ShipStatusHistory extends TimeBase {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    Order orders_Bill_Order;
+    String invoiceCode;
+    String shippingPartnerCode;
+    String trackingNumber;
+    LocalDateTime time;
+    BigDecimal invoiceValue;
+    BigDecimal outstandingCod;
+    BigDecimal shippingFee;
+    String status;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "ShipmentInfo_id", nullable = false)
+    ShipmentInfo ShipmentInfo_id;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinColumn(name = "Order_WayBill_id", referencedColumnName = "id")
-    Order_WayBill orders_WayBill;
-
+    Order_WayBill shipStatusHistory_WayBill;
 }

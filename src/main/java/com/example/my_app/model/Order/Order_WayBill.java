@@ -1,13 +1,16 @@
-package com.example.my_app.model.Warehouse;
+package com.example.my_app.model.Order;
 
 import java.util.UUID;
 
 import com.example.my_app.model.Base.TimeBase;
+import com.example.my_app.model.ship.ShipStatusHistory;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -19,12 +22,19 @@ import lombok.experimental.FieldDefaults;
 @Entity
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(name = "Shipment")
+@Table(name = "Order_WayBill")
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
 @EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
-public class Shipment extends TimeBase {
+public class Order_WayBill extends TimeBase {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    Order_Bill order_Order_Bill;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    ShipStatusHistory order_ShipStatusHistory;
+
 }

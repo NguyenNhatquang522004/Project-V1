@@ -72,7 +72,6 @@ public class MyAppApplication implements CommandLineRunner {
 		Role check = roleCustom.handleDefaultPermissionRole(StatusRole.Customers, user);
 		user.setUser_role(check);
 		userRepository.save(user);
-
 	}
 
 }

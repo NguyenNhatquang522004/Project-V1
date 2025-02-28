@@ -1,4 +1,4 @@
-package com.example.my_app.model.Purchasing;
+package com.example.my_app.model.Product;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -12,9 +12,6 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
@@ -27,19 +24,15 @@ import lombok.experimental.FieldDefaults;
 @Entity
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(name = "Purchase_Transaction_Return")
+@Table(name = "Products_Brands")
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
 @EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
-public class Purchase_Transaction_Return extends TimeBase {
+public class Products_Brands extends TimeBase {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
-    @JoinTable(name = "Supplier_Purchase_Transaction_Return", joinColumns = @JoinColumn(name = "Purchase_Transaction_Retrun_id"), inverseJoinColumns = @JoinColumn(name = "Supplier_id"))
-    Set<Supplier> purchase_Transaction_Return_Supplier = new HashSet<>();
-
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "purchase_Transaction_Return_id", orphanRemoval = true)
-    Set<Purchase_Transaction_Detail_Return> purchase_Transaction_toDetail_Return = new HashSet<>();
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "products_Brands_id", orphanRemoval = true)
+    Set<Products> products_sales = new HashSet<>();
 }

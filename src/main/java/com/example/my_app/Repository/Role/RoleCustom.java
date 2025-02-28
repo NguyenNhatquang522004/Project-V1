@@ -50,10 +50,10 @@ public class RoleCustom implements IRoleCustom {
                             && searchSpecificPermissionCustomers.isEmpty() == true) {
                         return null;
                     }
-                    for (Permission value : searchSpecificPermissionCustomers){
+                    for (Permission value : searchSpecificPermissionCustomers) {
                         value.getPermission_role().add(role);
                     }
-                        role.setDescription(StatusRole.Customers);
+                    role.setDescription(StatusRole.Customers);
                     role.setRole_user(user);
                     role.setRole_permission(searchSpecificPermissionCustomers);
                     roleRepository.saveAndFlush(role);

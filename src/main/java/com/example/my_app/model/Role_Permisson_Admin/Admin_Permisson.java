@@ -33,7 +33,6 @@ public class Admin_Permisson extends TimeBase {
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
 
-    @ManyToMany(mappedBy = "admin_Role_Permisson", fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST,
-            CascadeType.MERGE })
+    @ManyToMany(mappedBy = "admin_Role_Permisson", fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
     Set<Admin_Role> admin_Permisson_Role = new HashSet<>();
 }

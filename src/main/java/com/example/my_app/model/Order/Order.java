@@ -40,7 +40,7 @@ public class Order extends TimeBase {
     UUID id;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "order_id", cascade = CascadeType.ALL, orphanRemoval = true)
-    Set<Order_Products> order_products  = new HashSet<>();
+    Set<Order_Products> order_products = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "User_id", nullable = false)
@@ -55,7 +55,7 @@ public class Order extends TimeBase {
     inventory_cards orders_inventory_cards;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    @JoinColumn(name = "order_bill_id", referencedColumnName = "id")
+    @JoinColumn(name = "Order_Bill_id", referencedColumnName = "id")
     Order_Bill orders_bill;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)

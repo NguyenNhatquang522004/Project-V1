@@ -52,7 +52,7 @@ public class Role extends TimeBase {
     @OneToOne(mappedBy = "user_role", fetch = FetchType.EAGER)
     User role_user;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
     @JoinTable(name = "Role_Permission", joinColumns = @JoinColumn(name = "Role_id"), inverseJoinColumns = @JoinColumn(name = "Permission_id"))
     Set<Permission> role_permission = new HashSet<>();
 }

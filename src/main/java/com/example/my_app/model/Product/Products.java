@@ -55,23 +55,23 @@ public class Products extends TimeBase {
     Boolean isActive = false;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "products_id", orphanRemoval = true)
-    Set<Products_Supports> products_support  = new HashSet<>();
+    Set<Products_Supports> products_support = new HashSet<>();
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "products_id", orphanRemoval = true)
-    Set<Products_img> products_img  = new HashSet<>();
+    Set<Products_img> products_img = new HashSet<>();
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "products_id", orphanRemoval = true)
-    Set<Products_sales> products_sales  = new HashSet<>();
+    Set<Products_sales> products_sales = new HashSet<>();
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "products_id", orphanRemoval = true)
-    Set<Order_Products> products_order  = new HashSet<>();
+    Set<Order_Products> products_order = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "Category_id", nullable = false)
     ProductsCategory productsCategory;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "products_state_id", nullable = false)
-    ProductsState products_state_id;
+    @JoinColumn(name = "Brands_id", nullable = false)
+    Products_Brands products_Brands_id;
 
 }

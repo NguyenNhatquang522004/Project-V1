@@ -84,14 +84,14 @@ public class User extends TimeBase {
     BigDecimal balance;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
-    Set<Address> user_address  = new HashSet<>();
+    Set<Address> user_address = new HashSet<>();
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinColumn(name = "Role_id", referencedColumnName = "id")
     Role user_role;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "order_User")
-    Set<Order> user_order  = new HashSet<>();
+    Set<Order> user_order = new HashSet<>();
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinColumn(name = "Loyalty_Transaction;_id", referencedColumnName = "id")

@@ -50,7 +50,7 @@ public class Purchase_Transaction extends TimeBase {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "purchase_Transaction_id", orphanRemoval = true)
     Set<Purchase_Transaction_Detail> purchase_Transaction_toDetail;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
     @JoinTable(name = "Supplier_Purchase_Transaction", joinColumns = @JoinColumn(name = "Purchase_Transaction_id"), inverseJoinColumns = @JoinColumn(name = "Supplier_id"))
     Set<Supplier> purchase_Transaction_Supplier;
 

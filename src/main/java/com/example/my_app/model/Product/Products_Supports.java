@@ -44,10 +44,9 @@ public class Products_Supports extends TimeBase {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
+    
     String url;
-    BigDecimal price;
-    int quantity;
-    String description;
+    String color;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = true)
@@ -58,9 +57,9 @@ public class Products_Supports extends TimeBase {
     Products products_id;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "products_Supports_id", cascade = CascadeType.ALL, orphanRemoval = true)
-    Set<inventory_cards> products_Supports_Inventory_Cards  = new HashSet<>();
+    Set<inventory_cards> products_Supports_Inventory_Cards = new HashSet<>();
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "warehouse_Products_Products_Supports")
-    Set<Warehouse_Products> products_Supports_Warehouse_Products  = new HashSet<>();
+    Set<Warehouse_Products> products_Supports_Warehouse_Products = new HashSet<>();
 
 }

@@ -26,7 +26,6 @@ import lombok.NoArgsConstructor;
 
 import lombok.experimental.FieldDefaults;
 
-
 @Entity
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -43,6 +42,6 @@ public class Permission extends TimeBase {
     @Column(nullable = false)
     StatusPermission description;
 
-    @ManyToMany(mappedBy = "role_permission", fetch = FetchType.EAGER, cascade =  { CascadeType.PERSIST, CascadeType.MERGE })
+    @ManyToMany(mappedBy = "role_permission", fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
     Set<Role> permission_role = new HashSet<>();
 }

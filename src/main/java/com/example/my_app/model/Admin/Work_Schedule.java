@@ -37,8 +37,8 @@ public class Work_Schedule extends TimeBase {
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
 
-    @ManyToMany(mappedBy = "employee_Schedule", fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    Set<Employee> schedule_Employee  = new HashSet<>();
+    @ManyToMany(mappedBy = "employee_Schedule", fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+    Set<Employee> schedule_Employee = new HashSet<>();
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinColumn(name = "Attendance_id", referencedColumnName = "id")

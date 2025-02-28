@@ -64,9 +64,10 @@ public class Supplier extends TimeBase {
     @Column(name = "supplier_group")
     String supplierGroup;
 
-    @ManyToMany(mappedBy = "purchase_Transaction_Supplier", fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    Set<Purchase_Transaction> Supplier_Purchase_Transaction  = new HashSet<>();
+    @ManyToMany(mappedBy = "purchase_Transaction_Supplier", fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+    Set<Purchase_Transaction> Supplier_Purchase_Transaction = new HashSet<>();
 
-    @ManyToMany(mappedBy = "purchase_Transaction_Return_Supplier", fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    Set<Purchase_Transaction_Return> Supplier_Purchase_Transaction_Return  = new HashSet<>();
+    @ManyToMany(mappedBy = "purchase_Transaction_Return_Supplier", fetch = FetchType.EAGER, cascade = {
+            CascadeType.ALL })
+    Set<Purchase_Transaction_Return> Supplier_Purchase_Transaction_Return = new HashSet<>();
 }
