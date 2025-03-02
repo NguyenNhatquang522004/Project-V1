@@ -12,6 +12,7 @@ import com.example.my_app.model.Base.TimeBase;
 import com.example.my_app.model.CustomerCare.Loyalty_Transaction;
 import com.example.my_app.model.Order.Order;
 import com.example.my_app.model.Order.OrderStatusHistory;
+import com.example.my_app.model.Order.Order_PerOrder;
 import com.example.my_app.model.Role_Permission.Role;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -100,5 +101,8 @@ public class User extends TimeBase {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinColumn(name = "Loyalty_Transaction;_id", referencedColumnName = "id")
     Loyalty_Transaction user_Loyalty_Transaction;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "order_PerOrder_User", orphanRemoval = true)
+    Set<Order_PerOrder> user_Order_PerOrder = new HashSet<>();
 
 }

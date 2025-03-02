@@ -44,4 +44,6 @@ public class ProductsCategory extends TimeBase {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "productsCategory", orphanRemoval = true)
     Set<Products> products  = new HashSet<>();
 
+    
+
 }

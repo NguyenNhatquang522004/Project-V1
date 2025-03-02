@@ -4,7 +4,6 @@ import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.ReportingPolicy;
 
-
 import com.example.my_app.model.User.User;
 import com.example.my_app.modules.Register.DTO.RegisterStepOneDTO;
 import com.example.my_app.modules.Register.DTO.RegisterStepThreeDTO;

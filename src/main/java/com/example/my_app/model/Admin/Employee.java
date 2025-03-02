@@ -49,10 +49,6 @@ public class Employee extends TimeBase {
     String Ward;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
-    @JoinTable(name = "Employee_Department", joinColumns = @JoinColumn(name = "Employee_id"), inverseJoinColumns = @JoinColumn(name = "Department_id"))
-    Set<Department> employee_Departments = new HashSet<>();
-
-    @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
     @JoinTable(name = "Employee_Schedule", joinColumns = @JoinColumn(name = "Employee_id"), inverseJoinColumns = @JoinColumn(name = "Schedule_id"))
     Set<Work_Schedule> employee_Schedule = new HashSet<>();
 
@@ -71,9 +67,8 @@ public class Employee extends TimeBase {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "employee_id")
     Set<Order_WayBill> employee_Order_WayBill = new HashSet<>();
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    @JoinColumn(name = "Role_id", referencedColumnName = "id")
-    Admin_Role employee_Role;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true, mappedBy = "role_Employee")
+    Set<Admin_Role> employee_Role = new HashSet<>();
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "employee_id")
     Set<Purchase_Transaction> employee_Purchase_Transaction = new HashSet<>();

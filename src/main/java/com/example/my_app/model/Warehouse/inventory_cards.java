@@ -57,6 +57,8 @@ public class inventory_cards extends TimeBase {
     int quantity;
 
     BigDecimal costPrice;
+
+    BigDecimal totalPrice;
     @OneToOne(fetch = FetchType.EAGER)
     Order order_id;
 

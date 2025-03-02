@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import com.example.my_app.Enum.StatusDepartment;
 import com.example.my_app.model.Base.TimeBase;
+import com.example.my_app.model.Role_Permisson_Admin.Admin_Role;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -18,6 +19,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -42,7 +44,6 @@ public class Department extends TimeBase {
     @Column(nullable = false)
     StatusDepartment description;
 
-    @ManyToMany(mappedBy = "employee_Departments", fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST,
-            CascadeType.MERGE })
-    Set<Employee> department_Employee = new HashSet<>();
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "role_Department")
+    Set<Admin_Role> employee_Attendance = new HashSet<>();
 }

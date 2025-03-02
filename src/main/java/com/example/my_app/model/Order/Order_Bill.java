@@ -7,7 +7,6 @@ import java.util.UUID;
 import com.example.my_app.model.Admin.Employee;
 import com.example.my_app.model.Base.TimeBase;
 
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -44,9 +43,6 @@ public class Order_Bill extends TimeBase {
 
     @Column(name = "profit_code")
     String profitCode;
-
-    @Column(name = "customer")
-    String customer;
 
     @Column(name = "total_amount", nullable = false)
     BigDecimal totalAmount;

@@ -1,6 +1,5 @@
 package com.example.my_app.model.Product;
 
-
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -8,7 +7,7 @@ import java.util.UUID;
 import com.example.my_app.Enum.Products.StatusActiveProducts;
 
 import com.example.my_app.model.Base.TimeBase;
-
+import com.example.my_app.model.Order.Order_PerOrder;
 import com.example.my_app.model.Purchasing.Purchase_Transaction_Detail;
 import com.example.my_app.model.Warehouse.Warehouse_Products;
 import com.example.my_app.model.Warehouse.inventory_cards;
@@ -66,5 +65,8 @@ public class Products_Supports extends TimeBase {
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "warehouse_Products_Products_Supports")
     Set<Warehouse_Products> products_Supports_Warehouse_Products = new HashSet<>();
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "order_PerOrder_Products_Supports")
+    Set<Order_PerOrder> products_Supports_Order_PerOrder = new HashSet<>();
 
 }

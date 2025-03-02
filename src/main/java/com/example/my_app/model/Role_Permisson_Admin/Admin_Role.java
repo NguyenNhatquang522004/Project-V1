@@ -5,6 +5,7 @@ import java.util.Set;
 import java.util.UUID;
 
 import com.example.my_app.Enum.StatusDepartment;
+import com.example.my_app.model.Admin.Department;
 import com.example.my_app.model.Admin.Employee;
 import com.example.my_app.model.Base.TimeBase;
 
@@ -20,6 +21,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
@@ -41,11 +43,10 @@ public class Admin_Role extends TimeBase {
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    StatusDepartment description;
+    @ManyToOne(fetch = FetchType.EAGER)
+    Department role_Department;
 
-    @OneToOne(mappedBy = "employee_Role", fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     Employee role_Employee;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
