@@ -1,5 +1,7 @@
 package com.example.my_app.modules.Login;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
 import java.util.Set;
@@ -21,7 +23,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 
 import com.example.my_app.common.ResponedGlobal;
 import com.example.my_app.model.User.User;
@@ -89,7 +90,8 @@ public class LoginController {
                                         .permission(permissions)
                                         .build();
                         String data = objectMapper.writeValueAsString(authDTO);
-                        Cookie cookieAccessToken = loginServices.handleCookie("accessToken", data, 36000, false,
+                        String encodedData = URLEncoder.encode(data, StandardCharsets.UTF_8);
+                        Cookie cookieAccessToken = loginServices.handleCookie("accessToken", encodedData, 36000, false,
                                         false);
                         Cookie cookieRefreshToken = loginServices.handleCookie("refeshToken",
                                         UUID.randomUUID().toString(), 36000, false,
@@ -101,11 +103,13 @@ public class LoginController {
                                                         .messages("thành công").build(),
                                         HttpStatusCode.valueOf(200));
                 } catch (Exception e) {
+                        System.out.println(e.getMessage());
                         return new ResponseEntity<ResponedGlobal>(
                                         ResponedGlobal.builder().data("").code("0").messages("lỗi").build(),
                                         HttpStatusCode.valueOf(400));
                 }
         }
+
         @GetMapping(path = "Public/oauth2/redirect", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.ALL_VALUE)
 
         public ResponseEntity<ResponedGlobal> handleLoginGoogleSucess1(OAuth2AuthenticationToken request,

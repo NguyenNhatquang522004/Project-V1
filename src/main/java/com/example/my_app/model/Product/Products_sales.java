@@ -32,9 +32,9 @@ public class Products_sales extends TimeBase {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
-    
+
     String salePer;
-    
+
     String Description;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

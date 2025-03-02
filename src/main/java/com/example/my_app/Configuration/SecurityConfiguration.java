@@ -54,6 +54,7 @@ public class SecurityConfiguration {
                                 .authorizeHttpRequests(auth -> auth
                                                 .requestMatchers("/Private/**").authenticated()
                                                 .requestMatchers("/Public/**").permitAll()
+                                                .requestMatchers("/admin/**").permitAll()
                                                 .anyRequest().authenticated())
                                 .exceptionHandling(e -> e
                                                 .authenticationEntryPoint(
