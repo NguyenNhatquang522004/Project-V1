@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import com.example.my_app.Enum.Role_Permission.StatusRole;
 import com.example.my_app.Enum.user.StatusUserEntry;
 import com.example.my_app.Mapper.UserMapper;
-import com.example.my_app.Repository.Role.RoleCustom;
+import com.example.my_app.Repository.CustomRepository.RoleCustom;
 import com.example.my_app.Repository.User.UserRepository;
 import com.example.my_app.model.Role_Permission.Permission;
 import com.example.my_app.model.Role_Permission.Role;

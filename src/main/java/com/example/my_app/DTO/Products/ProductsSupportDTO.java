@@ -1,8 +1,6 @@
-package com.example.my_app.DTO;
+package com.example.my_app.DTO.Products;
 
-import java.math.BigDecimal;
-
-import com.example.my_app.Enum.Products.StutusSizeProducts;
+import java.util.List;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -16,13 +14,9 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductsSupportAttribute {
+public class ProductsSupportDTO {
+    String color;
+    String url;
+    List<ProductsSupportAttribute> attribute;
 
-    String size;
-
-    BigDecimal sellingPrice;
-
-    BigDecimal costPrice;
-
-    int quantity;
 }

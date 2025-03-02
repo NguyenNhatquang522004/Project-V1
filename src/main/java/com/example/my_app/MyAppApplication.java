@@ -14,8 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.my_app.Enum.Role_Permission.StatusPermission;
 import com.example.my_app.Enum.Role_Permission.StatusRole;
+import com.example.my_app.Repository.CustomRepository.RoleCustom;
 import com.example.my_app.Repository.Permission.PermissionRepository;
-import com.example.my_app.Repository.Role.RoleCustom;
 import com.example.my_app.Repository.Role.RoleRepository;
 import com.example.my_app.Repository.User.UserRepository;
 import com.example.my_app.model.Role_Permission.Permission;

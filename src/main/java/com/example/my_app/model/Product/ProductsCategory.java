@@ -39,11 +39,9 @@ public class ProductsCategory extends TimeBase {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = true)
-    StatusCategory statusCategory;
+    StatusCategory category;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "productsCategory", orphanRemoval = true)
-    Set<Products> products  = new HashSet<>();
-
-    
+    Set<Products> products = new HashSet<>();
 
 }

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import com.example.my_app.Enum.Role_Permission.StatusRole;
 import com.example.my_app.Enum.user.StatusUserEntry;
 import com.example.my_app.Mapper.UserMapper;
-import com.example.my_app.Repository.Role.RoleCustom;
+import com.example.my_app.Repository.CustomRepository.RoleCustom;
 import com.example.my_app.Repository.Role.RoleRepository;
 import com.example.my_app.Repository.User.UserRepository;
 import com.example.my_app.model.Role_Permission.Role;
@@ -92,7 +92,7 @@ public class RegisterServices {
     @Transactional
     boolean handleUpdateUser(RegisterStepThreeDTO data, User user) throws Exception {
         try {
-       
+
             Role initRole = roleCustom.handleDefaultPermissionRole(StatusRole.Customers, user);
             if (initRole == null) {
                 return false;

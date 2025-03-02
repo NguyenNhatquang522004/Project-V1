@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.my_app.DTO.ProductsDTO;
+import com.example.my_app.DTO.Products.ProductsDTO;
 import com.example.my_app.common.ResponedGlobal;
 
 @RestController
@@ -28,7 +28,7 @@ public class Admin_ProductsController {
         public ResponseEntity<ResponedGlobal> handlAddProducts(@RequestBody ProductsDTO request)
                         throws Exception {
                 try {
-                        
+                       
                         return new ResponseEntity<ResponedGlobal>(
                                         ResponedGlobal.builder().data("").code("1")
                                                         .messages("thành công").build(),

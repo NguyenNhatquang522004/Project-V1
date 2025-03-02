@@ -1,4 +1,4 @@
-package com.example.my_app.Repository.Role;
+package com.example.my_app.Repository.CustomRepository;
 
 import java.util.List;
 import java.util.Set;
@@ -9,8 +9,9 @@ import org.springframework.stereotype.Repository;
 
 import com.example.my_app.Enum.Role_Permission.StatusPermission;
 import com.example.my_app.Enum.Role_Permission.StatusRole;
+import com.example.my_app.Repository.IRepositoryCustom.IRoleCustom;
 import com.example.my_app.Repository.Permission.PermissionRepository;
-
+import com.example.my_app.Repository.Role.RoleRepository;
 import com.example.my_app.model.Role_Permission.Permission;
 import com.example.my_app.model.Role_Permission.Role;
 import com.example.my_app.model.User.User;
