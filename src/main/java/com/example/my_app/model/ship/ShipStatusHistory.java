@@ -31,7 +31,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
-// lịch sử giao hàng của từng hóa đơn vận đơn 
+// lịch sử giao hàng của từng hóa đơn vận đơn
 public class ShipStatusHistory extends TimeBase {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -46,11 +46,11 @@ public class ShipStatusHistory extends TimeBase {
     BigDecimal shippingFee;
     String status;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
     @JoinColumn(name = "ShipmentInfo_id", nullable = false)
     ShipmentInfo ShipmentInfo_id;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToOne(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinColumn(name = "Order_WayBill_id", referencedColumnName = "id")
     Order_WayBill shipStatusHistory_WayBill;
 }

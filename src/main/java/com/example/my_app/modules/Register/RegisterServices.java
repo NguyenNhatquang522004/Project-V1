@@ -7,10 +7,11 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.my_app.Enum.Role_Permission.StatusRole;
 import com.example.my_app.Enum.user.StatusUserEntry;
-import com.example.my_app.Mapper.UserMapper;
+import com.example.my_app.Mapper.User.UserMapper;
 import com.example.my_app.Repository.CustomRepository.RoleCustom;
 import com.example.my_app.Repository.Role.RoleRepository;
 import com.example.my_app.Repository.User.UserRepository;
@@ -19,7 +20,7 @@ import com.example.my_app.model.User.User;
 import com.example.my_app.modules.Register.DTO.RegisterStepOneDTO;
 import com.example.my_app.modules.Register.DTO.RegisterStepThreeDTO;
 
-import jakarta.transaction.Transactional;
+
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 

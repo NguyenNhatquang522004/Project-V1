@@ -43,11 +43,12 @@ public class ShipmentInfo extends TimeBase {
     BigDecimal totalShippingFee;
     BigDecimal outstandingShippingFee;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
     @JoinColumn(name = "shipment_id", nullable = false)
     Shipment shipment_id;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "ShipmentInfo_id", orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, cascade = {
+            CascadeType.ALL }, mappedBy = "ShipmentInfo_id", orphanRemoval = true)
     Set<ShipStatusHistory> shipmentInfo_ShipStatusHistory = new HashSet<>();
 
 }

@@ -9,7 +9,6 @@ import com.example.my_app.model.Admin.Employee;
 
 import com.example.my_app.model.Base.TimeBase;
 
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -52,18 +51,19 @@ public class Purchase_Transaction extends TimeBase {
     @Column(nullable = true)
     StatusPurchasing description = StatusPurchasing.in;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "purchase_Transaction_id", orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, cascade = {
+            CascadeType.ALL }, mappedBy = "purchase_Transaction_id", orphanRemoval = true)
     Set<Purchase_Transaction_Detail> purchase_Transaction_toDetail;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+    @ManyToMany(fetch = FetchType.EAGER, cascade =  { CascadeType.ALL } )
     @JoinTable(name = "Supplier_Purchase_Transaction", joinColumns = @JoinColumn(name = "Purchase_Transaction_id"), inverseJoinColumns = @JoinColumn(name = "Supplier_id"))
     Set<Supplier> purchase_Transaction_Supplier;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
     @JoinColumn(name = "Employee_id", nullable = false)
     Employee employee_id;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToOne(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinColumn(name = "Purchase_Transaction_Return_id", referencedColumnName = "id")
     Purchase_Transaction_Return purchase_Transaction_Purchase_Transaction_Return;
 

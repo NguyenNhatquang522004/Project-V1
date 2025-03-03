@@ -56,11 +56,11 @@ public class Order_Bill extends TimeBase {
     @OneToOne(fetch = FetchType.EAGER)
     Order orders_Bill_Order;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToOne(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinColumn(name = "Order_WayBill_id", referencedColumnName = "id")
     Order_WayBill orders_WayBill;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
     @JoinColumn(name = "Employee_id", nullable = false)
     Employee employee_id;
 

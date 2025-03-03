@@ -44,6 +44,7 @@ public class Department extends TimeBase {
     @Column(nullable = false)
     StatusDepartment description;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "role_Department")
+    @OneToMany(fetch = FetchType.EAGER, cascade = {
+            CascadeType.ALL }, orphanRemoval = true, mappedBy = "role_Department")
     Set<Admin_Role> employee_Attendance = new HashSet<>();
 }

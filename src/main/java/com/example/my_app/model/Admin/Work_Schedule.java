@@ -8,7 +8,6 @@ import java.util.UUID;
 import com.example.my_app.Enum.StatusTimeOfDay;
 import com.example.my_app.model.Base.TimeBase;
 
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -50,7 +49,7 @@ public class Work_Schedule extends TimeBase {
     @ManyToMany(mappedBy = "employee_Schedule", fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
     Set<Employee> schedule_Employee = new HashSet<>();
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
     @JoinColumn(name = "Shifts_id", nullable = false)
     Shifts work_Schedule_Shifts;
 

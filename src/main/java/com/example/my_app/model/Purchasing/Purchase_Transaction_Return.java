@@ -7,7 +7,6 @@ import java.util.UUID;
 import com.example.my_app.model.Admin.Employee;
 import com.example.my_app.model.Base.TimeBase;
 
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -45,7 +44,6 @@ public class Purchase_Transaction_Return extends TimeBase {
     @Column(name = "time")
     String time;
 
-
     @Column(name = "total_return_amount")
     Double totalReturnAmount;
 
@@ -64,12 +62,11 @@ public class Purchase_Transaction_Return extends TimeBase {
     @OneToOne(mappedBy = "purchase_Transaction_Purchase_Transaction_Return", fetch = FetchType.EAGER)
     Purchase_Transaction purchase_Transaction_Return_Purchase_Transaction;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+    @ManyToMany(fetch = FetchType.EAGER, cascade =  { CascadeType.ALL } )
     @JoinTable(name = "Supplier_Purchase_Transaction_Return", joinColumns = @JoinColumn(name = "Purchase_Transaction_Retrun_id"), inverseJoinColumns = @JoinColumn(name = "Supplier_id"))
     Set<Supplier> purchase_Transaction_Return_Supplier = new HashSet<>();
 
-
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
     @JoinColumn(name = "Employee_id", nullable = false)
     Employee employee_id;
 }

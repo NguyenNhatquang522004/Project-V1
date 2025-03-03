@@ -48,11 +48,11 @@ public class Order_PerOrder extends TimeBase {
 
     BigDecimal preOrder_Pay;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
     @JoinColumn(name = "Products_Supports_id", nullable = false)
     Products_Supports order_PerOrder_Products_Supports;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
     @JoinColumn(name = "User_id", nullable = false)
     User order_PerOrder_User;
 

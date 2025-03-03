@@ -37,9 +37,9 @@ public class Products_Brands extends TimeBase {
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
 
-    @Enumerated(EnumType.STRING)
-    StatusBrandsProducts brands;
+    String brands;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "products_Brands_id", orphanRemoval = true)
-    Set<Products> products_sales = new HashSet<>();
+    @OneToMany(fetch = FetchType.EAGER, cascade = {
+            CascadeType.ALL }, mappedBy = "products_Brands_id", orphanRemoval = true)
+    Set<Products> products = new HashSet<>();
 }

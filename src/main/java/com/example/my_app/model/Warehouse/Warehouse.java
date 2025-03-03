@@ -35,9 +35,11 @@ public class Warehouse extends TimeBase {
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "inventory_Transaction_Warehouse")
+    @OneToMany(fetch = FetchType.EAGER, cascade = {
+            CascadeType.ALL }, orphanRemoval = true, mappedBy = "inventory_Transaction_Warehouse")
     Set<Inventory_Transaction> warehouse_Inventory_Transaction = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "warehouse_Products_Warehouse")
+    @OneToMany(fetch = FetchType.EAGER, cascade = {
+            CascadeType.ALL }, orphanRemoval = true, mappedBy = "warehouse_Products_Warehouse")
     Set<Warehouse_Products> warehouse_Warehouse_Products = new HashSet<>();
 }

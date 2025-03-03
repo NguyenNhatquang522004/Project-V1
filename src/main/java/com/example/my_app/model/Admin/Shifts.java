@@ -8,7 +8,6 @@ import java.util.UUID;
 import com.example.my_app.Enum.StatusTimeOfDay;
 import com.example.my_app.model.Base.TimeBase;
 
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -48,6 +47,7 @@ public class Shifts extends TimeBase {
 
     LocalTime endTime;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "work_Schedule_Shifts", orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, cascade = {
+            CascadeType.ALL }, mappedBy = "work_Schedule_Shifts", orphanRemoval = true)
     Set<Work_Schedule> shifts_Work_Schedule = new HashSet<>();
 }

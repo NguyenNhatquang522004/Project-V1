@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import com.example.my_app.model.Product.Products_Support_Attribute;
 
 @Repository
-public interface SupportsAttribute extends JpaRepository<Products_Support_Attribute, UUID> {
+public interface SupportsAttributeRepository extends JpaRepository<Products_Support_Attribute, UUID> {
 
 }

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.my_app.DTO.Products.ProductsDTO;
+import com.example.my_app.Modules_Admin.Products.Request.RequestAdd;
 import com.example.my_app.common.ResponedGlobal;
 
 @RestController
@@ -25,10 +25,16 @@ public class Admin_ProductsController {
         }
 
         @PostMapping(path = "/Add", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-        public ResponseEntity<ResponedGlobal> handlAddProducts(@RequestBody ProductsDTO request)
+        public ResponseEntity<ResponedGlobal> handlAddProducts(@RequestBody RequestAdd request)
                         throws Exception {
                 try {
-                       
+                        boolean add = productsServices.addNewProducts(request);
+                        if (add == false) {
+                                return new ResponseEntity<ResponedGlobal>(
+                                                ResponedGlobal.builder().data("").code("0")
+                                                                .messages("lỗi").build(),
+                                                HttpStatus.BAD_REQUEST);
+                        }
                         return new ResponseEntity<ResponedGlobal>(
                                         ResponedGlobal.builder().data("").code("1")
                                                         .messages("thành công").build(),

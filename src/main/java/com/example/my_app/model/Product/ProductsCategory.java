@@ -37,11 +37,10 @@ public class ProductsCategory extends TimeBase {
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = true)
-    StatusCategory category;
+    String category;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "productsCategory", orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, cascade = {
+            CascadeType.ALL }, mappedBy = "productsCategory", orphanRemoval = true)
     Set<Products> products = new HashSet<>();
 
 }

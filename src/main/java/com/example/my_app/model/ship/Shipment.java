@@ -1,6 +1,5 @@
 package com.example.my_app.model.ship;
 
-
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -41,6 +40,6 @@ public class Shipment extends TimeBase {
     @Enumerated(EnumType.STRING)
     StatusShipment description;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "shipment_id", orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL }, mappedBy = "shipment_id", orphanRemoval = true)
     Set<ShipmentInfo> user_address = new HashSet<>();
 }

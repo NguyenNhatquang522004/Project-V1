@@ -1,4 +1,4 @@
-package com.example.my_app.Mapper;
+package com.example.my_app.Mapper.User;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;

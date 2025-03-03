@@ -1,6 +1,5 @@
 package com.example.my_app.model.Admin;
 
-
 import com.example.my_app.model.Base.TimeBase;
 import jakarta.persistence.*;
 import lombok.*;
@@ -22,13 +21,12 @@ public class Payroll extends TimeBase {
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
 
-  
     BigDecimal baseSalary;
     BigDecimal bonus;
     BigDecimal deductions;
     BigDecimal netSalary;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
     @JoinColumn(name = "Employee_id", nullable = false)
     Employee employee_id;
 

@@ -3,12 +3,10 @@ package com.example.my_app.model.Admin;
 import java.time.LocalDate;
 import java.util.Date;
 
-
 import java.util.UUID;
 
 import com.example.my_app.Enum.StatusAttendance;
 import com.example.my_app.model.Base.TimeBase;
-
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -52,11 +50,11 @@ public class Attendance extends TimeBase {
     @Enumerated(EnumType.STRING)
     StatusAttendance status_Attendance;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
     @JoinColumn(name = "Employee_id", nullable = false)
     Employee employee_id;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToOne(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinColumn(name = "Work_Schedule_id", referencedColumnName = "id")
     Work_Schedule attendance_Work_Schedule;
 

@@ -62,7 +62,7 @@ public class Inventory_Transaction extends TimeBase {
     @Column(name = "notes")
     private String notes;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
     @JoinColumn(name = "Warehouse_id", nullable = false)
     Warehouse inventory_Transaction_Warehouse;
 

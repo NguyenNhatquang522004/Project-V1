@@ -1,6 +1,7 @@
 package com.example.my_app.DTO.Products;
 
 import java.util.List;
+import java.util.Set;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -17,6 +18,7 @@ import lombok.experimental.FieldDefaults;
 public class ProductsSupportDTO {
     String color;
     String url;
-    List<ProductsSupportAttribute> attribute;
+    boolean isActive;
+    List<ProductsSupportAttributeDTO> products_Supports_Products_Support_Attribute;
 
 }

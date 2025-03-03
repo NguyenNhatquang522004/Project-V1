@@ -36,10 +36,11 @@ public class Order_Payment extends TimeBase {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
-    
+
     @Enumerated(EnumType.STRING)
     StatusPaymentMethod statusPaymentMethod;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "order_Payment_id", orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, cascade = {
+            CascadeType.ALL }, mappedBy = "order_Payment_id", orphanRemoval = true)
     Set<Order> order_payment = new HashSet<>();
 }

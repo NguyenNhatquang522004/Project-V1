@@ -42,6 +42,6 @@ public class Permission extends TimeBase {
     @Column(nullable = false)
     StatusPermission description;
 
-    @ManyToMany(mappedBy = "role_permission", fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+    @ManyToMany(mappedBy = "role_permission", fetch = FetchType.EAGER, cascade =  { CascadeType.ALL } )
     Set<Role> permission_role = new HashSet<>();
 }

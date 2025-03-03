@@ -6,10 +6,15 @@ import java.util.UUID;
 import com.example.my_app.Enum.Products.StutusSizeProducts;
 import com.example.my_app.model.Base.TimeBase;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -31,11 +36,22 @@ public class Products_Support_Attribute extends TimeBase {
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
 
-    StutusSizeProducts size;
+    String size;
 
     BigDecimal sellingPrice;
 
     BigDecimal costPrice;
 
     int quantity;
+
+    @PrePersist
+    public void prePersist() {
+        if (id == null) {
+            id = UUID.randomUUID();
+        }
+    }
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+    @JoinColumn(name = "Products_Supports_id")
+    Products_Supports products_Supports_id;
 }

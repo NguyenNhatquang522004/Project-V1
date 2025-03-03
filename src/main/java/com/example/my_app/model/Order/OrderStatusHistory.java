@@ -37,7 +37,7 @@ public class OrderStatusHistory extends TimeBase {
     @OneToOne(fetch = FetchType.EAGER)
     Order order_id;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
     @JoinColumn(name = "User_id", nullable = false)
     User user_id;
 }
