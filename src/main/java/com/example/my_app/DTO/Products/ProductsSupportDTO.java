@@ -1,7 +1,7 @@
 package com.example.my_app.DTO.Products;
 
 import java.util.List;
-import java.util.Set;
+import java.util.UUID;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -16,6 +16,7 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductsSupportDTO {
+      UUID id;
     String color;
     String url;
     boolean isActive;

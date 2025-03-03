@@ -1,5 +1,7 @@
 package com.example.my_app.DTO.Products;
 
+import java.util.UUID;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,5 +13,6 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductsImgDTO {
+    UUID id;
     String url;
 }

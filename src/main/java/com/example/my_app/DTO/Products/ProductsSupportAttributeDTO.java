@@ -1,6 +1,7 @@
 package com.example.my_app.DTO.Products;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -15,7 +16,7 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductsSupportAttributeDTO {
-
+    UUID id;
     String size;
 
     BigDecimal sellingPrice;

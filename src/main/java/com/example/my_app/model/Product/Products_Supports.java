@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-import com.example.my_app.Enum.Products.StatusActiveProducts;
+
 
 import com.example.my_app.model.Base.TimeBase;
 import com.example.my_app.model.Order.Order_PerOrder;
@@ -13,10 +13,9 @@ import com.example.my_app.model.Warehouse.Warehouse_Products;
 import com.example.my_app.model.Warehouse.inventory_cards;
 
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
+
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

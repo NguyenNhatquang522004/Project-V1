@@ -1,5 +1,8 @@
 package com.example.my_app.Modules_Admin.Products;
 
+import java.util.Optional;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -9,10 +12,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.my_app.Modules_Admin.Products.Request.RequestAdd;
 import com.example.my_app.common.ResponedGlobal;
+import com.example.my_app.model.Product.Products;
+import com.example.my_app.model.Product.Products_Support_Attribute;
+import com.example.my_app.model.Product.Products_Supports;
 
 @RestController
 @RequestMapping(path = "/admin/Products")
@@ -28,15 +35,15 @@ public class Admin_ProductsController {
         public ResponseEntity<ResponedGlobal> handlAddProducts(@RequestBody RequestAdd request)
                         throws Exception {
                 try {
-                        boolean add = productsServices.addNewProducts(request);
-                        if (add == false) {
+                        Products add = productsServices.addNewProducts(request);
+                        if (add == null) {
                                 return new ResponseEntity<ResponedGlobal>(
                                                 ResponedGlobal.builder().data("").code("0")
                                                                 .messages("lỗi").build(),
                                                 HttpStatus.BAD_REQUEST);
                         }
                         return new ResponseEntity<ResponedGlobal>(
-                                        ResponedGlobal.builder().data("").code("1")
+                                        ResponedGlobal.builder().data(add.getId()).code("1")
                                                         .messages("thành công").build(),
                                         HttpStatus.OK);
                 } catch (Exception e) {
@@ -49,10 +56,95 @@ public class Admin_ProductsController {
         }
 
         @DeleteMapping(path = "/Delete", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-        public ResponseEntity<ResponedGlobal> handlDeleteProducts() throws Exception {
+        public ResponseEntity<ResponedGlobal> handlDeleteProducts(@RequestParam("id") String request) throws Exception {
+
+                try {
+                        UUID convertToUUID = UUID.fromString(request);
+                        Optional<Products> searchProducts = productsServices.handleFindOneProducts(convertToUUID);
+                        if (searchProducts.isEmpty()) {
+                                return new ResponseEntity<ResponedGlobal>(
+                                                ResponedGlobal.builder().data("").code("0")
+                                                                .messages("không tìm thấy products").build(),
+                                                HttpStatus.BAD_REQUEST);
+                        }
+                        boolean DeleteItem = productsServices.handleDeleteProducts(searchProducts.get());
+                        if (DeleteItem == false) {
+                                return new ResponseEntity<ResponedGlobal>(
+                                                ResponedGlobal.builder().data("").code("0")
+                                                                .messages("xóa thất bại").build(),
+                                                HttpStatus.BAD_REQUEST);
+                        }
+
+                        return new ResponseEntity<ResponedGlobal>(
+                                        ResponedGlobal.builder().data("").code("1")
+                                                        .messages("thành công").build(),
+                                        HttpStatus.OK);
+                } catch (Exception e) {
+                        return new ResponseEntity<ResponedGlobal>(
+                                        ResponedGlobal.builder().data("").code("0")
+                                                        .messages("lỗi").build(),
+                                        HttpStatus.BAD_REQUEST);
+                }
+        }
+
+        @DeleteMapping(path = "/Delete/item", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+        public ResponseEntity<ResponedGlobal> handlDeleteProductsSupports(@RequestParam("id") String request)
+                        throws Exception {
+
+                try {
+                        UUID convertToUUID = UUID.fromString(request);
+                        Optional<Products_Supports> searchProducts = productsServices
+                                        .handleFindOneProductsSupports(convertToUUID);
+                        System.out.println(request);
+                        if (searchProducts.isEmpty()) {
+                                return new ResponseEntity<ResponedGlobal>(
+                                                ResponedGlobal.builder().data("").code("0")
+                                                                .messages("không tìm thấy products").build(),
+                                                HttpStatus.BAD_REQUEST);
+                        }
+                        boolean DeleteItem = productsServices.handleDeleteProductsSupports(searchProducts.get());
+                        if (DeleteItem == false) {
+                                return new ResponseEntity<ResponedGlobal>(
+                                                ResponedGlobal.builder().data("").code("0")
+                                                                .messages("xóa thất bại").build(),
+                                                HttpStatus.BAD_REQUEST);
+                        }
+                        return new ResponseEntity<ResponedGlobal>(
+                                        ResponedGlobal.builder().data("").code("1")
+                                                        .messages("thành công").build(),
+                                        HttpStatus.OK);
+                } catch (Exception e) {
+                        return new ResponseEntity<ResponedGlobal>(
+                                        ResponedGlobal.builder().data("").code("0")
+                                                        .messages("lỗi").build(),
+                                        HttpStatus.BAD_REQUEST);
+                }
+        }
+
+        @DeleteMapping(path = "/Delete/item/attribute", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+        public ResponseEntity<ResponedGlobal> handlDeleteProductsSupportsAttribute(@RequestParam("id") String request)
+                        throws Exception {
 
                 try {
 
+                        UUID convertToUUID = UUID.fromString(request);
+                        Optional<Products_Support_Attribute> searchProducts = productsServices
+                                        .handleFindOneProductsSupportsAttribute(convertToUUID);
+                        System.out.println(request);
+                        if (searchProducts.isEmpty()) {
+                                return new ResponseEntity<ResponedGlobal>(
+                                                ResponedGlobal.builder().data("").code("0")
+                                                                .messages("không tìm thấy products").build(),
+                                                HttpStatus.BAD_REQUEST);
+                        }
+                        boolean DeleteItem = productsServices
+                                        .handleDeleteProductsSupportsAttribute(searchProducts.get());
+                        if (DeleteItem == false) {
+                                return new ResponseEntity<ResponedGlobal>(
+                                                ResponedGlobal.builder().data("").code("0")
+                                                                .messages("xóa thất bại").build(),
+                                                HttpStatus.BAD_REQUEST);
+                        }
                         return new ResponseEntity<ResponedGlobal>(
                                         ResponedGlobal.builder().data("").code("1")
                                                         .messages("thành công").build(),
@@ -66,8 +158,7 @@ public class Admin_ProductsController {
         }
 
         @PutMapping(path = "/Update", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-        public ResponseEntity<ResponedGlobal> handlUpdateProducts() throws Exception {
-
+        public ResponseEntity<ResponedGlobal> handlUpdateProducts(@RequestParam("id") String request) throws Exception {
                 try {
 
                         return new ResponseEntity<ResponedGlobal>(

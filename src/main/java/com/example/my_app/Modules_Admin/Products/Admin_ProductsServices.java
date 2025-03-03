@@ -1,6 +1,7 @@
 package com.example.my_app.Modules_Admin.Products;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import javax.print.DocFlavor.STRING;
 
@@ -83,7 +84,7 @@ public class Admin_ProductsServices implements IProducts {
     }
 
     @Transactional
-    public boolean addNewProducts(RequestAdd request) throws Exception {
+    public Products addNewProducts(RequestAdd request) throws Exception {
         try {
             Products products = productMapper.toEntity(request.getProductsData());
             handleProductsSupportAndAttribute(request, products);
@@ -91,24 +92,24 @@ public class Admin_ProductsServices implements IProducts {
             Optional<ProductsCategory> searchCategory = handleFindOneCategory(request.getCategoryData().getCategory());
             if (searchCategory.isEmpty()) {
                 TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-                return false;
+                return null;
             }
 
             Optional<Products_Brands> searchBrands = handleFindOneBrands(request.getBrandsData().getBrands());
 
             if (searchBrands.isEmpty()) {
                 TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-                return false;
+                return null;
             }
             searchCategory.get().getProducts().add(products);
             searchBrands.get().getProducts().add(products);
             products.setProducts_Brands_id(searchBrands.get());
             products.setProductsCategory(searchCategory.get());
             productRepository.saveAndFlush(products);
-            return true;
+            return products;
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            return false;
+            return null;
         }
     }
 
@@ -139,4 +140,51 @@ public class Admin_ProductsServices implements IProducts {
 
     }
 
+    @Transactional
+    public Optional<Products> handleFindOneProducts(UUID request) throws Exception {
+        return productRepository.findById(request);
+    }
+
+    @Transactional
+    public Optional<Products_Supports> handleFindOneProductsSupports(UUID request) throws Exception {
+        return supportsRepository.findById(request);
+    }
+
+    @Transactional
+    public Optional<Products_Support_Attribute> handleFindOneProductsSupportsAttribute(UUID request) throws Exception {
+        return supportsAttribute.findById(request);
+    }
+
+    @Transactional
+    public boolean handleDeleteProducts(Products request) throws Exception {
+        try {
+            productRepository.delete(request);
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;
+        }
+    }
+
+    @Transactional
+    public boolean handleDeleteProductsSupports(Products_Supports request) throws Exception {
+        try {
+            supportsRepository.delete(request);
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;
+        }
+    }
+
+    @Transactional
+    public boolean handleDeleteProductsSupportsAttribute(Products_Support_Attribute request) throws Exception {
+        try {
+            supportsAttribute.delete(request);
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;
+        }
+    }
 }
