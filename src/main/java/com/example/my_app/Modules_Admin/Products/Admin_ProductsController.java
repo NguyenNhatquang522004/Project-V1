@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,6 +21,8 @@ import com.example.my_app.common.ResponedGlobal;
 import com.example.my_app.model.Product.Products;
 import com.example.my_app.model.Product.Products_Support_Attribute;
 import com.example.my_app.model.Product.Products_Supports;
+
+import jakarta.transaction.Transactional;
 
 @RestController
 @RequestMapping(path = "/admin/Products")
@@ -56,11 +59,12 @@ public class Admin_ProductsController {
         }
 
         @DeleteMapping(path = "/Delete", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+        @Transactional
         public ResponseEntity<ResponedGlobal> handlDeleteProducts(@RequestParam("id") String request) throws Exception {
 
                 try {
-                        UUID convertToUUID = UUID.fromString(request);
-                        Optional<Products> searchProducts = productsServices.handleFindOneProducts(convertToUUID);
+                        UUID convertUuid = UUID.fromString(request);
+                        Optional<Products> searchProducts = productsServices.handleFindOneProducts(convertUuid);
                         if (searchProducts.isEmpty()) {
                                 return new ResponseEntity<ResponedGlobal>(
                                                 ResponedGlobal.builder().data("").code("0")
@@ -80,6 +84,7 @@ public class Admin_ProductsController {
                                                         .messages("thành công").build(),
                                         HttpStatus.OK);
                 } catch (Exception e) {
+                        System.out.println(e.getMessage());
                         return new ResponseEntity<ResponedGlobal>(
                                         ResponedGlobal.builder().data("").code("0")
                                                         .messages("lỗi").build(),
@@ -95,7 +100,7 @@ public class Admin_ProductsController {
                         UUID convertToUUID = UUID.fromString(request);
                         Optional<Products_Supports> searchProducts = productsServices
                                         .handleFindOneProductsSupports(convertToUUID);
-                        System.out.println(request);
+
                         if (searchProducts.isEmpty()) {
                                 return new ResponseEntity<ResponedGlobal>(
                                                 ResponedGlobal.builder().data("").code("0")
@@ -126,7 +131,6 @@ public class Admin_ProductsController {
                         throws Exception {
 
                 try {
-
                         UUID convertToUUID = UUID.fromString(request);
                         Optional<Products_Support_Attribute> searchProducts = productsServices
                                         .handleFindOneProductsSupportsAttribute(convertToUUID);
@@ -173,7 +177,7 @@ public class Admin_ProductsController {
                 }
         }
 
-        @PutMapping(path = "/Render", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+        @GetMapping(path = "/Render", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
         public ResponseEntity<ResponedGlobal> handlRenderProducts() throws Exception {
 
                 try {

@@ -33,7 +33,7 @@ public class Products_img extends TimeBase {
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
     String url;
-    @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Products_id", nullable = false)
     Products products_id;
 

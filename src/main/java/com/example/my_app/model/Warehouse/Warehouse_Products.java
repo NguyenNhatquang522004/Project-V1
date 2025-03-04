@@ -36,11 +36,11 @@ public class Warehouse_Products extends TimeBase {
 
     int quantity;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Warehouse_id", nullable = false)
     Warehouse warehouse_Products_Warehouse;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Products_Supports_id", nullable = false)
     Products_Supports warehouse_Products_Products_Supports;
 }

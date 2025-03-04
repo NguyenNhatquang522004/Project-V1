@@ -66,7 +66,7 @@ public class Purchase_Transaction_Return extends TimeBase {
     @JoinTable(name = "Supplier_Purchase_Transaction_Return", joinColumns = @JoinColumn(name = "Purchase_Transaction_Retrun_id"), inverseJoinColumns = @JoinColumn(name = "Supplier_id"))
     Set<Supplier> purchase_Transaction_Return_Supplier = new HashSet<>();
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Employee_id", nullable = false)
     Employee employee_id;
 }

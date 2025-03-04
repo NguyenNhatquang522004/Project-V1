@@ -46,7 +46,7 @@ public class ShipStatusHistory extends TimeBase {
     BigDecimal shippingFee;
     String status;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ShipmentInfo_id", nullable = false)
     ShipmentInfo ShipmentInfo_id;
 

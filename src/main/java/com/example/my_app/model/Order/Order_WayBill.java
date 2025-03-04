@@ -42,7 +42,7 @@ public class Order_WayBill extends TimeBase {
     @OneToOne(fetch = FetchType.EAGER)
     ShipStatusHistory order_ShipStatusHistory;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Employee_id", nullable = false)
     Employee employee_id;
 

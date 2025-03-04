@@ -43,7 +43,7 @@ public class Address extends TimeBase {
     @Column(columnDefinition = "nvarchar(255)", nullable = true)
     String Number;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "User_id", nullable = false)
     User user;
 

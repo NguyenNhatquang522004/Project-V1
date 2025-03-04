@@ -62,7 +62,7 @@ public class inventory_cards extends TimeBase {
     @OneToOne(fetch = FetchType.EAGER)
     Order order_id;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "User_id", nullable = false)
     Products_Supports products_Supports_id;
 

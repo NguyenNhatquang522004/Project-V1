@@ -1,5 +1,6 @@
 package com.example.my_app.Modules_Admin.Products;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -7,9 +8,11 @@ import javax.print.DocFlavor.STRING;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.example.my_app.DTO.Products.ProductsDTO;
+import com.example.my_app.DTO.Products.ProductsImgDTO;
 import com.example.my_app.DTO.Products.ProductsSupportAttributeDTO;
 import com.example.my_app.DTO.Products.ProductsSupportDTO;
 import com.example.my_app.Enum.Products.StatusBrandsProducts;
@@ -35,8 +38,7 @@ import com.example.my_app.model.Product.ProductsCategory;
 import com.example.my_app.model.Product.Products_Brands;
 import com.example.my_app.model.Product.Products_Support_Attribute;
 import com.example.my_app.model.Product.Products_Supports;
-
-import jakarta.transaction.Transactional;
+import com.example.my_app.model.Product.Products_img;
 
 @Service
 public class Admin_ProductsServices implements IProducts {
@@ -88,7 +90,6 @@ public class Admin_ProductsServices implements IProducts {
         try {
             Products products = productMapper.toEntity(request.getProductsData());
             handleProductsSupportAndAttribute(request, products);
-            System.out.println(StatusCategory.valueOf(request.getCategoryData().getCategory()));
             Optional<ProductsCategory> searchCategory = handleFindOneCategory(request.getCategoryData().getCategory());
             if (searchCategory.isEmpty()) {
                 TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
@@ -96,7 +97,6 @@ public class Admin_ProductsServices implements IProducts {
             }
 
             Optional<Products_Brands> searchBrands = handleFindOneBrands(request.getBrandsData().getBrands());
-
             if (searchBrands.isEmpty()) {
                 TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
                 return null;
@@ -114,24 +114,48 @@ public class Admin_ProductsServices implements IProducts {
     }
 
     @Transactional
+    public boolean UpdateProducts(RequestAdd requestAdd) throws Exception {
+        try {
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    @Transactional(readOnly = true)
     public Optional<ProductsCategory> handleFindOneCategory(String data) throws Exception {
         return categoryRepository.findByCategory(data);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public Optional<Products_Brands> handleFindOneBrands(String data) throws Exception {
         return brandsRepository.findByBrands(data);
     }
 
     @Transactional
+    public void handleImgProducts(Products products, List<ProductsImgDTO> request) throws Exception {
+        try {
+            for (ProductsImgDTO value : request) {
+                Products_img products_img = imgMapper.toEntity(value.getUrl());
+                productCustom.Helper_Product_Img(products_img, products);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    @Transactional
     public void handleProductsSupportAndAttribute(RequestAdd request, Products products) throws Exception {
         try {
+
             for (ProductsSupportDTO value : request.getProductsSupportData()) {
                 Products_Supports products_Supports = supportsMapper.toEntity(value);
-                productCustom.Products_Product_Supports(products, products_Supports);
+
+                productCustom.Helper_Products_Product_Supports(products, products_Supports);
                 for (ProductsSupportAttributeDTO value1 : value.getProducts_Supports_Products_Support_Attribute()) {
+
                     Products_Support_Attribute products_Support_Attribute = supportsAttributeMapper.toEntity(value1);
-                    productCustom.Product_Supports_Attribute(products_Supports, products_Support_Attribute);
+                    productCustom.Helper_Product_Supports_Attribute(products_Supports, products_Support_Attribute);
                 }
             }
         } catch (Exception e) {
@@ -158,7 +182,9 @@ public class Admin_ProductsServices implements IProducts {
     @Transactional
     public boolean handleDeleteProducts(Products request) throws Exception {
         try {
-            productRepository.delete(request);
+            request.getProductsCategory().getProducts().remove(request);
+            request.getProducts_Brands_id().getProducts().remove(request);
+            productRepository.deleteById(request.getId());
             return true;
         } catch (Exception e) {
             System.out.println(e);
@@ -169,7 +195,8 @@ public class Admin_ProductsServices implements IProducts {
     @Transactional
     public boolean handleDeleteProductsSupports(Products_Supports request) throws Exception {
         try {
-            supportsRepository.delete(request);
+            request.getProducts_id().getProducts_support().remove(request);
+            supportsRepository.deleteById(request.getId());
             return true;
         } catch (Exception e) {
             System.out.println(e);
@@ -180,11 +207,13 @@ public class Admin_ProductsServices implements IProducts {
     @Transactional
     public boolean handleDeleteProductsSupportsAttribute(Products_Support_Attribute request) throws Exception {
         try {
-            supportsAttribute.delete(request);
+            request.getProducts_Supports_id().getProducts_Supports_Products_Support_Attribute().remove(request);
+            supportsAttribute.deleteById(request.getId());
             return true;
         } catch (Exception e) {
             System.out.println(e);
             return false;
         }
     }
+
 }

@@ -111,7 +111,6 @@ public class LoginController {
         }
 
         @GetMapping(path = "Public/oauth2/redirect", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.ALL_VALUE)
-
         public ResponseEntity<ResponedGlobal> handleLoginGoogleSucess1(OAuth2AuthenticationToken request,
                         HttpServletResponse response)
                         throws Exception {

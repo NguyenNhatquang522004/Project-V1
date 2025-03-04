@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-
 import com.example.my_app.model.Base.TimeBase;
 
 import jakarta.persistence.CascadeType;
@@ -39,6 +38,7 @@ public class Products_Brands extends TimeBase {
     String brands;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = {
-            CascadeType.ALL }, mappedBy = "products_Brands_id", orphanRemoval = true)
+            CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,
+            CascadeType.DETACH }, mappedBy = "products_Brands_id", orphanRemoval = false)
     Set<Products> products = new HashSet<>();
 }

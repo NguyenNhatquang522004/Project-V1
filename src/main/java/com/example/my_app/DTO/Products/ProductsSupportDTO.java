@@ -16,10 +16,10 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductsSupportDTO {
-      UUID id;
-    String color;
-    String url;
-    boolean isActive;
-    List<ProductsSupportAttributeDTO> products_Supports_Products_Support_Attribute;
+  UUID id;
+  String color;
+  String url;
+  boolean isActive;
+  List<ProductsSupportAttributeDTO> products_Supports_Products_Support_Attribute;
 
 }

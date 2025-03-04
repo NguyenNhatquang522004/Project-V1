@@ -43,7 +43,7 @@ public class ShipmentInfo extends TimeBase {
     BigDecimal totalShippingFee;
     BigDecimal outstandingShippingFee;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "shipment_id", nullable = false)
     Shipment shipment_id;
 

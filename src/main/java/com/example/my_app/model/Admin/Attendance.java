@@ -50,7 +50,7 @@ public class Attendance extends TimeBase {
     @Enumerated(EnumType.STRING)
     StatusAttendance status_Attendance;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Employee_id", nullable = false)
     Employee employee_id;
 

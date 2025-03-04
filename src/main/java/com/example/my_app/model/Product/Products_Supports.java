@@ -4,8 +4,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-
-
 import com.example.my_app.model.Base.TimeBase;
 import com.example.my_app.model.Order.Order_PerOrder;
 import com.example.my_app.model.Purchasing.Purchase_Transaction_Detail;
@@ -49,20 +47,11 @@ public class Products_Supports extends TimeBase {
         String color;
         boolean isActive;
 
-        @PrePersist
-        public void prePersist() {
-                if (id == null) {
-                        id = UUID.randomUUID();
-                }
-        }
-
-        @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.ALL,
-                        })
-        @JoinColumn(name = "Products_id" )
+        @ManyToOne(fetch = FetchType.EAGER)
+        @JoinColumn(name = "Products_id", nullable = false)
         Products products_id;
 
-        @OneToMany(fetch = FetchType.EAGER, cascade = {
-                        CascadeType.ALL }, orphanRemoval = true, mappedBy = "products_Supports_id")
+        @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "products_Supports_id")
         Set<Products_Support_Attribute> products_Supports_Products_Support_Attribute = new HashSet<>();
 
         @ManyToMany(mappedBy = "purchase_Transaction_Detail_Products_Support", fetch = FetchType.EAGER, cascade = {

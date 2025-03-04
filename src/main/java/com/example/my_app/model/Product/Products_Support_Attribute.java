@@ -44,14 +44,7 @@ public class Products_Support_Attribute extends TimeBase {
 
     int quantity;
 
-    @PrePersist
-    public void prePersist() {
-        if (id == null) {
-            id = UUID.randomUUID();
-        }
-    }
-
-    @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
-    @JoinColumn(name = "Products_Supports_id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "Products_Supports_id", nullable = false)
     Products_Supports products_Supports_id;
 }

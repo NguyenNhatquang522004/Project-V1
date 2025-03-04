@@ -60,7 +60,7 @@ public class Order_Bill extends TimeBase {
     @JoinColumn(name = "Order_WayBill_id", referencedColumnName = "id")
     Order_WayBill orders_WayBill;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Employee_id", nullable = false)
     Employee employee_id;
 

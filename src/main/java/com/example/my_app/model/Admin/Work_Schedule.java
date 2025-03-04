@@ -49,7 +49,7 @@ public class Work_Schedule extends TimeBase {
     @ManyToMany(mappedBy = "employee_Schedule", fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
     Set<Employee> schedule_Employee = new HashSet<>();
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Shifts_id", nullable = false)
     Shifts work_Schedule_Shifts;
 

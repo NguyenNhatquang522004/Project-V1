@@ -56,25 +56,24 @@ public class Products extends TimeBase {
     @Column(nullable = true)
     Boolean isActive = false;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL
-    }, mappedBy = "products_id", orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "products_id", orphanRemoval = true)
     Set<Products_Supports> products_support = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL }, mappedBy = "products_id", orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "products_id", orphanRemoval = true)
     Set<Products_img> products_img = new HashSet<>();
 
     // @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL}, mappedBy =
     // "products_id", orphanRemoval = true)
     // Set<Products_sales> products_sales = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL }, mappedBy = "products_id", orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "products_id", orphanRemoval = true)
     Set<Order_Products> products_order = new HashSet<>();
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Category_id", nullable = false)
     ProductsCategory productsCategory;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Brands_id", nullable = false)
     Products_Brands products_Brands_id;
 

@@ -70,7 +70,7 @@ public class Order extends TimeBase {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "order_id", cascade = { CascadeType.ALL }, orphanRemoval = true)
     Set<Order_Products> order_products = new HashSet<>();
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "User_id", nullable = false)
     User order_User;
 

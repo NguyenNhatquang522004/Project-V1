@@ -26,7 +26,7 @@ public class Payroll extends TimeBase {
     BigDecimal deductions;
     BigDecimal netSalary;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Employee_id", nullable = false)
     Employee employee_id;
 

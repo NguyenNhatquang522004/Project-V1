@@ -15,6 +15,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+import javax.print.DocFlavor.STRING;
+
 @Entity
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -48,7 +50,7 @@ public class Employee extends TimeBase {
     @Column(columnDefinition = "nvarchar(255)", nullable = true)
     String Ward;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade =  { CascadeType.ALL } )
+    @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
     @JoinTable(name = "Employee_Schedule", joinColumns = @JoinColumn(name = "Employee_id"), inverseJoinColumns = @JoinColumn(name = "Schedule_id"))
     Set<Work_Schedule> employee_Schedule = new HashSet<>();
 
