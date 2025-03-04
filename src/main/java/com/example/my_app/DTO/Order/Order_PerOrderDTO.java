@@ -5,9 +5,9 @@ import java.time.LocalDateTime;
 
 import java.util.UUID;
 
+import com.example.my_app.DTO.Products.ProductsSupportDTO;
+import com.example.my_app.DTO.User.UserDTO;
 import com.example.my_app.Enum.StatusPreOrder;
-import com.example.my_app.model.Product.Products_Supports;
-import com.example.my_app.model.User.User;
 
 
 import lombok.AccessLevel;
@@ -34,7 +34,7 @@ public class Order_PerOrderDTO {
 
     BigDecimal preOrder_Pay;
 
-    Products_Supports order_PerOrder_Products_Supports;
+    ProductsSupportDTO order_PerOrder_Products_Supports;
 
-    User order_PerOrder_User;
+    UserDTO order_PerOrder_User;
 }

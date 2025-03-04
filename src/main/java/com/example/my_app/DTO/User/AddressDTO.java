@@ -1,12 +1,11 @@
-package com.example.my_app.DTO.Admin;
+package com.example.my_app.DTO.User;
 
 import java.util.UUID;
 
-
+import lombok.Builder;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 
 import lombok.NoArgsConstructor;
@@ -17,10 +16,19 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @NoArgsConstructor
 @AllArgsConstructor
-public class LeaveRequests  {
+public class AddressDTO {
 
     UUID id;
 
-    Employee employee_id;
+    String Country;
+
+    String Province;
+
+    String City;
+    String Ward;
+
+    String Number;
+
+    UserDTO user;
 
 }

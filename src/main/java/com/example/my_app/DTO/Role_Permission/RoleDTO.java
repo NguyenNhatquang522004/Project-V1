@@ -1,20 +1,25 @@
-package com.example.my_app.DTO.Order;
+package com.example.my_app.DTO.Role_Permission;
 
+
+import java.util.Set;
 import java.util.UUID;
 
 import com.example.my_app.Configuration.EnumDeserializer;
-import com.example.my_app.DTO.Products.ProductsDTO;
-import com.example.my_app.Enum.Products.StutusSizeProducts;
+import com.example.my_app.DTO.User.UserDTO;
+import com.example.my_app.Enum.Role_Permission.StatusRole;
+
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
 
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+
+
 import lombok.NoArgsConstructor;
+
 import lombok.experimental.FieldDefaults;
 
 @Builder
@@ -22,15 +27,13 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @NoArgsConstructor
 @AllArgsConstructor
-public class Order_ProductsDTO {
-  
+public class RoleDTO {
+
     UUID id;
-
-    String color;
-    int quantity;
     @JsonDeserialize(using = EnumDeserializer.class)
-    StutusSizeProducts stutusSizeProducts;
+    StatusRole description;
 
-    OrderDTO order_id;
-    ProductsDTO products_id;
+    UserDTO role_user;
+
+    Set<PermissionDTO> role_permission;
 }

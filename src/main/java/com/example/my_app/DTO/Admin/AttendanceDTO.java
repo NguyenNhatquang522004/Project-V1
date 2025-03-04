@@ -1,12 +1,11 @@
 package com.example.my_app.DTO.Admin;
 
-
-import java.util.Set;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import com.example.my_app.Configuration.EnumDeserializer;
-import com.example.my_app.Enum.StatusDepartment;
-import com.example.my_app.model.Role_Permisson_Admin.Admin_Role;
+import com.example.my_app.Enum.StatusAttendance;
+
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 
@@ -23,12 +22,21 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @NoArgsConstructor
 @AllArgsConstructor
-public class Department{
+public class AttendanceDTO {
 
     UUID id;
 
-    @JsonDeserialize(using = EnumDeserializer.class)
-    StatusDepartment description;
+    LocalDateTime workLocalDateTime;
 
-    Set<Admin_Role> employee_Attendance;
+    LocalDateTime check_in;
+
+    LocalDateTime check_out;
+
+    @JsonDeserialize(using = EnumDeserializer.class)
+    StatusAttendance status_Attendance;
+
+    EmployeeDTO employee_id;
+
+    Work_ScheduleDTO attendance_Work_Schedule;
+
 }

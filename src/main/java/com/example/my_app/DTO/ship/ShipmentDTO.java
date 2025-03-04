@@ -1,10 +1,11 @@
-package com.example.my_app.DTO.Admin;
+package com.example.my_app.DTO.ship;
 
-import java.time.LocalDateTime;
+
+import java.util.Set;
 import java.util.UUID;
 
 import com.example.my_app.Configuration.EnumDeserializer;
-import com.example.my_app.Enum.StatusAttendance;
+import com.example.my_app.Enum.StatusShipment;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -13,7 +14,6 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
@@ -22,21 +22,13 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @NoArgsConstructor
 @AllArgsConstructor
-public class Attendance {
+// cách đối tác ship
+public class ShipmentDTO {
 
     UUID id;
 
-    LocalDateTime workLocalDateTime;
-
-    LocalDateTime check_in;
-
-    LocalDateTime check_out;
-
     @JsonDeserialize(using = EnumDeserializer.class)
-    StatusAttendance status_Attendance;
+    StatusShipment description;
 
-    Employee employee_id;
-
-    Work_Schedule attendance_Work_Schedule;
-
+    Set<ShipmentInfoDTO> user_address;
 }

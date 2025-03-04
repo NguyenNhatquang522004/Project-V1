@@ -4,8 +4,7 @@ import java.util.UUID;
 
 import org.springframework.data.domain.jaxb.SpringDataJaxb.OrderDto;
 
-import com.example.my_app.model.User.User;
-
+import com.example.my_app.DTO.User.UserDTO;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -22,5 +21,5 @@ import lombok.experimental.FieldDefaults;
 public class OrderStatusHistoryDTO {
     UUID id;
     OrderDto order_id;
-    User user_id;
+    UserDTO user_id;
 }

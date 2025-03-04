@@ -1,11 +1,13 @@
-package com.example.my_app.DTO.User;
+package com.example.my_app.DTO.CustomerCare;
 
 import java.util.UUID;
 
-import lombok.Builder;
+import com.example.my_app.DTO.User.UserDTO;
+
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 import lombok.NoArgsConstructor;
@@ -16,19 +18,8 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @NoArgsConstructor
 @AllArgsConstructor
-public class Address {
-
+// thẻ tích điểm
+public class Loyalty_TransactionDTO {
     UUID id;
-
-    String Country;
-
-    String Province;
-
-    String City;
-    String Ward;
-
-    String Number;
-
-    User user;
-
+    UserDTO role_user;
 }

@@ -5,8 +5,8 @@ import java.time.LocalDateTime;
 
 import java.util.UUID;
 
-import com.example.my_app.model.Admin.Employee;
-import com.example.my_app.model.Order.Order_WayBill;
+import com.example.my_app.DTO.Admin.EmployeeDTO;
+
 
 
 import lombok.AccessLevel;
@@ -36,6 +36,6 @@ public class Order_BillDTO {
 
     OrderDTO orders_Bill_Order;
 
-    Order_WayBill orders_WayBill;
-    Employee employee_id;
+    Order_WayBillDTO orders_WayBill;
+    EmployeeDTO employee_id;
 }

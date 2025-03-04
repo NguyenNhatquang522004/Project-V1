@@ -8,14 +8,15 @@ import java.util.Set;
 import java.util.UUID;
 
 import com.example.my_app.Configuration.EnumDeserializer;
+import com.example.my_app.DTO.CustomerCare.Loyalty_TransactionDTO;
+import com.example.my_app.DTO.Order.OrderDTO;
+import com.example.my_app.DTO.Order.OrderStatusHistoryDTO;
+import com.example.my_app.DTO.Order.Order_PerOrderDTO;
+import com.example.my_app.DTO.Role_Permission.RoleDTO;
 import com.example.my_app.Enum.user.GenderUser;
 import com.example.my_app.Enum.user.StatusUserEntry;
 
-import com.example.my_app.model.CustomerCare.Loyalty_Transaction;
-import com.example.my_app.model.Order.Order;
-import com.example.my_app.model.Order.OrderStatusHistory;
-import com.example.my_app.model.Order.Order_PerOrder;
-import com.example.my_app.model.Role_Permission.Role;
+
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 
@@ -32,7 +33,7 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class UserDTO {
 
     UUID id;
 
@@ -58,16 +59,16 @@ public class User {
 
     BigDecimal balance;
 
-    Set<Address> user_address;
+    Set<AddressDTO> user_address;
 
-    Set<OrderStatusHistory> user_orderHistory;
+    Set<OrderStatusHistoryDTO> user_orderHistory;
 
-    Role user_role;
+    RoleDTO user_role;
 
-    Set<Order> user_order;
+    Set<OrderDTO> user_order;
 
-    Loyalty_Transaction user_Loyalty_Transaction;
+    Loyalty_TransactionDTO user_Loyalty_Transaction;
 
-    Set<Order_PerOrder> user_Order_PerOrder;
+    Set<Order_PerOrderDTO> user_Order_PerOrder;
 
 }

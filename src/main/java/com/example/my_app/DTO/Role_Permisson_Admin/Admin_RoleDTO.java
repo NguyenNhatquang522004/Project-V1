@@ -4,8 +4,8 @@ package com.example.my_app.DTO.Role_Permisson_Admin;
 import java.util.Set;
 import java.util.UUID;
 
-import com.example.my_app.model.Admin.Department;
-import com.example.my_app.model.Admin.Employee;
+import com.example.my_app.DTO.Admin.DepartmentDTO;
+import com.example.my_app.DTO.Admin.EmployeeDTO;
 
 
 
@@ -27,8 +27,8 @@ public class Admin_RoleDTO {
 
     UUID id;
     
-    Department role_Department;
-    Employee role_Employee;
+    DepartmentDTO role_Department;
+    EmployeeDTO role_Employee;
     Set<Admin_PermissonDTO> admin_Role_Permisson;
 
 }

@@ -4,7 +4,8 @@ package com.example.my_app.DTO.Purchasing;
 import java.util.Set;
 import java.util.UUID;
 
-import com.example.my_app.model.Admin.Employee;
+import com.example.my_app.DTO.Admin.EmployeeDTO;
+
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -39,5 +40,5 @@ public class Purchase_Transaction_ReturnDTO {
     Purchase_TransactionDTO purchase_Transaction_Return_Purchase_Transaction;
 
     Set<SupplierDTO> purchase_Transaction_Return_Supplier;
-    Employee employee_id;
+    EmployeeDTO employee_id;
 }

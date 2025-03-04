@@ -9,12 +9,14 @@ import java.math.BigDecimal;
 
 import java.util.UUID;
 
+
+
 @Builder
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @NoArgsConstructor
 @AllArgsConstructor
-public class Payroll {
+public class PayrollDTO {
 
     UUID id;
 
@@ -23,6 +25,6 @@ public class Payroll {
     BigDecimal deductions;
     BigDecimal netSalary;
 
-    Employee employee_id;
+    EmployeeDTO employee_id;
 
 }

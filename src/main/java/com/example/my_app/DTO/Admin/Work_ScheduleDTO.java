@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import com.example.my_app.Configuration.EnumDeserializer;
 import com.example.my_app.Enum.StatusTimeOfDay;
+
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 
@@ -22,7 +23,7 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @NoArgsConstructor
 @AllArgsConstructor
-public class Work_Schedule {
+public class Work_ScheduleDTO {
 
     UUID id;
 
@@ -30,7 +31,7 @@ public class Work_Schedule {
     StatusTimeOfDay statusTimeOfDay;
 
     LocalDateTime workLocalDateTime;
-    Set<Employee> schedule_Employee;
-    Shifts work_Schedule_Shifts;
-    Attendance work_Schedule_Attendance;
+    Set<EmployeeDTO> schedule_Employee;
+    ShiftsDTO work_Schedule_Shifts;
+    AttendanceDTO work_Schedule_Attendance;
 }

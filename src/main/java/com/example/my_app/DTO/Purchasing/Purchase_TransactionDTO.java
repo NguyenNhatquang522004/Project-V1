@@ -5,8 +5,8 @@ import java.util.Set;
 import java.util.UUID;
 
 import com.example.my_app.Configuration.EnumDeserializer;
+import com.example.my_app.DTO.Admin.EmployeeDTO;
 import com.example.my_app.Enum.StatusPurchasing;
-import com.example.my_app.model.Admin.Employee;
 
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -33,7 +33,7 @@ public class Purchase_TransactionDTO {
     StatusPurchasing description ;
     Set<Purchase_Transaction_DetailDTO> purchase_Transaction_toDetail;
     Set<SupplierDTO> purchase_Transaction_Supplier;
-    Employee employee_id;
+    EmployeeDTO employee_id;
     Purchase_Transaction_ReturnDTO purchase_Transaction_Purchase_Transaction_Return;
 
 }

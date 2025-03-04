@@ -2,10 +2,10 @@ package com.example.my_app.model.Order;
 
 import java.util.UUID;
 
+import com.example.my_app.DTO.ship.ShipStatusHistoryDTO;
 import com.example.my_app.model.Admin.Employee;
 import com.example.my_app.model.Base.TimeBase;
 import com.example.my_app.model.ship.ShipStatusHistory;
-
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;

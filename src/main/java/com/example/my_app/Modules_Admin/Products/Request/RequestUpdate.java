@@ -18,7 +18,7 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @NoArgsConstructor
 @AllArgsConstructor
-public class RequestUpLocalDateTime {
+public class RequestUpdate {
     ProductsDTO productsData;
 
     ProductsBrandDTO brandsData;

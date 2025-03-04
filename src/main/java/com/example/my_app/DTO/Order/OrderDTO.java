@@ -8,11 +8,10 @@ import java.util.Set;
 import java.util.UUID;
 
 import com.example.my_app.Configuration.EnumDeserializer;
+import com.example.my_app.DTO.User.UserDTO;
 import com.example.my_app.DTO.Warehouse.inventory_cardsDTO;
 import com.example.my_app.Enum.StatusPayment;
 
-import com.example.my_app.model.Order.Order_Products;
-import com.example.my_app.model.User.User;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -50,9 +49,9 @@ public class OrderDTO {
 
     String notes;
 
-    Set<Order_Products> order_products;
+    Set<Order_ProductsDTO> order_products;
 
-    User order_User;
+    UserDTO order_User;
 
     Order_PaymentDTO order_Payment_id;
 

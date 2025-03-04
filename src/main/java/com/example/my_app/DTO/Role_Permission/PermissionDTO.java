@@ -1,20 +1,21 @@
-package com.example.my_app.DTO.Admin;
+package com.example.my_app.DTO.Role_Permission;
 
-import java.time.LocalTime;
+
 import java.util.Set;
 import java.util.UUID;
 
 import com.example.my_app.Configuration.EnumDeserializer;
-import com.example.my_app.Enum.StatusTimeOfDay;
+import com.example.my_app.Enum.Role_Permission.StatusPermission;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+
 import lombok.NoArgsConstructor;
+
 import lombok.experimental.FieldDefaults;
 
 @Builder
@@ -22,17 +23,11 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @NoArgsConstructor
 @AllArgsConstructor
-// ca làm việc
-public class Shifts {
+public class PermissionDTO {
 
     UUID id;
-
     @JsonDeserialize(using = EnumDeserializer.class)
-    StatusTimeOfDay name;
+    StatusPermission description;
 
-    LocalTime startTime;
-
-    LocalTime endTime;
-
-    Set<Work_Schedule> shifts_Work_Schedule ;
+    Set<RoleDTO> permission_role;
 }

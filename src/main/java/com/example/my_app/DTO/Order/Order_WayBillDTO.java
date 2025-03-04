@@ -2,10 +2,8 @@ package com.example.my_app.DTO.Order;
 
 import java.util.UUID;
 
-import com.example.my_app.model.Admin.Employee;
-import com.example.my_app.model.Order.Order_Bill;
-import com.example.my_app.model.ship.ShipStatusHistory;
-
+import com.example.my_app.DTO.Admin.EmployeeDTO;
+import com.example.my_app.DTO.ship.ShipStatusHistoryDTO;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -21,7 +19,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 public class Order_WayBillDTO {
     UUID id;
-    Order_Bill order_Order_Bill;
-    ShipStatusHistory order_ShipStatusHistory;
-    Employee employee_id;
+    Order_BillDTO order_Order_Bill;
+    ShipStatusHistoryDTO order_ShipStatusHistory;
+    EmployeeDTO employee_id;
 }

@@ -1,9 +1,8 @@
-package com.example.my_app.DTO.CustomerCare;
+package com.example.my_app.DTO.Admin;
 
 import java.util.UUID;
 
 
-import com.example.my_app.model.User.User;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -18,8 +17,10 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @NoArgsConstructor
 @AllArgsConstructor
-// thẻ tích điểm
-public class Loyalty_Transaction {
+public class LeaveRequestsDTO  {
+
     UUID id;
-    User role_user;
+
+    EmployeeDTO employee_id;
+
 }
