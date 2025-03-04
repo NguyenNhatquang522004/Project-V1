@@ -1,11 +1,10 @@
 package com.example.my_app.model.Warehouse;
-
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 import com.example.my_app.model.Base.TimeBase;
 
-import jakarta.persistence.CascadeType;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -41,8 +40,8 @@ public class Inventory_Transaction extends TimeBase {
     @Column(name = "time", nullable = false)
     private LocalDateTime time;
 
-    @Column(name = "balance_date", nullable = false)
-    private LocalDateTime balanceDate;
+    @Column(name = "balance_LocalDateTime", nullable = false)
+    private LocalDateTime balanceLocalDateTime;
 
     @Column(name = "actual_quantity", nullable = false)
     private int actualQuantity;

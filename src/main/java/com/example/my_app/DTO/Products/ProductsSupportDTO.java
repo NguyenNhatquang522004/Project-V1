@@ -1,7 +1,13 @@
 package com.example.my_app.DTO.Products;
 
-import java.util.List;
+
+import java.util.Set;
 import java.util.UUID;
+
+import com.example.my_app.DTO.Order.Order_PerOrderDTO;
+import com.example.my_app.DTO.Purchasing.Purchase_Transaction_DetailDTO;
+import com.example.my_app.DTO.Warehouse.inventory_cardsDTO;
+import com.example.my_app.DTO.Warehouse.warehouse_ProductsDTO;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -17,9 +23,18 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 public class ProductsSupportDTO {
   UUID id;
-  String color;
   String url;
+  String color;
   boolean isActive;
-  List<ProductsSupportAttributeDTO> products_Supports_Products_Support_Attribute;
+  ProductsDTO products_id;
+  Set<ProductsSupportAttributeDTO> products_Supports_Products_Support_Attribute;
+  Set<Purchase_Transaction_DetailDTO> products_Supports_Purchase_Transaction_Detail;
+  Set<inventory_cardsDTO> products_Supports_Inventory_Cards;
+  Set<warehouse_ProductsDTO> products_Supports_Warehouse_Products;
+  Set<Order_PerOrderDTO> products_Supports_Order_PerOrder;
 
 }
+
+// Lấy id của Products (nếu không cần ánh xạ toàn bộ entity)
+
+// Các quan hệ chuyển sang DTO tương ứng

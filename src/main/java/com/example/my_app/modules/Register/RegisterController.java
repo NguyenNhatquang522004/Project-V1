@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,7 +39,7 @@ public class RegisterController {
 
     @PostMapping(path = "/StepOne", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponedGlobal> handleRegisterStepOne(
-            @RequestBody @Validated RegisterStepOneDTO request) throws Exception {
+            @RequestBody @Valid RegisterStepOneDTO request) throws Exception {
         try {
 
             boolean searchEmail = registerServices.CheckEmail(request.getEmail());
@@ -95,10 +94,10 @@ public class RegisterController {
                         ResponedGlobal.builder().data("").code("0").messages("code không hợp lệ").build(),
                         HttpStatusCode.valueOf(400));
             }
-            boolean updateUser = registerServices.handleUpdateUser(request, searchUser.get());
-            if (!updateUser) {
+            boolean upLocalDateTimeUser = registerServices.handleUpLocalDateTimeUser(request, searchUser.get());
+            if (!upLocalDateTimeUser) {
                 return new ResponseEntity<ResponedGlobal>(
-                        ResponedGlobal.builder().data("").code("0").messages("xảy ra lỗi khi update User").build(),
+                        ResponedGlobal.builder().data("").code("0").messages("xảy ra lỗi khi upLocalDateTime User").build(),
                         HttpStatusCode.valueOf(400));
             }
             return new ResponseEntity<ResponedGlobal>(
@@ -124,10 +123,10 @@ public class RegisterController {
             }
             String hashPass = registerServices.handleHashPassword(request.getPassword());
             request.setPassword(hashPass);
-            boolean updateUser = registerServices.handleUpdateUser(request, searchUser.get());
-            if (!updateUser) {
+            boolean upLocalDateTimeUser = registerServices.handleUpLocalDateTimeUser(request, searchUser.get());
+            if (!upLocalDateTimeUser) {
                 return new ResponseEntity<ResponedGlobal>(
-                        ResponedGlobal.builder().data("").code("0").messages("update lỗi").build(),
+                        ResponedGlobal.builder().data("").code("0").messages("upLocalDateTime lỗi").build(),
                         HttpStatusCode.valueOf(400));
             }
 

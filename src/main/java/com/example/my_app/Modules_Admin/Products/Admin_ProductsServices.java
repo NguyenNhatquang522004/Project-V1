@@ -3,21 +3,13 @@ package com.example.my_app.Modules_Admin.Products;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-
-import javax.print.DocFlavor.STRING;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
-
-import com.example.my_app.DTO.Products.ProductsDTO;
 import com.example.my_app.DTO.Products.ProductsImgDTO;
 import com.example.my_app.DTO.Products.ProductsSupportAttributeDTO;
 import com.example.my_app.DTO.Products.ProductsSupportDTO;
-import com.example.my_app.Enum.Products.StatusBrandsProducts;
-import com.example.my_app.Enum.Products.StatusCategory;
-
 import com.example.my_app.Mapper.Products.ProductMapper;
 import com.example.my_app.Mapper.Products.ProductsBrandsMapper;
 import com.example.my_app.Mapper.Products.ProductsCategoryMapper;
@@ -86,36 +78,38 @@ public class Admin_ProductsServices implements IProducts {
     }
 
     @Transactional
-    public Products addNewProducts(RequestAdd request) throws Exception {
+    public boolean addNewProducts(RequestAdd request) throws Exception {
         try {
             Products products = productMapper.toEntity(request.getProductsData());
             handleProductsSupportAndAttribute(request, products);
+            handleImgProducts(products, request.getUrlData());
             Optional<ProductsCategory> searchCategory = handleFindOneCategory(request.getCategoryData().getCategory());
             if (searchCategory.isEmpty()) {
                 TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-                return null;
+                return false;
             }
 
             Optional<Products_Brands> searchBrands = handleFindOneBrands(request.getBrandsData().getBrands());
             if (searchBrands.isEmpty()) {
                 TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-                return null;
+                return false;
             }
             searchCategory.get().getProducts().add(products);
             searchBrands.get().getProducts().add(products);
             products.setProducts_Brands_id(searchBrands.get());
             products.setProductsCategory(searchCategory.get());
             productRepository.saveAndFlush(products);
-            return products;
+            return true;
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            return null;
+            return false;
         }
     }
 
     @Transactional
-    public boolean UpdateProducts(RequestAdd requestAdd) throws Exception {
+    public boolean UpLocalDateTimeProducts(RequestAdd requestAdd, Products products) throws Exception {
         try {
+
             return true;
         } catch (Exception e) {
             return false;
@@ -147,7 +141,6 @@ public class Admin_ProductsServices implements IProducts {
     @Transactional
     public void handleProductsSupportAndAttribute(RequestAdd request, Products products) throws Exception {
         try {
-
             for (ProductsSupportDTO value : request.getProductsSupportData()) {
                 Products_Supports products_Supports = supportsMapper.toEntity(value);
 

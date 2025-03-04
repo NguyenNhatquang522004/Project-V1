@@ -1,6 +1,6 @@
 package com.example.my_app.model.Admin;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -44,7 +44,7 @@ public class Work_Schedule extends TimeBase {
     @Enumerated(EnumType.STRING)
     StatusTimeOfDay statusTimeOfDay;
 
-    LocalDate workDate;
+    LocalDateTime workLocalDateTime;
 
     @ManyToMany(mappedBy = "employee_Schedule", fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
     Set<Employee> schedule_Employee = new HashSet<>();

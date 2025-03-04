@@ -12,7 +12,7 @@ spring:
    bank: NCB
    id: 9704198526191432198
    name: NGUYEN VAN A
-   date: 07/15
+   LocalDateTime: 07/15
    otp: 123456
    
 

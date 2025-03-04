@@ -46,8 +46,8 @@ public class Order extends TimeBase {
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
 
-    @Column(name = "order_date", nullable = false)
-    LocalDateTime orderDate;
+    @Column(name = "order_LocalDateTime", nullable = false)
+    LocalDateTime orderLocalDateTime;
 
     @Column(name = "total_amount", nullable = false)
     BigDecimal totalAmount;

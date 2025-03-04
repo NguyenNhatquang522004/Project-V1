@@ -6,7 +6,7 @@ import com.example.my_app.model.Admin.Employee;
 import com.example.my_app.model.Base.TimeBase;
 import com.example.my_app.model.ship.ShipStatusHistory;
 
-import jakarta.persistence.CascadeType;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;

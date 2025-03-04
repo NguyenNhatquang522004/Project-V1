@@ -1,8 +1,8 @@
 package com.example.my_app.model.Admin;
 
-import java.time.LocalDate;
-import java.util.Date;
 
+
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import com.example.my_app.Enum.StatusAttendance;
@@ -41,11 +41,11 @@ public class Attendance extends TimeBase {
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
 
-    LocalDate workDate;
+    LocalDateTime workLocalDateTime;
 
-    Date check_in;
+    LocalDateTime check_in;
 
-    Date check_out;
+    LocalDateTime check_out;
 
     @Enumerated(EnumType.STRING)
     StatusAttendance status_Attendance;

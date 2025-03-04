@@ -62,7 +62,7 @@ public class RoleCustom implements IRoleCustom {
                 case Owner:
 
                     List<StatusPermission> allowedPermissionsOwner = List.of(
-                            StatusPermission.Update,
+                            StatusPermission.UpLocalDateTime,
                             StatusPermission.Create,
                             StatusPermission.Delete,
                             StatusPermission.Read);
@@ -85,7 +85,7 @@ public class RoleCustom implements IRoleCustom {
                 case Staff:
 
                     List<StatusPermission> allowedPermissionsStaff = List.of(
-                            StatusPermission.Update,
+                            StatusPermission.UpLocalDateTime,
                             StatusPermission.Create,
                             StatusPermission.Delete,
                             StatusPermission.Read);

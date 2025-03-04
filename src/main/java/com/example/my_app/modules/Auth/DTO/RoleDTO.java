@@ -4,7 +4,7 @@ import java.util.Set;
 
 import com.example.my_app.model.Role_Permission.Permission;
 
-import groovy.transform.builder.Builder;
+import lombok.Builder;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,6 +18,6 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 public class RoleDTO {
     String description;
-    Set<Permission> permission ;
+    Set<Permission> permission;
 
 }

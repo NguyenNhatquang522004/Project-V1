@@ -9,7 +9,7 @@ import com.example.my_app.model.Base.TimeBase;
 import com.example.my_app.model.Order.Order;
 import com.example.my_app.model.Product.Products_Supports;
 
-import jakarta.persistence.CascadeType;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

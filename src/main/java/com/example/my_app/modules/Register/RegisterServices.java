@@ -20,7 +20,6 @@ import com.example.my_app.model.User.User;
 import com.example.my_app.modules.Register.DTO.RegisterStepOneDTO;
 import com.example.my_app.modules.Register.DTO.RegisterStepThreeDTO;
 
-
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 
@@ -76,11 +75,11 @@ public class RegisterServices {
     }
 
     @Transactional
-    boolean handleUpdateUser(RegisterStepOneDTO data, User user) throws Exception {
+    boolean handleUpLocalDateTimeUser(RegisterStepOneDTO data, User user) throws Exception {
         try {
             data.setCode(null);
             data.setCode_expired(null);
-            userMapper.updateUser(user, data);
+            userMapper.upLocalDateTimeUser(user, data);
             userRepository.save(user);
             return true;
         } catch (Exception e) {
@@ -91,7 +90,7 @@ public class RegisterServices {
     }
 
     @Transactional
-    boolean handleUpdateUser(RegisterStepThreeDTO data, User user) throws Exception {
+    boolean handleUpLocalDateTimeUser(RegisterStepThreeDTO data, User user) throws Exception {
         try {
 
             Role initRole = roleCustom.handleDefaultPermissionRole(StatusRole.Customers, user);
@@ -100,7 +99,7 @@ public class RegisterServices {
             }
             data.setUser_role(initRole);
             data.setStatusEntry(StatusUserEntry.Local);
-            userMapper.UpdateCreatAccountUser(user, data);
+            userMapper.UpLocalDateTimeCreatAccountUser(user, data);
             userRepository.save(user);
             return true;
         } catch (Exception e) {

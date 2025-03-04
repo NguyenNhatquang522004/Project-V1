@@ -5,7 +5,7 @@ import java.util.UUID;
 import com.example.my_app.model.Base.TimeBase;
 import com.example.my_app.model.Product.Products_Supports;
 
-import jakarta.persistence.CascadeType;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;

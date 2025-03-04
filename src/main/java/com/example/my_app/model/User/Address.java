@@ -4,7 +4,7 @@ import java.util.UUID;
 
 import com.example.my_app.model.Base.TimeBase;
 
-import jakarta.persistence.CascadeType;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;

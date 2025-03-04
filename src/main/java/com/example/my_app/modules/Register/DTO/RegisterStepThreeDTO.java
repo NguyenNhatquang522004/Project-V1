@@ -6,7 +6,7 @@ import lombok.experimental.FieldDefaults;
 import com.example.my_app.Enum.user.StatusUserEntry;
 import com.example.my_app.model.Role_Permission.Role;
 
-import groovy.transform.builder.Builder;
+import lombok.Builder;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;

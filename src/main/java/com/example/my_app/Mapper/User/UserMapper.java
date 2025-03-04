@@ -12,8 +12,8 @@ import com.example.my_app.modules.Register.DTO.RegisterStepThreeDTO;
 public interface UserMapper {
     User toUser(RegisterStepOneDTO request);
 
-    void updateUser(@MappingTarget User user, RegisterStepOneDTO request);
+    void upLocalDateTimeUser(@MappingTarget User user, RegisterStepOneDTO request);
 
-    void UpdateCreatAccountUser(@MappingTarget User user, RegisterStepThreeDTO registerStepThreeDTO);
+    void UpLocalDateTimeCreatAccountUser(@MappingTarget User user, RegisterStepThreeDTO registerStepThreeDTO);
 
 }

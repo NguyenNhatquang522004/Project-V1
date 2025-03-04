@@ -38,15 +38,15 @@ public class Admin_ProductsController {
         public ResponseEntity<ResponedGlobal> handlAddProducts(@RequestBody RequestAdd request)
                         throws Exception {
                 try {
-                        Products add = productsServices.addNewProducts(request);
-                        if (add == null) {
+                        boolean add = productsServices.addNewProducts(request);
+                        if (add == false) {
                                 return new ResponseEntity<ResponedGlobal>(
                                                 ResponedGlobal.builder().data("").code("0")
                                                                 .messages("lỗi").build(),
                                                 HttpStatus.BAD_REQUEST);
                         }
                         return new ResponseEntity<ResponedGlobal>(
-                                        ResponedGlobal.builder().data(add.getId()).code("1")
+                                        ResponedGlobal.builder().data("").code("1")
                                                         .messages("thành công").build(),
                                         HttpStatus.OK);
                 } catch (Exception e) {
@@ -161,10 +161,21 @@ public class Admin_ProductsController {
                 }
         }
 
-        @PutMapping(path = "/Update", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-        public ResponseEntity<ResponedGlobal> handlUpdateProducts(@RequestParam("id") String request) throws Exception {
+        @PutMapping(path = "/UpLocalDateTime", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+        public ResponseEntity<ResponedGlobal> handlUpLocalDateTimeProducts(@RequestBody RequestAdd request)
+                        throws Exception {
                 try {
 
+                        Optional<Products> products = productsServices
+                                        .handleFindOneProducts(request.getProductsData().getId());
+                        if (products.isEmpty()) {
+                                return new ResponseEntity<ResponedGlobal>(
+                                                ResponedGlobal.builder().data("").code("0")
+                                                                .messages("không tìm thấy sản phẩm ").build(),
+                                                HttpStatus.BAD_REQUEST);
+                        }
+                        boolean updateProducts = productsServices.UpLocalDateTimeProducts(request,
+                                        products.get());
                         return new ResponseEntity<ResponedGlobal>(
                                         ResponedGlobal.builder().data("").code("1")
                                                         .messages("thành công").build(),
@@ -172,7 +183,7 @@ public class Admin_ProductsController {
                 } catch (Exception e) {
                         return new ResponseEntity<ResponedGlobal>(
                                         ResponedGlobal.builder().data("").code("0")
-                                                        .messages("thành công").build(),
+                                                        .messages("lỗi").build(),
                                         HttpStatus.BAD_REQUEST);
                 }
         }
