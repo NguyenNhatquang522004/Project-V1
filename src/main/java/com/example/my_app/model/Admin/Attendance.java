@@ -1,12 +1,11 @@
 package com.example.my_app.model.Admin;
 
-
-
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 import com.example.my_app.Enum.StatusAttendance;
 import com.example.my_app.model.Base.TimeBase;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -52,6 +51,7 @@ public class Attendance extends TimeBase {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Employee_id", nullable = false)
+    @JsonIgnore
     Employee employee_id;
 
     @OneToOne(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER, orphanRemoval = true)

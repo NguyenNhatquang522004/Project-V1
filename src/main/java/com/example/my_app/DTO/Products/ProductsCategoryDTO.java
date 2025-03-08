@@ -1,5 +1,6 @@
 package com.example.my_app.DTO.Products;
 
+import java.util.Set;
 import java.util.UUID;
 
 import lombok.AccessLevel;
@@ -15,4 +16,6 @@ import lombok.experimental.FieldDefaults;
 public class ProductsCategoryDTO {
     UUID id;
     String category;
+
+    Set<ProductsDTO> products;
 }

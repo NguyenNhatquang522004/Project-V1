@@ -2,7 +2,7 @@ package com.example.my_app.DTO.Warehouse;
 
 import java.util.UUID;
 
-import com.example.my_app.DTO.Products.ProductsSupportDTO;
+import com.example.my_app.DTO.Products.Products_SupportsDTO;
 
 
 
@@ -23,5 +23,5 @@ public class warehouse_ProductsDTO {
     UUID id;
     int quantity;
     WarehouseDTO warehouse_Products_Warehouse;
-    ProductsSupportDTO warehouse_Products_Products_Supports;
+    Products_SupportsDTO warehouse_Products_Products_Supports;
 }

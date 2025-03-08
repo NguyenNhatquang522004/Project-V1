@@ -6,6 +6,9 @@ import java.util.Set;
 import java.util.UUID;
 
 import com.example.my_app.model.Base.TimeBase;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -45,10 +48,12 @@ public class ShipmentInfo extends TimeBase {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "shipment_id", nullable = false)
+    @JsonIgnore
     Shipment shipment_id;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = {
             CascadeType.ALL }, mappedBy = "ShipmentInfo_id", orphanRemoval = true)
+    @JsonIgnore
     Set<ShipStatusHistory> shipmentInfo_ShipStatusHistory = new HashSet<>();
 
 }

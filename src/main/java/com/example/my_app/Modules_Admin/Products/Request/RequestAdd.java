@@ -7,7 +7,7 @@ import com.example.my_app.DTO.Products.ProductsBrandDTO;
 import com.example.my_app.DTO.Products.ProductsCategoryDTO;
 import com.example.my_app.DTO.Products.ProductsImgDTO;
 import com.example.my_app.DTO.Products.ProductsDTO;
-import com.example.my_app.DTO.Products.ProductsSupportDTO;
+import com.example.my_app.DTO.Products.Products_SupportsDTO;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -29,5 +29,5 @@ public class RequestAdd {
 
     List<ProductsImgDTO> urlData;
 
-    List<ProductsSupportDTO> ProductsSupportData;
+    List<Products_SupportsDTO> ProductsSupportData;
 }

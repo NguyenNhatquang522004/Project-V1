@@ -7,6 +7,8 @@ import java.util.UUID;
 
 import com.example.my_app.model.Base.TimeBase;
 import com.example.my_app.model.Product.Products_Supports;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -48,6 +50,7 @@ public class Purchase_Transaction_Detail extends TimeBase {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Purchase_Transaction_Id", nullable = false)
+    @JsonIgnore
     Purchase_Transaction purchase_Transaction_id;
 
 }

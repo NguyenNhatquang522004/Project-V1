@@ -7,6 +7,8 @@ import java.util.UUID;
 
 import com.example.my_app.Enum.StatusTimeOfDay;
 import com.example.my_app.model.Base.TimeBase;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -49,5 +51,6 @@ public class Shifts extends TimeBase {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = {
             CascadeType.ALL }, mappedBy = "work_Schedule_Shifts", orphanRemoval = true)
+    @JsonIgnore
     Set<Work_Schedule> shifts_Work_Schedule = new HashSet<>();
 }

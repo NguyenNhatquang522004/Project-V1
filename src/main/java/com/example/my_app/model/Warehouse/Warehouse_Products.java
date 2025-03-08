@@ -4,7 +4,8 @@ import java.util.UUID;
 
 import com.example.my_app.model.Base.TimeBase;
 import com.example.my_app.model.Product.Products_Supports;
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -38,9 +39,11 @@ public class Warehouse_Products extends TimeBase {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Warehouse_id", nullable = false)
+    @JsonIgnore
     Warehouse warehouse_Products_Warehouse;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Products_Supports_id", nullable = false)
+    @JsonIgnore
     Products_Supports warehouse_Products_Products_Supports;
 }

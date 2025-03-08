@@ -7,6 +7,7 @@ import java.util.UUID;
 import com.example.my_app.Enum.StatusDepartment;
 import com.example.my_app.model.Base.TimeBase;
 import com.example.my_app.model.Role_Permisson_Admin.Admin_Role;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -17,7 +18,6 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-
 
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -46,5 +46,6 @@ public class Department extends TimeBase {
 
     @OneToMany(fetch = FetchType.EAGER, cascade = {
             CascadeType.ALL }, orphanRemoval = true, mappedBy = "role_Department")
+    @JsonIgnore
     Set<Admin_Role> employee_Attendance = new HashSet<>();
 }

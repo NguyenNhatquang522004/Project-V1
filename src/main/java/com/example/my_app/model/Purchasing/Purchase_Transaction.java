@@ -8,6 +8,9 @@ import com.example.my_app.Enum.StatusPurchasing;
 import com.example.my_app.model.Admin.Employee;
 
 import com.example.my_app.model.Base.TimeBase;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -53,14 +56,16 @@ public class Purchase_Transaction extends TimeBase {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = {
             CascadeType.ALL }, mappedBy = "purchase_Transaction_id", orphanRemoval = true)
+    @JsonIgnore
     Set<Purchase_Transaction_Detail> purchase_Transaction_toDetail;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade =  { CascadeType.ALL } )
+    @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
     @JoinTable(name = "Supplier_Purchase_Transaction", joinColumns = @JoinColumn(name = "Purchase_Transaction_id"), inverseJoinColumns = @JoinColumn(name = "Supplier_id"))
     Set<Supplier> purchase_Transaction_Supplier;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Employee_id", nullable = false)
+    @JsonIgnore
     Employee employee_id;
 
     @OneToOne(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER, orphanRemoval = true)

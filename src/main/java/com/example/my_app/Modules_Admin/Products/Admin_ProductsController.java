@@ -1,5 +1,6 @@
 package com.example.my_app.Modules_Admin.Products;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.my_app.Modules_Admin.Products.Request.RequestAdd;
+import com.example.my_app.Modules_Admin.Products.Request.RequestUpdate;
+import com.example.my_app.Modules_Admin.Products.Responed.ResponedProducts;
 import com.example.my_app.common.ResponedGlobal;
 import com.example.my_app.model.Product.Products;
 import com.example.my_app.model.Product.Products_Support_Attribute;
@@ -161,8 +164,8 @@ public class Admin_ProductsController {
                 }
         }
 
-        @PutMapping(path = "/UpLocalDateTime", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-        public ResponseEntity<ResponedGlobal> handlUpLocalDateTimeProducts(@RequestBody RequestAdd request)
+        @PutMapping(path = "/update", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+        public ResponseEntity<ResponedGlobal> handlUpLocalDateTimeProducts(@RequestBody RequestUpdate request)
                         throws Exception {
                 try {
 
@@ -174,8 +177,14 @@ public class Admin_ProductsController {
                                                                 .messages("không tìm thấy sản phẩm ").build(),
                                                 HttpStatus.BAD_REQUEST);
                         }
-                        boolean updateProducts = productsServices.UpLocalDateTimeProducts(request,
+                        boolean updateProducts = productsServices.UpdateProducts(request,
                                         products.get());
+                        if (updateProducts == false) {
+                                return new ResponseEntity<ResponedGlobal>(
+                                                ResponedGlobal.builder().data("").code("0")
+                                                                .messages("update không thành công").build(),
+                                                HttpStatus.BAD_REQUEST);
+                        }
                         return new ResponseEntity<ResponedGlobal>(
                                         ResponedGlobal.builder().data("").code("1")
                                                         .messages("thành công").build(),
@@ -189,8 +198,32 @@ public class Admin_ProductsController {
         }
 
         @GetMapping(path = "/Render", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-        public ResponseEntity<ResponedGlobal> handlRenderProducts() throws Exception {
+        public ResponseEntity<ResponedGlobal> handlRenderProducts(@RequestParam("id") String request) throws Exception {
+                try {
+                        UUID convertToUUID = UUID.fromString(request);
+                        Optional<Products> searchProducts = productsServices.handleFindOneProducts(convertToUUID);
+                        if (searchProducts.isEmpty()) {
+                                return new ResponseEntity<ResponedGlobal>(
+                                                ResponedGlobal.builder().data("").code("0")
+                                                                .messages("thành công").build(),
+                                                HttpStatus.BAD_REQUEST);
+                        }
 
+                        return new ResponseEntity<ResponedGlobal>(
+                                        ResponedGlobal.builder().data(searchProducts).code("1")
+                                                        .messages("thành công").build(),
+                                        HttpStatus.OK);
+                } catch (Exception e) {
+                        return new ResponseEntity<ResponedGlobal>(
+                                        ResponedGlobal.builder().data("").code("0")
+                                                        .messages("thành công").build(),
+                                        HttpStatus.BAD_REQUEST);
+                }
+        }
+
+        @GetMapping(path = "/Render/panigation", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+        public ResponseEntity<ResponedGlobal> handlRenderProductsPanigation(@RequestParam("id") int page,
+                        @RequestParam("id") int size) throws Exception {
                 try {
 
                         return new ResponseEntity<ResponedGlobal>(
@@ -201,6 +234,26 @@ public class Admin_ProductsController {
                         return new ResponseEntity<ResponedGlobal>(
                                         ResponedGlobal.builder().data("").code("0")
                                                         .messages("thành công").build(),
+                                        HttpStatus.BAD_REQUEST);
+                }
+        }
+
+        @PostMapping(path = "/test")
+        public ResponseEntity<ResponedGlobal> test()
+                        throws Exception {
+                try {
+                        System.out.println("123");
+                        productsServices.test();
+
+                        return new ResponseEntity<ResponedGlobal>(
+                                        ResponedGlobal.builder().data("").code("1")
+                                                        .messages("thành công").build(),
+                                        HttpStatus.OK);
+                } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                        return new ResponseEntity<ResponedGlobal>(
+                                        ResponedGlobal.builder().data("").code("0")
+                                                        .messages("lỗi").build(),
                                         HttpStatus.BAD_REQUEST);
                 }
         }

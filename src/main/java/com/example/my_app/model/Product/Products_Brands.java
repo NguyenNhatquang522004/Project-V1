@@ -5,6 +5,8 @@ import java.util.Set;
 import java.util.UUID;
 
 import com.example.my_app.model.Base.TimeBase;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -40,5 +42,6 @@ public class Products_Brands extends TimeBase {
     @OneToMany(fetch = FetchType.EAGER, cascade = {
             CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,
             CascadeType.DETACH }, mappedBy = "products_Brands_id", orphanRemoval = false)
+    @JsonIgnore
     Set<Products> products = new HashSet<>();
 }

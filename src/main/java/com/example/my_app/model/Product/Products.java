@@ -7,6 +7,9 @@ import java.util.UUID;
 
 import com.example.my_app.model.Base.TimeBase;
 import com.example.my_app.model.Order.Order_Products;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -57,9 +60,11 @@ public class Products extends TimeBase {
     Boolean isActive = false;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "products_id", orphanRemoval = true)
+    @JsonIgnore
     Set<Products_Supports> products_support = new HashSet<>();
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "products_id", orphanRemoval = true)
+    @JsonIgnore
     Set<Products_img> products_img = new HashSet<>();
 
     // @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL}, mappedBy =
@@ -67,14 +72,17 @@ public class Products extends TimeBase {
     // Set<Products_sales> products_sales = new HashSet<>();
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "products_id", orphanRemoval = true)
+    @JsonIgnore
     Set<Order_Products> products_order = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Category_id", nullable = false)
+    @JsonIgnore
     ProductsCategory productsCategory;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Brands_id", nullable = false)
+    @JsonIgnore
     Products_Brands products_Brands_id;
 
 }

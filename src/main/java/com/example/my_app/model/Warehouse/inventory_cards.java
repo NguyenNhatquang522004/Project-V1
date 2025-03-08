@@ -8,7 +8,8 @@ import com.example.my_app.Enum.inventory_cards.StatusTransactionType;
 import com.example.my_app.model.Base.TimeBase;
 import com.example.my_app.model.Order.Order;
 import com.example.my_app.model.Product.Products_Supports;
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -64,6 +65,11 @@ public class inventory_cards extends TimeBase {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "User_id", nullable = false)
+    @JsonIgnore
     Products_Supports products_Supports_id;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "Warehouse_id", nullable = false)
+    @JsonIgnore
+    Warehouse Warehouse_id;
 
 }

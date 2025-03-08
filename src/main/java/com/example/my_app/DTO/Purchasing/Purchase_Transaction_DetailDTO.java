@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import java.util.Set;
 import java.util.UUID;
 
-import com.example.my_app.DTO.Products.ProductsSupportDTO;
+import com.example.my_app.DTO.Products.Products_SupportsDTO;
 
 
 
@@ -30,7 +30,7 @@ public class Purchase_Transaction_DetailDTO {
     BigDecimal billprice;
     BigDecimal importprice;
     BigDecimal totalprice;
-    Set<ProductsSupportDTO> purchase_Transaction_Detail_Products_Support;
+    Set<Products_SupportsDTO> purchase_Transaction_Detail_Products_Support;
     Purchase_TransactionDTO purchase_Transaction_id;
 
 }

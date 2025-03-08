@@ -7,6 +7,8 @@ import java.util.UUID;
 
 import com.example.my_app.Enum.StatusTimeOfDay;
 import com.example.my_app.model.Base.TimeBase;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -51,6 +53,7 @@ public class Work_Schedule extends TimeBase {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Shifts_id", nullable = false)
+    @JsonIgnore
     Shifts work_Schedule_Shifts;
 
     @OneToOne(mappedBy = "attendance_Work_Schedule", fetch = FetchType.EAGER)

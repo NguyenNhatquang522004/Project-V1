@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 
 import java.util.UUID;
 
-import com.example.my_app.DTO.Products.ProductsSupportDTO;
+import com.example.my_app.DTO.Products.Products_SupportsDTO;
 import com.example.my_app.DTO.User.UserDTO;
 import com.example.my_app.Enum.StatusPreOrder;
 
@@ -34,7 +34,7 @@ public class Order_PerOrderDTO {
 
     BigDecimal preOrder_Pay;
 
-    ProductsSupportDTO order_PerOrder_Products_Supports;
+    Products_SupportsDTO order_PerOrder_Products_Supports;
 
     UserDTO order_PerOrder_User;
 }

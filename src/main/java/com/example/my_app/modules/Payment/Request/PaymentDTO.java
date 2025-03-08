@@ -1,4 +1,4 @@
-package com.example.my_app.modules.Payment.DTO;
+package com.example.my_app.modules.Payment.Request;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -13,6 +13,6 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PaymentDTO {
-    public String paymentUrl;
+    public String paymentUrl;   
 
 }

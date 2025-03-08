@@ -3,6 +3,7 @@ package com.example.my_app.DTO.Products;
 import java.math.BigDecimal;
 import java.util.UUID;
 
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,4 +25,6 @@ public class ProductsSupportAttributeDTO {
     BigDecimal costPrice;
 
     int quantity;
+
+    Products_SupportsDTO products_Supports_id;
 }

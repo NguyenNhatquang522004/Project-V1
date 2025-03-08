@@ -1,6 +1,5 @@
 package com.example.my_app.DTO.Products;
 
-
 import java.util.Set;
 import java.util.UUID;
 
@@ -8,6 +7,7 @@ import com.example.my_app.DTO.Order.Order_PerOrderDTO;
 import com.example.my_app.DTO.Purchasing.Purchase_Transaction_DetailDTO;
 import com.example.my_app.DTO.Warehouse.inventory_cardsDTO;
 import com.example.my_app.DTO.Warehouse.warehouse_ProductsDTO;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -21,10 +21,11 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductsSupportDTO {
+public class Products_SupportsDTO {
   UUID id;
   String url;
   String color;
+  @JsonProperty("isActive")
   boolean isActive;
   ProductsDTO products_id;
   Set<ProductsSupportAttributeDTO> products_Supports_Products_Support_Attribute;

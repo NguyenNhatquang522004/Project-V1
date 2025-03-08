@@ -1,8 +1,7 @@
-package com.example.my_app.Modules_Admin.Products.Request;
+package com.example.my_app.Modules_Admin.Products.Responed;
 
 import java.util.List;
 import java.util.Set;
-import java.util.UUID;
 
 import com.example.my_app.DTO.Products.ProductsBrandDTO;
 import com.example.my_app.DTO.Products.ProductsCategoryDTO;
@@ -20,20 +19,14 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @NoArgsConstructor
 @AllArgsConstructor
-public class RequestUpdate {
+public class ResponedProducts {
     ProductsDTO productsData;
 
     ProductsBrandDTO brandsData;
 
     ProductsCategoryDTO categoryData;
 
-    List<UUID> urlDataDelete;
+    Set<ProductsImgDTO> urlData;
 
-    List<ProductsImgDTO> urlDataNew;
-
-    List<Products_SupportsDTO> ProductsSupportDataAdd;
-
-    List<Products_SupportsDTO> ProductsSupportDataUpdate;
-
-    List<UUID> ProductsSupportDataDelete;
+    Set<Products_SupportsDTO> ProductsSupportData;
 }

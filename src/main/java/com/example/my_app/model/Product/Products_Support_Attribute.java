@@ -3,9 +3,9 @@ package com.example.my_app.model.Product;
 import java.math.BigDecimal;
 import java.util.UUID;
 
-
 import com.example.my_app.model.Base.TimeBase;
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -46,5 +46,6 @@ public class Products_Support_Attribute extends TimeBase {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Products_Supports_id", nullable = false)
+    @JsonIgnore
     Products_Supports products_Supports_id;
 }

@@ -6,6 +6,8 @@ import java.util.UUID;
 
 import com.example.my_app.Enum.StatusShipment;
 import com.example.my_app.model.Base.TimeBase;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -41,5 +43,6 @@ public class Shipment extends TimeBase {
     StatusShipment description;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL }, mappedBy = "shipment_id", orphanRemoval = true)
+    @JsonIgnore
     Set<ShipmentInfo> user_address = new HashSet<>();
 }

@@ -1,6 +1,9 @@
 package com.example.my_app.model.Admin;
 
 import com.example.my_app.model.Base.TimeBase;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -28,6 +31,7 @@ public class Payroll extends TimeBase {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Employee_id", nullable = false)
+    @JsonIgnore
     Employee employee_id;
 
 }

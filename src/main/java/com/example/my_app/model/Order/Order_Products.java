@@ -5,6 +5,8 @@ import java.util.UUID;
 import com.example.my_app.Enum.Products.StutusSizeProducts;
 import com.example.my_app.model.Base.TimeBase;
 import com.example.my_app.model.Product.Products;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -43,10 +45,12 @@ public class Order_Products extends TimeBase {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Order_id", nullable = false)
+    @JsonIgnore
     Order order_id;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Products_id", nullable = false)
+    @JsonIgnore
     Products products_id;
 
 }

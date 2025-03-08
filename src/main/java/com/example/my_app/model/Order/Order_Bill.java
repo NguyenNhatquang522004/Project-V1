@@ -7,6 +7,8 @@ import java.util.UUID;
 
 import com.example.my_app.model.Admin.Employee;
 import com.example.my_app.model.Base.TimeBase;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -63,6 +65,7 @@ public class Order_Bill extends TimeBase {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Employee_id", nullable = false)
+    @JsonIgnore
     Employee employee_id;
 
 }

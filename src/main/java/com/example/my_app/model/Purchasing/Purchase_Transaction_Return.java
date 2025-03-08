@@ -6,6 +6,8 @@ import java.util.UUID;
 
 import com.example.my_app.model.Admin.Employee;
 import com.example.my_app.model.Base.TimeBase;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -62,11 +64,12 @@ public class Purchase_Transaction_Return extends TimeBase {
     @OneToOne(mappedBy = "purchase_Transaction_Purchase_Transaction_Return", fetch = FetchType.EAGER)
     Purchase_Transaction purchase_Transaction_Return_Purchase_Transaction;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade =  { CascadeType.ALL } )
+    @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
     @JoinTable(name = "Supplier_Purchase_Transaction_Return", joinColumns = @JoinColumn(name = "Purchase_Transaction_Retrun_id"), inverseJoinColumns = @JoinColumn(name = "Supplier_id"))
     Set<Supplier> purchase_Transaction_Return_Supplier = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Employee_id", nullable = false)
+    @JsonIgnore
     Employee employee_id;
 }

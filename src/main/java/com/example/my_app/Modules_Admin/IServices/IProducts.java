@@ -5,7 +5,9 @@ import java.util.Optional;
 import java.util.UUID;
 
 import com.example.my_app.DTO.Products.ProductsImgDTO;
+import com.example.my_app.DTO.Products.Products_SupportsDTO;
 import com.example.my_app.Modules_Admin.Products.Request.RequestAdd;
+import com.example.my_app.Modules_Admin.Products.Request.RequestUpdate;
 import com.example.my_app.model.Product.Products;
 import com.example.my_app.model.Product.ProductsCategory;
 import com.example.my_app.model.Product.Products_Brands;
@@ -15,7 +17,7 @@ import com.example.my_app.model.Product.Products_Supports;
 public interface IProducts {
     boolean addNewProducts(RequestAdd request) throws Exception;
 
-    boolean UpLocalDateTimeProducts(RequestAdd requestAdd, Products products) throws Exception;
+    boolean UpdateProducts(RequestUpdate request, Products products) throws Exception;
 
     Optional<ProductsCategory> handleFindOneCategory(String data) throws Exception;
 
@@ -23,7 +25,7 @@ public interface IProducts {
 
     void handleImgProducts(Products products, List<ProductsImgDTO> request) throws Exception;
 
-    void handleProductsSupportAndAttribute(RequestAdd request, Products products) throws Exception;
+    void handleProductsSupportAndAttribute(List<Products_SupportsDTO> request, Products products) throws Exception;
 
     Optional<Products> handleFindOneProducts(UUID request) throws Exception;
 

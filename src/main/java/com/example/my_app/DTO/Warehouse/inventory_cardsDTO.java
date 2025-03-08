@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 import com.example.my_app.Configuration.EnumDeserializer;
-import com.example.my_app.DTO.Products.ProductsSupportDTO;
+import com.example.my_app.DTO.Products.Products_SupportsDTO;
 
 import com.example.my_app.Enum.inventory_cards.StatusTransactionType;
 
@@ -46,6 +46,6 @@ public class inventory_cardsDTO {
 
     Order order_id;
 
-    ProductsSupportDTO products_Supports_id;
+    Products_SupportsDTO products_Supports_id;
 
 }

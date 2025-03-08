@@ -7,8 +7,10 @@ import org.springframework.stereotype.Service;
 
 import com.example.my_app.Configuration.VNPAYConfiguration;
 import com.example.my_app.common.VNPayUtil;
-import com.example.my_app.modules.Payment.DTO.PaymentDTO;
+import com.example.my_app.modules.Payment.Request.PaymentDTO;
+
 import jakarta.servlet.http.HttpServletRequest;
+
 @Service
 public class PaymentSevices {
 
@@ -20,7 +22,7 @@ public class PaymentSevices {
     }
 
     public PaymentDTO createVnPayPayment(HttpServletRequest request) {
-        long amount = Integer.parseInt(request.getParameter("amount")) * 100L;
+        long amount = Integer.parseInt(request.getParameter("amount")) * 100;
         String bankCode = request.getParameter("bankCode");
         Map<String, String> vnpParamsMap = vnPayConfig.getVNPayConfig();
         vnpParamsMap.put("vnp_Amount", String.valueOf(amount));

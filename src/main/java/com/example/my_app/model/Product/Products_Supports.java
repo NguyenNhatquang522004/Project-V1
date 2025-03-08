@@ -9,6 +9,9 @@ import com.example.my_app.model.Order.Order_PerOrder;
 import com.example.my_app.model.Purchasing.Purchase_Transaction_Detail;
 import com.example.my_app.model.Warehouse.Warehouse_Products;
 import com.example.my_app.model.Warehouse.inventory_cards;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 
@@ -49,25 +52,31 @@ public class Products_Supports extends TimeBase {
 
         @ManyToOne(fetch = FetchType.EAGER)
         @JoinColumn(name = "Products_id", nullable = false)
+        @JsonIgnore
         Products products_id;
 
         @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "products_Supports_id")
+        @JsonIgnore
         Set<Products_Support_Attribute> products_Supports_Products_Support_Attribute = new HashSet<>();
 
         @ManyToMany(mappedBy = "purchase_Transaction_Detail_Products_Support", fetch = FetchType.EAGER, cascade = {
                         CascadeType.ALL })
+        @JsonIgnore
         Set<Purchase_Transaction_Detail> products_Supports_Purchase_Transaction_Detail = new HashSet<>();
 
         @OneToMany(fetch = FetchType.EAGER, mappedBy = "products_Supports_id", cascade = {
                         CascadeType.ALL }, orphanRemoval = true)
+        @JsonIgnore
         Set<inventory_cards> products_Supports_Inventory_Cards = new HashSet<>();
 
         @OneToMany(fetch = FetchType.EAGER, cascade = {
                         CascadeType.ALL }, orphanRemoval = true, mappedBy = "warehouse_Products_Products_Supports")
+        @JsonIgnore
         Set<Warehouse_Products> products_Supports_Warehouse_Products = new HashSet<>();
 
         @OneToMany(fetch = FetchType.EAGER, cascade = {
                         CascadeType.ALL }, orphanRemoval = true, mappedBy = "order_PerOrder_Products_Supports")
+        @JsonIgnore
         Set<Order_PerOrder> products_Supports_Order_PerOrder = new HashSet<>();
 
 }

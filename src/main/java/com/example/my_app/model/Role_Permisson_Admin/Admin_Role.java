@@ -7,6 +7,8 @@ import java.util.UUID;
 import com.example.my_app.model.Admin.Department;
 import com.example.my_app.model.Admin.Employee;
 import com.example.my_app.model.Base.TimeBase;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 
@@ -42,12 +44,14 @@ public class Admin_Role extends TimeBase {
     UUID id;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JsonIgnore
     Department role_Department;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JsonIgnore
     Employee role_Employee;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade =  { CascadeType.ALL } )
+    @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
     @JoinTable(name = "Admin_Role_Permisson", joinColumns = @JoinColumn(name = "Admin_Role_id"), inverseJoinColumns = @JoinColumn(name = "Admin_Permission_id"))
     Set<Admin_Permisson> admin_Role_Permisson = new HashSet<>();
 

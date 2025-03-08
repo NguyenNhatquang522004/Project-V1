@@ -8,7 +8,8 @@ import com.example.my_app.Enum.StatusPreOrder;
 import com.example.my_app.model.Base.TimeBase;
 import com.example.my_app.model.Product.Products_Supports;
 import com.example.my_app.model.User.User;
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -50,10 +51,12 @@ public class Order_PerOrder extends TimeBase {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Products_Supports_id", nullable = false)
+    @JsonIgnore
     Products_Supports order_PerOrder_Products_Supports;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "User_id", nullable = false)
+    @JsonIgnore
     User order_PerOrder_User;
 
 }

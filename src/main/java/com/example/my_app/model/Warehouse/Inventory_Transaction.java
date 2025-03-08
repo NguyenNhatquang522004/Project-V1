@@ -1,9 +1,11 @@
 package com.example.my_app.model.Warehouse;
+
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 import com.example.my_app.model.Base.TimeBase;
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -63,6 +65,7 @@ public class Inventory_Transaction extends TimeBase {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Warehouse_id", nullable = false)
+    @JsonIgnore
     Warehouse inventory_Transaction_Warehouse;
 
 }

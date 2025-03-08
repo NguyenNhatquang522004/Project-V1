@@ -11,6 +11,9 @@ import com.example.my_app.model.Base.TimeBase;
 
 import com.example.my_app.model.User.User;
 import com.example.my_app.model.Warehouse.inventory_cards;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -68,14 +71,17 @@ public class Order extends TimeBase {
     @Column(name = "notes", length = 500)
     String notes;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "order_id", cascade = { CascadeType.ALL }, orphanRemoval = true)
+    @JsonIgnore
     Set<Order_Products> order_products = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "User_id", nullable = false)
+    @JsonIgnore
     User order_User;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Products_id", nullable = false)
+    @JsonIgnore
     Order_Payment order_Payment_id;
 
     @OneToOne(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER, orphanRemoval = true)

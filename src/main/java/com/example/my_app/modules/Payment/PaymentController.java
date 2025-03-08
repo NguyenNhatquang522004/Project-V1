@@ -4,9 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.my_app.common.ResponedGlobal;
+import com.example.my_app.modules.Payment.Request.RequestOrder;
+
 import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
@@ -20,11 +23,9 @@ public class PaymentController {
         }
 
         @GetMapping(path = "/Public/creat_payment")
-        public ResponseEntity<ResponedGlobal> createpayment(HttpServletRequest request)
+        public ResponseEntity<ResponedGlobal> createpayment(HttpServletRequest request, @RequestBody RequestOrder data)
                         throws Exception {
-
                 try {
-                        System.out.println(request);
                         return new ResponseEntity<ResponedGlobal>(
                                         ResponedGlobal.builder().data(paymentSevices.createVnPayPayment(request))
                                                         .code("1")

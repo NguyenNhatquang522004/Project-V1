@@ -14,6 +14,9 @@ import com.example.my_app.model.Order.Order;
 import com.example.my_app.model.Order.OrderStatusHistory;
 import com.example.my_app.model.Order.Order_PerOrder;
 import com.example.my_app.model.Role_Permission.Role;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -86,9 +89,11 @@ public class User extends TimeBase {
     BigDecimal balance;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL }, mappedBy = "user", orphanRemoval = true)
+    @JsonIgnore
     Set<Address> user_address = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL }, mappedBy = "user_id", orphanRemoval = true)
+    @JsonIgnore
     Set<OrderStatusHistory> user_orderHistory = new HashSet<>();
 
     @OneToOne(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER, orphanRemoval = true)
@@ -96,6 +101,7 @@ public class User extends TimeBase {
     Role user_role;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL }, orphanRemoval = true, mappedBy = "order_User")
+    @JsonIgnore
     Set<Order> user_order = new HashSet<>();
 
     @OneToOne(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER, orphanRemoval = true)
@@ -104,6 +110,7 @@ public class User extends TimeBase {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = {
             CascadeType.ALL }, mappedBy = "order_PerOrder_User", orphanRemoval = true)
+    @JsonIgnore
     Set<Order_PerOrder> user_Order_PerOrder = new HashSet<>();
 
 }

@@ -6,6 +6,8 @@ import java.util.UUID;
 
 import com.example.my_app.Enum.StatusPaymentMethod;
 import com.example.my_app.model.Base.TimeBase;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -42,5 +44,6 @@ public class Order_Payment extends TimeBase {
 
     @OneToMany(fetch = FetchType.EAGER, cascade = {
             CascadeType.ALL }, mappedBy = "order_Payment_id", orphanRemoval = true)
+    @JsonIgnore
     Set<Order> order_payment = new HashSet<>();
 }
