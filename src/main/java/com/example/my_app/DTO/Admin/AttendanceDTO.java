@@ -3,11 +3,11 @@ package com.example.my_app.DTO.Admin;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import com.example.my_app.Configuration.EnumDeserializer;
+import com.example.my_app.Configuration.AutoDeserializer;
+
 import com.example.my_app.Enum.StatusAttendance;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -23,7 +23,7 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AttendanceDTO {
-
+    @JsonDeserialize(using = AutoDeserializer.class)
     UUID id;
 
     LocalDateTime workLocalDateTime;
@@ -32,7 +32,7 @@ public class AttendanceDTO {
 
     LocalDateTime check_out;
 
-    @JsonDeserialize(using = EnumDeserializer.class)
+    @JsonDeserialize(using = AutoDeserializer.class)
     StatusAttendance status_Attendance;
 
     EmployeeDTO employee_id;

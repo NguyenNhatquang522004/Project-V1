@@ -5,6 +5,8 @@ import java.util.UUID;
 import com.example.my_app.Enum.Products.StutusSizeProducts;
 import com.example.my_app.model.Base.TimeBase;
 import com.example.my_app.model.Product.Products;
+import com.example.my_app.model.Product.Products_Support_Attribute;
+import com.example.my_app.model.Product.Products_Supports;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -37,12 +39,11 @@ public class Order_Products extends TimeBase {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
-
     String color;
     int quantity;
+
     @Enumerated(EnumType.STRING)
     StutusSizeProducts stutusSizeProducts;
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Order_id", nullable = false)
     @JsonIgnore
@@ -52,5 +53,15 @@ public class Order_Products extends TimeBase {
     @JoinColumn(name = "Products_id", nullable = false)
     @JsonIgnore
     Products products_id;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "supports_id", nullable = false)
+    @JsonIgnore
+    Products_Supports supports_id;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "attribute_id", nullable = false)
+    @JsonIgnore
+    Products_Support_Attribute attribute_id;
 
 }

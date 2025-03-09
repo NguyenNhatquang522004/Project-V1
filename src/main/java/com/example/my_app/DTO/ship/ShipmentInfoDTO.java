@@ -5,6 +5,8 @@ import java.math.BigDecimal;
 import java.util.Set;
 import java.util.UUID;
 
+import com.example.my_app.Configuration.AutoDeserializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,8 +27,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 // thông tin tổng hợp về giao dịch với đối tác ship
 public class ShipmentInfoDTO {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @JsonDeserialize(using = AutoDeserializer.class)
     UUID id;
 
     Integer totalOrders;

@@ -5,9 +5,9 @@ import java.math.BigDecimal;
 import java.util.Set;
 import java.util.UUID;
 
+import com.example.my_app.Configuration.AutoDeserializer;
 import com.example.my_app.DTO.Products.Products_SupportsDTO;
-
-
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -24,8 +24,8 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 // nhập hàng chi tiết
 public class Purchase_Transaction_DetailDTO {
-
-    UUID id;    
+    @JsonDeserialize(using = AutoDeserializer.class)
+    UUID id;
     int quantity;
     BigDecimal billprice;
     BigDecimal importprice;

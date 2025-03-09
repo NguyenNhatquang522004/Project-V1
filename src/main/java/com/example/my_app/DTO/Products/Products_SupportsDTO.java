@@ -3,11 +3,13 @@ package com.example.my_app.DTO.Products;
 import java.util.Set;
 import java.util.UUID;
 
+import com.example.my_app.Configuration.AutoDeserializer;
 import com.example.my_app.DTO.Order.Order_PerOrderDTO;
 import com.example.my_app.DTO.Purchasing.Purchase_Transaction_DetailDTO;
 import com.example.my_app.DTO.Warehouse.inventory_cardsDTO;
 import com.example.my_app.DTO.Warehouse.warehouse_ProductsDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -22,6 +24,7 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Products_SupportsDTO {
+  @JsonDeserialize(using = AutoDeserializer.class)
   UUID id;
   String url;
   String color;

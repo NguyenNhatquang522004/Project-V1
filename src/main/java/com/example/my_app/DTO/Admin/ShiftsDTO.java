@@ -4,11 +4,11 @@ import java.time.LocalTime;
 import java.util.Set;
 import java.util.UUID;
 
-import com.example.my_app.Configuration.EnumDeserializer;
+import com.example.my_app.Configuration.AutoDeserializer;
+import com.example.my_app.Configuration.AutoDeserializer;
 import com.example.my_app.Enum.StatusTimeOfDay;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -24,15 +24,15 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 // ca làm việc
 public class ShiftsDTO {
-
+    @JsonDeserialize(using = AutoDeserializer.class)
     UUID id;
 
-    @JsonDeserialize(using = EnumDeserializer.class)
+    @JsonDeserialize(using = AutoDeserializer.class)
     StatusTimeOfDay name;
 
     LocalTime startTime;
 
     LocalTime endTime;
 
-    Set<Work_ScheduleDTO> shifts_Work_Schedule ;
+    Set<Work_ScheduleDTO> shifts_Work_Schedule;
 }

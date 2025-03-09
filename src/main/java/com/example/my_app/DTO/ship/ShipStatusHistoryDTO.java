@@ -4,7 +4,9 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import com.example.my_app.Configuration.AutoDeserializer;
 import com.example.my_app.DTO.Order.Order_WayBillDTO;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,8 +26,7 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ShipStatusHistoryDTO {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @JsonDeserialize(using = AutoDeserializer.class)
     UUID id;
 
     String invoiceCode;

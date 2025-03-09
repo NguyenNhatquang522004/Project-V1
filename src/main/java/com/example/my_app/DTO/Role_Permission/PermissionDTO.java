@@ -1,10 +1,9 @@
 package com.example.my_app.DTO.Role_Permission;
 
-
 import java.util.Set;
 import java.util.UUID;
 
-import com.example.my_app.Configuration.EnumDeserializer;
+import com.example.my_app.Configuration.AutoDeserializer;
 import com.example.my_app.Enum.Role_Permission.StatusPermission;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -24,9 +23,9 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PermissionDTO {
-
+    @JsonDeserialize(using = AutoDeserializer.class)
     UUID id;
-    @JsonDeserialize(using = EnumDeserializer.class)
+    @JsonDeserialize(using = AutoDeserializer.class)
     StatusPermission description;
 
     Set<RoleDTO> permission_role;

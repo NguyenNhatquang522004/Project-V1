@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import com.example.my_app.model.Base.TimeBase;
 import com.example.my_app.model.Order.Order_PerOrder;
+import com.example.my_app.model.Order.Order_Products;
 import com.example.my_app.model.Purchasing.Purchase_Transaction_Detail;
 import com.example.my_app.model.Warehouse.Warehouse_Products;
 import com.example.my_app.model.Warehouse.inventory_cards;
@@ -49,6 +50,10 @@ public class Products_Supports extends TimeBase {
         String url;
         String color;
         boolean isActive;
+
+        @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "supports_id", orphanRemoval = true)
+        @JsonIgnore
+        Set<Order_Products> products_order = new HashSet<>();
 
         @ManyToOne(fetch = FetchType.EAGER)
         @JoinColumn(name = "Products_id", nullable = false)

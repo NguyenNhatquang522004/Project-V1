@@ -22,7 +22,6 @@ public interface ProductsSupportsAttributeMapper {
     void updateEntity(@MappingTarget Products_Support_Attribute products_Support_Attribute,
             ProductsSupportAttributeDTO productsSupportAttributeDTO);
 
- 
     @Mapping(target = "products_Supports_id", ignore = true)
     ProductsSupportAttributeDTO toDTO(Products_Support_Attribute products_Support_Attribute);
 

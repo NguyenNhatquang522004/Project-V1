@@ -1,6 +1,5 @@
-package com.example.my_app.DTO.Products;
+package com.example.my_app.Modules_Admin.Order.Request;
 
-import java.util.Set;
 import java.util.UUID;
 
 import com.example.my_app.Configuration.AutoDeserializer;
@@ -16,10 +15,11 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductsCategoryDTO {
+public class RequestDeleteItem {
     @JsonDeserialize(using = AutoDeserializer.class)
-    UUID id;
-    String category;
-
-    Set<ProductsDTO> products;
+    UUID order_id;
+    @JsonDeserialize(using = AutoDeserializer.class)
+    UUID order_products_id;
+    @JsonDeserialize(using = AutoDeserializer.class)
+    UUID user_id;
 }

@@ -3,19 +3,15 @@ package com.example.my_app.DTO.Order;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-
 import java.util.Set;
 import java.util.UUID;
 
-import com.example.my_app.Configuration.EnumDeserializer;
+import com.example.my_app.Configuration.AutoDeserializer;
 import com.example.my_app.DTO.User.UserDTO;
 import com.example.my_app.DTO.Warehouse.inventory_cardsDTO;
 import com.example.my_app.Enum.StatusPayment;
 
-
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
-
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -30,13 +26,13 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrderDTO {
-
+    @JsonDeserialize(using = AutoDeserializer.class)
     UUID id;
 
-    LocalDateTime orderLocalDateTime;
+    LocalDateTime orderLocalDateTime = LocalDateTime.now();
 
     BigDecimal totalAmount;
-    @JsonDeserialize(using = EnumDeserializer.class)
+    @JsonDeserialize(using = AutoDeserializer.class)
     StatusPayment paymentStatus;
 
     String Country;
