@@ -1,6 +1,5 @@
 package com.example.my_app.model.ship;
 
-import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -41,10 +40,10 @@ public class ShipmentInfo extends TimeBase {
     UUID id;
 
     Integer totalOrders;
-    BigDecimal codAmount;
-    BigDecimal outstandingCod;
-    BigDecimal totalShippingFee;
-    BigDecimal outstandingShippingFee;
+    int codAmount;
+    int outstandingCod;
+    int totalShippingFee;
+    int outstandingShippingFee;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "shipment_id", nullable = false)

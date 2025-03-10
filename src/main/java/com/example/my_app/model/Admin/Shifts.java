@@ -8,7 +8,6 @@ import java.util.UUID;
 import com.example.my_app.Enum.StatusTimeOfDay;
 import com.example.my_app.model.Base.TimeBase;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;

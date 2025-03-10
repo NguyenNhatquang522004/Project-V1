@@ -1,8 +1,8 @@
 package com.example.my_app.model.Order;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
-
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 import com.example.my_app.model.Admin.Employee;
@@ -19,6 +19,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
@@ -48,24 +49,23 @@ public class Order_Bill extends TimeBase {
     String profitCode;
 
     @Column(name = "total_amount", nullable = false)
-    BigDecimal totalAmount;
+    int totalAmount;
 
     @Column(name = "discount")
-    BigDecimal discount;
+    int discount;
 
     @Column(name = "received_amount")
-    BigDecimal receivedAmount;
+    int receivedAmount;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    Order orders_Bill_Order;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "orders_bill", cascade = { CascadeType.ALL }, orphanRemoval = true)
+    Set<Order> orders_Bill_Order = new HashSet<>();
 
     @OneToOne(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinColumn(name = "Order_WayBill_id", referencedColumnName = "id")
     Order_WayBill orders_WayBill;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "Employee_id", nullable = false)
-    @JsonIgnore
-    Employee employee_id;
+    @OneToOne(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER, orphanRemoval = true)
+    @JoinColumn(name = "Order_Status_History_id", referencedColumnName = "id")
+    OrderStatusHistory orders_OrderStatusHistory;
 
 }

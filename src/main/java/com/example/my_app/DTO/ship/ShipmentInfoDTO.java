@@ -1,16 +1,10 @@
 package com.example.my_app.DTO.ship;
 
-import java.math.BigDecimal;
-
 import java.util.Set;
 import java.util.UUID;
 
 import com.example.my_app.Configuration.AutoDeserializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -30,11 +24,11 @@ public class ShipmentInfoDTO {
     @JsonDeserialize(using = AutoDeserializer.class)
     UUID id;
 
-    Integer totalOrders;
-    BigDecimal codAmount;
-    BigDecimal outstandingCod;
-    BigDecimal totalShippingFee;
-    BigDecimal outstandingShippingFee;
+    int totalOrders;
+    int codAmount;
+    int outstandingCod;
+    int totalShippingFee;
+    int outstandingShippingFee;
 
     ShipmentDTO shipment_id;
 

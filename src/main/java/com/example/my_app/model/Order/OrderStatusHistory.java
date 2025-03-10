@@ -2,12 +2,15 @@ package com.example.my_app.model.Order;
 
 import java.util.UUID;
 
+import com.example.my_app.Enum.StatusOrderStatusHistory;
 import com.example.my_app.model.Base.TimeBase;
 import com.example.my_app.model.User.User;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -36,7 +39,10 @@ public class OrderStatusHistory extends TimeBase {
     UUID id;
 
     @OneToOne(fetch = FetchType.EAGER)
-    Order order_id;
+    Order_Bill order_id;
+
+    @Enumerated(EnumType.STRING)
+    StatusOrderStatusHistory status;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "User_id", nullable = false)

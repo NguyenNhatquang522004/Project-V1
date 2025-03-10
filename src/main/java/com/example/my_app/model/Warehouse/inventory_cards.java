@@ -1,6 +1,5 @@
 package com.example.my_app.model.Warehouse;
 
-import java.math.BigDecimal;
 import java.util.UUID;
 
 import com.example.my_app.Enum.inventory_cards.StatusPartner;
@@ -53,13 +52,13 @@ public class inventory_cards extends TimeBase {
     @Column(nullable = true)
     StatusTransactionType transactionType;
 
-    BigDecimal unitPrice;
+    int unitPrice;
 
     int quantity;
 
-    BigDecimal costPrice;
+    int costPrice;
 
-    BigDecimal totalPrice;
+    int totalPrice;
     @OneToOne(fetch = FetchType.EAGER)
     Order order_id;
 

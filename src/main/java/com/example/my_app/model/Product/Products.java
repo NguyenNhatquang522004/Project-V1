@@ -1,6 +1,5 @@
 package com.example.my_app.model.Product;
 
-import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -48,10 +47,10 @@ public class Products extends TimeBase {
     @Column(nullable = true)
     int quantity;
     @Column(nullable = true)
-    BigDecimal minPrice;
+    int minPrice;
 
     @Column(nullable = true)
-    BigDecimal maxPrice;
+    int maxPrice;
 
     @Column(nullable = true)
     int totalBUY;

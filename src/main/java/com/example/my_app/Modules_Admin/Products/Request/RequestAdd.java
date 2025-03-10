@@ -1,6 +1,5 @@
 package com.example.my_app.Modules_Admin.Products.Request;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import com.example.my_app.DTO.Products.ProductsBrandDTO;

@@ -1,6 +1,5 @@
 package com.example.my_app.model.User;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -86,7 +85,7 @@ public class User extends TimeBase {
     LocalDateTime code_expired;
 
     @Column(precision = 10, scale = 2)
-    BigDecimal balance;
+    int balance;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL }, mappedBy = "user", orphanRemoval = true)
     @JsonIgnore

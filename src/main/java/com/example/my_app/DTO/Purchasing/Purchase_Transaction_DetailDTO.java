@@ -1,7 +1,5 @@
 package com.example.my_app.DTO.Purchasing;
 
-import java.math.BigDecimal;
-
 import java.util.Set;
 import java.util.UUID;
 
@@ -27,9 +25,9 @@ public class Purchase_Transaction_DetailDTO {
     @JsonDeserialize(using = AutoDeserializer.class)
     UUID id;
     int quantity;
-    BigDecimal billprice;
-    BigDecimal importprice;
-    BigDecimal totalprice;
+    int billprice;
+    int importprice;
+    int totalprice;
     Set<Products_SupportsDTO> purchase_Transaction_Detail_Products_Support;
     Purchase_TransactionDTO purchase_Transaction_id;
 

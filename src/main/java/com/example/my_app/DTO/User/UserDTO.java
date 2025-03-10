@@ -1,6 +1,5 @@
 package com.example.my_app.DTO.User;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import java.util.Set;
@@ -54,7 +53,7 @@ public class UserDTO {
 
     LocalDateTime code_expired;
 
-    BigDecimal balance;
+    int balance;
 
     Set<AddressDTO> user_address;
 

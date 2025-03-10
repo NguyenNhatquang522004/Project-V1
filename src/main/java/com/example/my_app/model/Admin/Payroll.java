@@ -1,14 +1,11 @@
 package com.example.my_app.model.Admin;
 
 import com.example.my_app.model.Base.TimeBase;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-
-import java.math.BigDecimal;
 
 import java.util.UUID;
 
@@ -24,10 +21,10 @@ public class Payroll extends TimeBase {
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
 
-    BigDecimal baseSalary;
-    BigDecimal bonus;
-    BigDecimal deductions;
-    BigDecimal netSalary;
+    int baseSalary;
+    int bonus;
+    int deductions;
+    int netSalary;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Employee_id", nullable = false)

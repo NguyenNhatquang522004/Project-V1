@@ -1,6 +1,5 @@
 package com.example.my_app.DTO.Order;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import java.util.Set;
@@ -10,7 +9,6 @@ import com.example.my_app.Configuration.AutoDeserializer;
 import com.example.my_app.DTO.User.UserDTO;
 import com.example.my_app.DTO.Warehouse.inventory_cardsDTO;
 import com.example.my_app.Enum.StatusPayment;
-
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import lombok.AccessLevel;
@@ -18,6 +16,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Builder.Default;
 import lombok.experimental.FieldDefaults;
 
 @Builder
@@ -29,9 +28,13 @@ public class OrderDTO {
     @JsonDeserialize(using = AutoDeserializer.class)
     UUID id;
 
+    boolean isActive;
+
+    @Default
     LocalDateTime orderLocalDateTime = LocalDateTime.now();
 
-    BigDecimal totalAmount;
+    int totalAmount;
+
     @JsonDeserialize(using = AutoDeserializer.class)
     StatusPayment paymentStatus;
 
@@ -44,6 +47,8 @@ public class OrderDTO {
     String Ward;
 
     String notes;
+
+    int quantity;
 
     Set<Order_ProductsDTO> order_products;
 

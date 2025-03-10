@@ -1,6 +1,5 @@
 package com.example.my_app.model.Purchasing;
 
-import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -41,9 +40,9 @@ public class Purchase_Transaction_Detail extends TimeBase {
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
     int quantity;
-    BigDecimal billprice;
-    BigDecimal importprice;
-    BigDecimal totalprice;
+    int billprice;
+    int importprice;
+    int totalprice;
     @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
     @JoinTable(name = "Purchase_Transaction_Detail_Products_Supports", joinColumns = @JoinColumn(name = "Purchase_Transaction_Detail_id"), inverseJoinColumns = @JoinColumn(name = "Products_Support_id"))
     Set<Products_Supports> purchase_Transaction_Detail_Products_Support = new HashSet<>();

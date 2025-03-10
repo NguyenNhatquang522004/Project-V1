@@ -1,6 +1,5 @@
 package com.example.my_app.DTO.Warehouse;
 
-import java.math.BigDecimal;
 import java.util.UUID;
 
 import com.example.my_app.Configuration.AutoDeserializer;
@@ -35,13 +34,13 @@ public class inventory_cardsDTO {
     @JsonDeserialize(using = AutoDeserializer.class)
     StatusTransactionType transactionType;
 
-    BigDecimal unitPrice;
+    int unitPrice;
 
     int quantity;
 
-    BigDecimal costPrice;
+    int costPrice;
 
-    BigDecimal totalPrice;
+    int totalPrice;
 
     Order order_id;
 

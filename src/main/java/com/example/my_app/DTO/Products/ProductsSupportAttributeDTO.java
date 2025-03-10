@@ -1,6 +1,5 @@
 package com.example.my_app.DTO.Products;
 
-import java.math.BigDecimal;
 import java.util.UUID;
 
 import com.example.my_app.Configuration.AutoDeserializer;
@@ -23,9 +22,9 @@ public class ProductsSupportAttributeDTO {
     UUID id;
     String size;
 
-    BigDecimal sellingPrice;
+    int sellingPrice;
 
-    BigDecimal costPrice;
+    int costPrice;
 
     int quantity;
 

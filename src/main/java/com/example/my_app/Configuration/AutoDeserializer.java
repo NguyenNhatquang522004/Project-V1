@@ -25,6 +25,7 @@ public class AutoDeserializer<T> extends JsonDeserializer<T> implements Contextu
         this.targetType = targetType;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public T deserialize(JsonParser jsonParser, DeserializationContext ctxt) throws IOException {
         ObjectCodec codec = jsonParser.getCodec();
@@ -37,7 +38,7 @@ public class AutoDeserializer<T> extends JsonDeserializer<T> implements Contextu
 
         // Nếu kiểu là enum thì chuyển đổi bằng Enum.valueOf
         if (targetType.isEnum()) {
-            @SuppressWarnings("unchecked")
+            @SuppressWarnings({ "rawtypes" })
             T enumValue = (T) Enum.valueOf((Class<Enum>) targetType, value.toUpperCase());
             return enumValue;
         }

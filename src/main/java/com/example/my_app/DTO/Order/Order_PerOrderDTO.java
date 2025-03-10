@@ -1,6 +1,5 @@
 package com.example.my_app.DTO.Order;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import java.util.UUID;
@@ -31,9 +30,9 @@ public class Order_PerOrderDTO {
 
     StatusPreOrder statusPreOrder;
 
-    BigDecimal preOrder_NeedPay;
+    int preOrder_NeedPay;
 
-    BigDecimal preOrder_Pay;
+    int preOrder_Pay;
 
     Products_SupportsDTO order_PerOrder_Products_Supports;
 

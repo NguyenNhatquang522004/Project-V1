@@ -3,8 +3,6 @@ package com.example.my_app.DTO.Admin;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.math.BigDecimal;
-
 import java.util.UUID;
 
 import com.example.my_app.Configuration.AutoDeserializer;
@@ -19,10 +17,10 @@ public class PayrollDTO {
     @JsonDeserialize(using = AutoDeserializer.class)
     UUID id;
 
-    BigDecimal baseSalary;
-    BigDecimal bonus;
-    BigDecimal deductions;
-    BigDecimal netSalary;
+    int baseSalary;
+    int bonus;
+    int deductions;
+    int netSalary;
 
     EmployeeDTO employee_id;
 

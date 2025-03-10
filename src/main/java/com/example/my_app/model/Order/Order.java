@@ -1,6 +1,5 @@
 package com.example.my_app.model.Order;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -49,14 +48,16 @@ public class Order extends TimeBase {
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
 
-    @Column(name = "order_LocalDateTime", nullable = false)
+    boolean isActive = false;
+
+    @Column(name = "order_LocalDateTime", nullable = true)
     LocalDateTime orderLocalDateTime;
 
-    @Column(name = "total_amount", nullable = false)
-    BigDecimal totalAmount;
+    @Column(name = "total_amount", nullable = true)
+    int totalAmount;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "payment_status", nullable = false)
+    @Column(name = "payment_status", nullable = true)
     StatusPayment paymentStatus;
 
     @Column(columnDefinition = "nvarchar(255)", nullable = true)
@@ -80,7 +81,7 @@ public class Order extends TimeBase {
     User order_User;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "Products_id", nullable = false)
+    @JoinColumn(name = "Products_id", nullable = true)
     @JsonIgnore
     Order_Payment order_Payment_id;
 
@@ -88,12 +89,8 @@ public class Order extends TimeBase {
     @JoinColumn(name = "orders_inventory_cards_id", referencedColumnName = "id")
     inventory_cards orders_inventory_cards;
 
-    @OneToOne(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER, orphanRemoval = true)
-    @JoinColumn(name = "Order_Bill_id", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "Order_Bill_id", nullable = false)
     Order_Bill orders_bill;
-
-    @OneToOne(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER, orphanRemoval = true)
-    @JoinColumn(name = "Order_Status_History_id", referencedColumnName = "id")
-    OrderStatusHistory orders_OrderStatusHistory;
 
 }

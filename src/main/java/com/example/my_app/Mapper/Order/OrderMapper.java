@@ -16,7 +16,6 @@ public interface OrderMapper {
     @Mapping(target = "order_Payment_id", ignore = true)
     @Mapping(target = "orders_inventory_cards", ignore = true)
     @Mapping(target = "orders_bill", ignore = true)
-    @Mapping(target = "orders_OrderStatusHistory", ignore = true)
     @Mapping(target = "order_User", ignore = true)
     @Mapping(target = "order_products", ignore = true)
     void UpdateEntity(@MappingTarget Order order, OrderDTO request);

@@ -1,6 +1,5 @@
 package com.example.my_app.DTO.Products;
 
-import java.math.BigDecimal;
 import java.util.Set;
 import java.util.UUID;
 
@@ -25,8 +24,8 @@ public class ProductsDTO {
     UUID id;
     String name;
     int quantity;
-    BigDecimal minPrice;
-    BigDecimal maxPrice;
+    int minPrice;
+    int maxPrice;
     int totalBUY;
     @JsonProperty("isActive")
     boolean isActive;

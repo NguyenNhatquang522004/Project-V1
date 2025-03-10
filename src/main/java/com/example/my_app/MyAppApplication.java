@@ -33,7 +33,7 @@ import jakarta.persistence.EntityManager;
 @SpringBootApplication
 @EnableCaching
 @EntityScan(basePackages = "com.example.my_app.model")
-@EnableJpaRepositories(basePackages = { "com.example.my_app.Repository", "com.example.my_app.Repository_Admin" })
+@EnableJpaRepositories(basePackages = { "com.example.my_app.Repository" })
 public class MyAppApplication implements CommandLineRunner {
 
 	@Autowired

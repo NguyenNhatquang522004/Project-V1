@@ -1,6 +1,5 @@
 package com.example.my_app.model.Order;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -45,9 +44,9 @@ public class Order_PerOrder extends TimeBase {
     @Enumerated(EnumType.STRING)
     StatusPreOrder statusPreOrder;
 
-    BigDecimal preOrder_NeedPay;
+    int preOrder_NeedPay;
 
-    BigDecimal preOrder_Pay;
+    int preOrder_Pay;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Products_Supports_id", nullable = false)

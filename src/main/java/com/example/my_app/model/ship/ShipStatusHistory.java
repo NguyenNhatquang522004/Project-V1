@@ -1,6 +1,5 @@
 package com.example.my_app.model.ship;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -43,9 +42,9 @@ public class ShipStatusHistory extends TimeBase {
     String shippingPartnerCode;
     String trackingNumber;
     LocalDateTime time;
-    BigDecimal invoiceValue;
-    BigDecimal outstandingCod;
-    BigDecimal shippingFee;
+    int invoiceValue;
+    int outstandingCod;
+    int shippingFee;
     String status;
 
     @ManyToOne(fetch = FetchType.EAGER)

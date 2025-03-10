@@ -7,7 +7,6 @@ import com.example.my_app.model.Purchasing.Purchase_Transaction;
 import com.example.my_app.model.Purchasing.Purchase_Transaction_Return;
 import com.example.my_app.model.Role_Permisson_Admin.Admin_Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -65,10 +64,6 @@ public class Employee extends TimeBase {
     @OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL }, orphanRemoval = true, mappedBy = "employee_id")
     @JsonIgnore
     Set<Payroll> employee_Payroll = new HashSet<>();
-
-    @OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL }, orphanRemoval = true, mappedBy = "employee_id")
-    @JsonIgnore
-    Set<Order_Bill> employee_Order_Bill = new HashSet<>();
 
     @OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL }, orphanRemoval = true, mappedBy = "employee_id")
     @JsonIgnore

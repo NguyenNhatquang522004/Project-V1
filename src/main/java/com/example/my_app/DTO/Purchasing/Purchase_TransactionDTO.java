@@ -1,6 +1,5 @@
 package com.example.my_app.DTO.Purchasing;
 
-import java.math.BigDecimal;
 import java.util.Set;
 import java.util.UUID;
 
@@ -26,7 +25,7 @@ import lombok.experimental.FieldDefaults;
 public class Purchase_TransactionDTO {
     @JsonDeserialize(using = AutoDeserializer.class)
     UUID id;
-    BigDecimal totalPrice;
+    int totalPrice;
     @JsonDeserialize(using = AutoDeserializer.class)
     StatusPurchasing description;
     Set<Purchase_Transaction_DetailDTO> purchase_Transaction_toDetail;

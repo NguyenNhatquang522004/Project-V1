@@ -1,6 +1,5 @@
 package com.example.my_app.model.Purchasing;
 
-import java.math.BigDecimal;
 import java.util.Set;
 import java.util.UUID;
 
@@ -48,7 +47,7 @@ public class Purchase_Transaction extends TimeBase {
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
 
-    BigDecimal totalPrice;
+    int totalPrice;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = true)

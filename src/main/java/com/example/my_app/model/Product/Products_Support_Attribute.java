@@ -1,6 +1,5 @@
 package com.example.my_app.model.Product;
 
-import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -42,9 +41,9 @@ public class Products_Support_Attribute extends TimeBase {
 
     String size;
 
-    BigDecimal sellingPrice;
+    int sellingPrice;
 
-    BigDecimal costPrice;
+    int costPrice;
 
     int quantity;
 
