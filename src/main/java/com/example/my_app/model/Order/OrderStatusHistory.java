@@ -17,7 +17,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -38,8 +37,6 @@ public class OrderStatusHistory extends TimeBase {
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    Order_Bill order_id;
 
     @Enumerated(EnumType.STRING)
     StatusOrderStatusHistory status;

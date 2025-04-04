@@ -47,9 +47,6 @@ import com.example.my_app.model.Product.Products_Brands;
 import com.example.my_app.model.Product.Products_Support_Attribute;
 import com.example.my_app.model.Product.Products_Supports;
 import com.example.my_app.model.Product.Products_img;
-import com.fasterxml.jackson.core.JsonFactory;
-
-import lombok.val;
 
 @Service
 public class Admin_ProductsServices implements IProducts {

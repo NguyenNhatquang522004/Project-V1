@@ -5,11 +5,11 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-import com.example.my_app.Enum.StatusPayment;
+
 import com.example.my_app.model.Base.TimeBase;
 
 import com.example.my_app.model.User.User;
-import com.example.my_app.model.Warehouse.inventory_cards;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
@@ -24,7 +24,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
+
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -56,7 +56,7 @@ public class Order extends TimeBase {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "payment_status", nullable = true)
-    StatusPayment paymentStatus;
+    String paymentStatus;
 
     @Column(columnDefinition = "nvarchar(255)", nullable = true)
     String Country;
@@ -77,18 +77,4 @@ public class Order extends TimeBase {
     @JoinColumn(name = "User_id", nullable = false)
     @JsonIgnore
     User order_User;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "Products_id", nullable = true)
-    @JsonIgnore
-    Order_Payment order_Payment_id;
-
-    @OneToOne(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER, orphanRemoval = true)
-    @JoinColumn(name = "orders_inventory_cards_id", referencedColumnName = "id")
-    inventory_cards orders_inventory_cards;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "Order_Bill_id", nullable = false)
-    Order_Bill orders_bill;
-
 }

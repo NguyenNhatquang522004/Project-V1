@@ -97,7 +97,8 @@ public class RegisterController {
             boolean upLocalDateTimeUser = registerServices.handleUpLocalDateTimeUser(request, searchUser.get());
             if (!upLocalDateTimeUser) {
                 return new ResponseEntity<ResponedGlobal>(
-                        ResponedGlobal.builder().data("").code("0").messages("xảy ra lỗi khi upLocalDateTime User").build(),
+                        ResponedGlobal.builder().data("").code("0").messages("xảy ra lỗi khi upLocalDateTime User")
+                                .build(),
                         HttpStatusCode.valueOf(400));
             }
             return new ResponseEntity<ResponedGlobal>(

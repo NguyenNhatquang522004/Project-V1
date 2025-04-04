@@ -1,55 +1,55 @@
-package com.example.my_app.model.Admin;
+// package com.example.my_app.model.Admin;
 
-import java.time.LocalTime;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+// import java.time.LocalTime;
+// import java.util.HashSet;
+// import java.util.Set;
+// import java.util.UUID;
 
-import com.example.my_app.Enum.StatusTimeOfDay;
-import com.example.my_app.model.Base.TimeBase;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+// import com.example.my_app.Enum.StatusTimeOfDay;
+// import com.example.my_app.model.Base.TimeBase;
+// import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.experimental.FieldDefaults;
+// import jakarta.persistence.CascadeType;
+// import jakarta.persistence.Column;
+// import jakarta.persistence.Entity;
+// import jakarta.persistence.EnumType;
+// import jakarta.persistence.Enumerated;
+// import jakarta.persistence.FetchType;
+// import jakarta.persistence.GeneratedValue;
+// import jakarta.persistence.GenerationType;
+// import jakarta.persistence.Id;
+// import jakarta.persistence.OneToMany;
+// import jakarta.persistence.Table;
+// import lombok.AccessLevel;
+// import lombok.AllArgsConstructor;
+// import lombok.Data;
+// import lombok.EqualsAndHashCode;
+// import lombok.NoArgsConstructor;
+// import lombok.experimental.FieldDefaults;
 
-@Entity
-@Data
-@FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(name = "Shifts")
-@AllArgsConstructor
-@NoArgsConstructor(force = true)
-@EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
-// ca làm việc
-public class Shifts extends TimeBase {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    UUID id;
+// @Entity
+// @Data
+// @FieldDefaults(level = AccessLevel.PRIVATE)
+// @Table(name = "Shifts")
+// @AllArgsConstructor
+// @NoArgsConstructor(force = true)
+// @EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
+// // ca làm việc
+// public class Shifts extends TimeBase {
+//     @Id
+//     @GeneratedValue(strategy = GenerationType.UUID)
+//     UUID id;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = true)
-    StatusTimeOfDay name;
+//     @Enumerated(EnumType.STRING)
+//     @Column(nullable = true)
+//     StatusTimeOfDay name;
 
-    LocalTime startTime;
+//     LocalTime startTime;
 
-    LocalTime endTime;
+//     LocalTime endTime;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = {
-            CascadeType.ALL }, mappedBy = "work_Schedule_Shifts", orphanRemoval = true)
-    @JsonIgnore
-    Set<Work_Schedule> shifts_Work_Schedule = new HashSet<>();
-}
+//     @OneToMany(fetch = FetchType.LAZY, cascade = {
+//             CascadeType.ALL }, mappedBy = "work_Schedule_Shifts", orphanRemoval = true)
+//     @JsonIgnore
+//     Set<Work_Schedule> shifts_Work_Schedule = new HashSet<>();
+// }

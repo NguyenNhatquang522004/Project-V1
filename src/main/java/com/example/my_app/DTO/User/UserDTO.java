@@ -6,10 +6,9 @@ import java.util.Set;
 import java.util.UUID;
 
 import com.example.my_app.Configuration.AutoDeserializer;
-import com.example.my_app.DTO.CustomerCare.Loyalty_TransactionDTO;
 import com.example.my_app.DTO.Order.OrderDTO;
 import com.example.my_app.DTO.Order.OrderStatusHistoryDTO;
-import com.example.my_app.DTO.Order.Order_PerOrderDTO;
+
 import com.example.my_app.DTO.Role_Permission.RoleDTO;
 import com.example.my_app.Enum.user.GenderUser;
 import com.example.my_app.Enum.user.StatusUserEntry;
@@ -63,8 +62,6 @@ public class UserDTO {
 
     Set<OrderDTO> user_order;
 
-    Loyalty_TransactionDTO user_Loyalty_Transaction;
 
-    Set<Order_PerOrderDTO> user_Order_PerOrder;
 
 }
