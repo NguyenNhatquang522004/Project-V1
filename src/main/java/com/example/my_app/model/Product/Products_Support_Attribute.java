@@ -6,7 +6,6 @@ import java.util.UUID;
 
 import com.example.my_app.model.Base.TimeBase;
 import com.example.my_app.model.Order.Order_Products;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;

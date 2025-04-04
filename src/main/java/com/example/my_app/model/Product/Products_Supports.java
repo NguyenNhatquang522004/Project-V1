@@ -10,9 +10,8 @@ import com.example.my_app.model.Order.Order_Products;
 import com.example.my_app.model.Purchasing.Purchase_Transaction_Detail;
 import com.example.my_app.model.Warehouse.Warehouse_Products;
 import com.example.my_app.model.Warehouse.inventory_cards;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 
 import jakarta.persistence.CascadeType;
 

@@ -18,6 +18,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -39,19 +40,20 @@ public class ShipmentInfo extends TimeBase {
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
 
-    Integer totalOrders;
+    int totalOrders;
     int codAmount;
+    int codSuccess;
     int outstandingCod;
     int totalShippingFee;
     int outstandingShippingFee;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "shipment_id", nullable = false)
+    @OneToOne(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER, orphanRemoval = true)
+    @JoinColumn(name = "shipment_id", referencedColumnName = "id")
     @JsonIgnore
     Shipment shipment_id;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = {
-            CascadeType.ALL }, mappedBy = "ShipmentInfo_id", orphanRemoval = true)
+            CascadeType.ALL }, mappedBy = "shipmentInfo_id", orphanRemoval = true)
     @JsonIgnore
     Set<ShipStatusHistory> shipmentInfo_ShipStatusHistory = new HashSet<>();
 

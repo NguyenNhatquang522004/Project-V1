@@ -1,6 +1,7 @@
 package com.example.my_app.DTO.ship;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 import java.util.UUID;
 
 import com.example.my_app.Configuration.AutoDeserializer;
@@ -32,6 +33,6 @@ public class ShipStatusHistoryDTO {
     int outstandingCod;
     int shippingFee;
     String status;
-    ShipmentInfoDTO ShipmentInfo_id;
+    ShipmentInfoDTO shipmentInfo_id;
     Order_WayBillDTO shipStatusHistory_WayBill;
 }

@@ -27,6 +27,7 @@ public class ShipmentInfoDTO {
     int totalOrders;
     int codAmount;
     int outstandingCod;
+    int codSuccess;
     int totalShippingFee;
     int outstandingShippingFee;
 

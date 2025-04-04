@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -17,7 +18,9 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -42,7 +45,21 @@ public class Shipment extends TimeBase {
     @Enumerated(EnumType.STRING)
     StatusShipment description;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL }, mappedBy = "shipment_id", orphanRemoval = true)
+    @Column(columnDefinition = "nvarchar(255)", nullable = true)
+    String Country;
+    @Column(columnDefinition = "nvarchar(255)", nullable = true)
+    String Province;
+    @Column(columnDefinition = "nvarchar(255)", nullable = true)
+    String City;
+    @Column(columnDefinition = "nvarchar(255)", nullable = true)
+    String Ward;
+    @Column(columnDefinition = "nvarchar(255)", nullable = true)
+    String Number;
+
+    @OneToOne(mappedBy = "shipment_id", fetch = FetchType.EAGER)
+    @JoinColumn(name = "shipment_Info_id", referencedColumnName = "id")
     @JsonIgnore
-    Set<ShipmentInfo> user_address = new HashSet<>();
+    ShipmentInfo shipment_Info;
+
+    
 }

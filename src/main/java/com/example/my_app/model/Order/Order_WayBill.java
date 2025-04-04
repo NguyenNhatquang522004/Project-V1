@@ -2,13 +2,12 @@ package com.example.my_app.model.Order;
 
 import java.util.UUID;
 
-import com.example.my_app.DTO.ship.ShipStatusHistoryDTO;
 import com.example.my_app.model.Admin.Employee;
 import com.example.my_app.model.Base.TimeBase;
 import com.example.my_app.model.ship.ShipStatusHistory;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -42,6 +41,7 @@ public class Order_WayBill extends TimeBase {
     Order_Bill order_Order_Bill;
 
     @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "ShipHistory_id", referencedColumnName = "id")
     ShipStatusHistory order_ShipStatusHistory;
 
     @ManyToOne(fetch = FetchType.EAGER)

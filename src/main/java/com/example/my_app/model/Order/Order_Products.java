@@ -7,7 +7,6 @@ import com.example.my_app.model.Base.TimeBase;
 import com.example.my_app.model.Product.Products;
 import com.example.my_app.model.Product.Products_Support_Attribute;
 import com.example.my_app.model.Product.Products_Supports;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;

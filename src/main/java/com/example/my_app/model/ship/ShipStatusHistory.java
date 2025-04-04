@@ -1,6 +1,7 @@
 package com.example.my_app.model.ship;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 import java.util.UUID;
 
 import com.example.my_app.model.Base.TimeBase;
@@ -16,6 +17,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
@@ -39,8 +41,6 @@ public class ShipStatusHistory extends TimeBase {
     UUID id;
 
     String invoiceCode;
-    String shippingPartnerCode;
-    String trackingNumber;
     LocalDateTime time;
     int invoiceValue;
     int outstandingCod;
@@ -50,9 +50,9 @@ public class ShipStatusHistory extends TimeBase {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ShipmentInfo_id", nullable = false)
     @JsonIgnore
-    ShipmentInfo ShipmentInfo_id;
+    ShipmentInfo shipmentInfo_id;
 
     @OneToOne(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER, orphanRemoval = true)
-    @JoinColumn(name = "Order_WayBill_id", referencedColumnName = "id")
+    @JoinColumn(name = "WayBill_id", referencedColumnName = "id")
     Order_WayBill shipStatusHistory_WayBill;
 }

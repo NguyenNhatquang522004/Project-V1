@@ -11,6 +11,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.my_app.Enum.StatusShipment;
 import com.example.my_app.Enum.Products.StatusBrandsProducts;
 
 import com.example.my_app.Enum.Products.StatusCategory;
@@ -21,19 +22,21 @@ import com.example.my_app.Repository.Permission.PermissionRepository;
 import com.example.my_app.Repository.Products.BrandsRepository;
 import com.example.my_app.Repository.Products.CategoryRepository;
 import com.example.my_app.Repository.Role.RoleRepository;
+import com.example.my_app.Repository.Ship.ShipmentRepository;
 import com.example.my_app.Repository.User.UserRepository;
 import com.example.my_app.model.Product.ProductsCategory;
 import com.example.my_app.model.Product.Products_Brands;
 import com.example.my_app.model.Role_Permission.Permission;
 import com.example.my_app.model.Role_Permission.Role;
 import com.example.my_app.model.User.User;
+import com.example.my_app.model.ship.Shipment;
 
 import jakarta.persistence.EntityManager;
 
 @SpringBootApplication
 @EnableCaching
 @EntityScan(basePackages = "com.example.my_app.model")
-@EnableJpaRepositories(basePackages = { "com.example.my_app.Repository" })
+@EnableJpaRepositories(basePackages = "com.example.my_app.Repository")
 public class MyAppApplication implements CommandLineRunner {
 
 	@Autowired
@@ -60,6 +63,9 @@ public class MyAppApplication implements CommandLineRunner {
 	@Autowired
 	CategoryRepository categoryRepository;
 
+	@Autowired
+	ShipmentRepository shipmentRepository;
+
 	public static void main(String[] args) {
 		SpringApplication.run(MyAppApplication.class, args);
 	}
@@ -79,7 +85,11 @@ public class MyAppApplication implements CommandLineRunner {
 			pBrands.setBrands(value.toString());
 			brandsRepository.save(pBrands);
 		}
-
+		for (StatusShipment value : StatusShipment.values()) {
+			Shipment pBrands = new Shipment();
+			pBrands.setDescription(value);
+			shipmentRepository.save(pBrands);
+		}
 		for (StatusCategory value : StatusCategory.values()) {
 			ProductsCategory pBrands = new ProductsCategory();
 			pBrands.setCategory(value.toString());

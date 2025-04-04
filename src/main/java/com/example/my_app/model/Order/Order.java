@@ -10,9 +10,7 @@ import com.example.my_app.model.Base.TimeBase;
 
 import com.example.my_app.model.User.User;
 import com.example.my_app.model.Warehouse.inventory_cards;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;

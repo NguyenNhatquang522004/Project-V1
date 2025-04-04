@@ -1,7 +1,6 @@
 package com.example.my_app.model.Admin;
 
 import com.example.my_app.model.Base.TimeBase;
-import com.example.my_app.model.Order.Order_Bill;
 import com.example.my_app.model.Order.Order_WayBill;
 import com.example.my_app.model.Purchasing.Purchase_Transaction;
 import com.example.my_app.model.Purchasing.Purchase_Transaction_Return;
