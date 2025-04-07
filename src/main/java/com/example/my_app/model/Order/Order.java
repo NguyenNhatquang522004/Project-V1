@@ -54,7 +54,6 @@ public class Order extends TimeBase {
     @Column(name = "total_amount", nullable = true)
     int totalAmount;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "payment_status", nullable = true)
     String paymentStatus;
 

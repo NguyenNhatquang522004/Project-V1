@@ -8,7 +8,8 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatusCode;
+import org.springframework.http.HttpStatus;
+
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
@@ -28,6 +29,7 @@ import com.example.my_app.common.ResponedGlobal;
 import com.example.my_app.model.User.User;
 import com.example.my_app.modules.Auth.JwtServices;
 import com.example.my_app.modules.Auth.DTO.AuthDTO;
+import com.example.my_app.modules.ForgotPassWord.DTO.ForgotPassWordDTO;
 import com.example.my_app.modules.Login.DTO.GetDataGoogleDTO;
 import com.example.my_app.modules.Login.DTO.LoginNormalDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -69,14 +71,14 @@ public class LoginController {
                         if (searchUser.isEmpty() == true) {
                                 return new ResponseEntity<ResponedGlobal>(
                                                 ResponedGlobal.builder().data("").code("0").messages("lỗi").build(),
-                                                HttpStatusCode.valueOf(400));
+                                                HttpStatus.BAD_REQUEST);
                         }
                         boolean checkpassword = loginServices.handleDecode(request.getPassword(),
                                         searchUser.get().getPassword());
                         if (!checkpassword) {
                                 return new ResponseEntity<ResponedGlobal>(
                                                 ResponedGlobal.builder().data("").code("0").messages("lỗi").build(),
-                                                HttpStatusCode.valueOf(400));
+                                                HttpStatus.BAD_REQUEST);
                         }
                         Authentication authentication = authenticationManager.authenticate(
                                         new UsernamePasswordAuthenticationToken(
@@ -101,12 +103,12 @@ public class LoginController {
                         return new ResponseEntity<ResponedGlobal>(
                                         ResponedGlobal.builder().data(jwtServices.generateToken(data)).code("1")
                                                         .messages("thành công").build(),
-                                        HttpStatusCode.valueOf(200));
+                                        HttpStatus.OK);
                 } catch (Exception e) {
                         System.out.println(e.getMessage());
                         return new ResponseEntity<ResponedGlobal>(
                                         ResponedGlobal.builder().data("").code("0").messages("lỗi").build(),
-                                        HttpStatusCode.valueOf(400));
+                                        HttpStatus.BAD_REQUEST);
                 }
         }
 
@@ -125,14 +127,14 @@ public class LoginController {
                                 return new ResponseEntity<ResponedGlobal>(
                                                 ResponedGlobal.builder().data("").code("1").messages("thành công")
                                                                 .build(),
-                                                HttpStatusCode.valueOf(200));
+                                                HttpStatus.OK);
                         }
                         Optional<User> addUser = loginServices.handleAddUser(requestDTO);
                         if (addUser == null) {
                                 return new ResponseEntity<ResponedGlobal>(
                                                 ResponedGlobal.builder().data("").code("1").messages("thành công")
                                                                 .build(),
-                                                HttpStatusCode.valueOf(200));
+                                                HttpStatus.OK);
                         }
                         Authentication authentication = authenticationManager.authenticate(
                                         new UsernamePasswordAuthenticationToken(
@@ -157,12 +159,12 @@ public class LoginController {
                         return new ResponseEntity<ResponedGlobal>(
                                         ResponedGlobal.builder().data(jwtServices.generateToken(data)).code("1")
                                                         .messages("thành công").build(),
-                                        HttpStatusCode.valueOf(200));
+                                        HttpStatus.OK);
                 } catch (Exception e) {
                         System.out.println(e.getMessage());
                         return new ResponseEntity<ResponedGlobal>(
                                         ResponedGlobal.builder().data("").code("0").messages("lỗi").build(),
-                                        HttpStatusCode.valueOf(400));
+                                        HttpStatus.BAD_REQUEST);
                 }
         }
 

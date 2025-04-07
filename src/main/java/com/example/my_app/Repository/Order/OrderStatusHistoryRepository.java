@@ -1,14 +1,14 @@
-package com.example.my_app.Repository.Order;
+// package com.example.my_app.Repository.Order;
 
-import java.util.UUID;
+// import java.util.UUID;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+// import org.springframework.data.jpa.repository.JpaRepository;
+// import org.springframework.stereotype.Repository;
 
-import com.example.my_app.model.Order.OrderStatusHistory;
+// import com.example.my_app.model.Order.OrderStatusHistory;
 
 
-@Repository
-public interface OrderStatusHistoryRepository extends JpaRepository<OrderStatusHistory, UUID> {
+// @Repository
+// public interface OrderStatusHistoryRepository extends JpaRepository<OrderStatusHistory, UUID> {
 
-}
+// }

@@ -12,9 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.my_app.Enum.Role_Permission.StatusRole;
 import com.example.my_app.Enum.user.StatusUserEntry;
 import com.example.my_app.Mapper.User.UserMapper;
-import com.example.my_app.Repository.CustomRepository.RoleCustom;
+
 import com.example.my_app.Repository.Role.RoleRepository;
 import com.example.my_app.Repository.User.UserRepository;
+import com.example.my_app.custom.CustomRepository.RoleCustom;
 import com.example.my_app.model.Role_Permission.Role;
 import com.example.my_app.model.User.User;
 import com.example.my_app.modules.Register.DTO.RegisterStepOneDTO;

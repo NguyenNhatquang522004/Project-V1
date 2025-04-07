@@ -48,13 +48,15 @@ public class RegisterController {
                         ResponedGlobal.builder().data("").code("0").messages("email đã tồn tại hoặc lỗi").build(),
                         HttpStatusCode.valueOf(400));
             }
+            String uuid16digits = request.getCode().substring(request.getCode().length() - 4);
+            request.setCode(uuid16digits);
             boolean saveUser = registerServices.handleaddUser(request);
             if (!saveUser) {
                 return new ResponseEntity<ResponedGlobal>(
                         ResponedGlobal.builder().data("").code("0").messages("lưu dữ liệu bị lỗi").build(),
                         HttpStatusCode.valueOf(400));
             }
-            boolean sendEmail = senderEmail.handleSenderEmai("nguyennhatquang522004@gmail.com", request.getCode());
+            boolean sendEmail = senderEmail.handleSenderEmai("nguyennhatquang522004@gmail.com", uuid16digits);
             if (!sendEmail) {
                 return new ResponseEntity<ResponedGlobal>(
                         ResponedGlobal.builder().data("").code("0").messages("gửi email thất bại").build(),

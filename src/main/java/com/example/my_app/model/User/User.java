@@ -9,7 +9,7 @@ import com.example.my_app.Enum.user.GenderUser;
 import com.example.my_app.Enum.user.StatusUserEntry;
 import com.example.my_app.model.Base.TimeBase;
 import com.example.my_app.model.Order.Order;
-import com.example.my_app.model.Order.OrderStatusHistory;
+
 import com.example.my_app.model.Role_Permission.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -89,9 +89,9 @@ public class User extends TimeBase {
     @JsonIgnore
     Set<Address> user_address = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL }, mappedBy = "user_id", orphanRemoval = true)
-    @JsonIgnore
-    Set<OrderStatusHistory> user_orderHistory = new HashSet<>();
+    // @OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL }, mappedBy = "user_id", orphanRemoval = true)
+    // @JsonIgnore
+    // Set<OrderStatusHistory> user_orderHistory = new HashSet<>();
 
     @OneToOne(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinColumn(name = "Role_id", referencedColumnName = "id")

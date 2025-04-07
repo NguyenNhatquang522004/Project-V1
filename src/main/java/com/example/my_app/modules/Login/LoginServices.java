@@ -13,8 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.my_app.Enum.Role_Permission.StatusRole;
 import com.example.my_app.Enum.user.StatusUserEntry;
 import com.example.my_app.Mapper.User.UserMapper;
-import com.example.my_app.Repository.CustomRepository.RoleCustom;
 import com.example.my_app.Repository.User.UserRepository;
+import com.example.my_app.custom.CustomRepository.RoleCustom;
 import com.example.my_app.model.Role_Permission.Permission;
 import com.example.my_app.model.Role_Permission.Role;
 import com.example.my_app.model.User.User;
@@ -97,10 +97,12 @@ public class LoginServices {
     }
 
     public Cookie handleCookie(String name, String data, int age, boolean Secure, boolean HttpOnly) {
+
         Cookie cookie = new Cookie(name, data);
         cookie.setMaxAge(36000);
         cookie.setSecure(Secure);
         cookie.setHttpOnly(HttpOnly);
         return cookie;
     }
+
 }

@@ -1,5 +1,8 @@
 package com.example.my_app;
 
+import java.math.BigInteger;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -11,19 +14,19 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
-
 import com.example.my_app.Enum.Products.StatusBrandsProducts;
 
 import com.example.my_app.Enum.Products.StatusCategory;
 import com.example.my_app.Enum.Role_Permission.StatusPermission;
 import com.example.my_app.Enum.Role_Permission.StatusRole;
-import com.example.my_app.Repository.CustomRepository.RoleCustom;
+
 import com.example.my_app.Repository.Permission.PermissionRepository;
 import com.example.my_app.Repository.Products.BrandsRepository;
 import com.example.my_app.Repository.Products.CategoryRepository;
 import com.example.my_app.Repository.Role.RoleRepository;
 
 import com.example.my_app.Repository.User.UserRepository;
+import com.example.my_app.custom.CustomRepository.RoleCustom;
 import com.example.my_app.model.Product.ProductsCategory;
 import com.example.my_app.model.Product.Products_Brands;
 import com.example.my_app.model.Role_Permission.Permission;
@@ -69,7 +72,6 @@ public class MyAppApplication implements CommandLineRunner {
 	@Override
 	@Transactional
 	public void run(String... args) throws Exception {
-
 		for (StatusPermission value : StatusPermission.values()) {
 			Permission permission = new Permission();
 			permission.setDescription(value);

@@ -8,7 +8,6 @@ import java.util.UUID;
 import com.example.my_app.Configuration.AutoDeserializer;
 import com.example.my_app.DTO.User.UserDTO;
 
-
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import lombok.AccessLevel;
@@ -35,7 +34,6 @@ public class OrderDTO {
 
     int totalAmount;
 
- 
     String paymentStatus;
 
     String Country;
