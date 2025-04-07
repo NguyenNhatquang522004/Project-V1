@@ -8,7 +8,6 @@ import com.example.my_app.model.Base.TimeBase;
 import com.example.my_app.model.Order.Order_Products;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-
 import jakarta.persistence.CascadeType;
 
 import jakarta.persistence.Entity;
@@ -44,6 +43,7 @@ public class Products_Supports extends TimeBase {
         UUID id;
         String url;
         String color;
+        String codecolor;
         boolean isActive;
 
         @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "supports_id", orphanRemoval = true)
@@ -58,6 +58,5 @@ public class Products_Supports extends TimeBase {
         @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "products_Supports_id")
         @JsonIgnore
         Set<Products_Support_Attribute> products_Supports_Products_Support_Attribute = new HashSet<>();
-
 
 }

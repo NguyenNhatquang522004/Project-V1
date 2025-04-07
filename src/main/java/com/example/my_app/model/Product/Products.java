@@ -9,7 +9,6 @@ import com.example.my_app.model.Order.Order_Products;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -57,6 +56,12 @@ public class Products extends TimeBase {
 
     @Column(nullable = true)
     Boolean isActive = false;
+
+    @Column(nullable = true)
+    String title;
+
+    @Column(nullable = true)
+    String url;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "products_id", orphanRemoval = true)
     @JsonIgnore

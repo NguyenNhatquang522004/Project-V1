@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-
 import com.example.my_app.model.Base.TimeBase;
 
 import com.example.my_app.model.User.User;
@@ -46,13 +45,16 @@ public class Order extends TimeBase {
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
 
-    boolean isActive = false;
+    boolean isActive;
 
     @Column(name = "order_LocalDateTime", nullable = true)
     LocalDateTime orderLocalDateTime;
 
     @Column(name = "total_amount", nullable = true)
     int totalAmount;
+
+    @Column(name = "receivedAmount", nullable = true)
+    int receivedAmount;
 
     @Column(name = "payment_status", nullable = true)
     String paymentStatus;

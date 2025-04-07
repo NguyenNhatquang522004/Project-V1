@@ -1,8 +1,13 @@
 package com.example.my_app.modules.Order;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
+import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
@@ -25,6 +30,7 @@ import com.example.my_app.modules.Order.Request.RequestBuyItem;
 import com.example.my_app.modules.Order.Request.RequestDeleteItem;
 import com.example.my_app.modules.Order.Request.RequestOrderItem;
 import com.example.my_app.modules.Order.Request.RequestUpdateQuantityItem;
+import com.example.my_app.modules.Order.Responed.shoppingcartResponed;
 
 @Service
 public class OrderServices {
@@ -48,7 +54,7 @@ public class OrderServices {
     }
 
     @Transactional
-    public ResponedGlobal handleAddNew(RequestOrderItem request, User User) throws Exception {
+    public ResponedGlobal handleAddNew(RequestOrderItem request, User user) throws Exception {
         try {
             Optional<Products> searchProducts = helper.handleFindOne(productRepository, request.getProducts_id());
             if (searchProducts.isEmpty()) {
@@ -72,17 +78,35 @@ public class OrderServices {
                 TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
                 return ResponedGlobal.builder().code("0").messages("số lượng không đủ").data("").build();
             }
-            Order order = new Order();
+            Optional<Order> searchOrder = user.getUser_order().stream().filter(order -> order.isActive() == false)
+                    .findFirst();
+            if (searchOrder.isEmpty()) {
+                Order order = new Order();
+                order.setActive(false);
+                Order_Products order_Products = new Order_Products();
+                order_Products.setColor(searchSupport.get().getColor());
+                order_Products.setQuantity(request.getQuantity());
+                order_Products.setOrder_id(order);
+                searchProducts.get().getProducts_order().add(order_Products);
+                searchSupport.get().getProducts_order().add(order_Products);
+                searchAttribute.get().getProducts_order().add(order_Products);
+                order.getOrder_products().add(order_Products);
+                order.setOrder_User(user);
+                order.setTotalAmount(searchAttribute.get().getCostPrice() * request.getQuantity());
+                orderRepository.saveAndFlush(order);
+                return ResponedGlobal.builder().code("1").messages("thành công").data("").build();
+            }
             Order_Products order_Products = new Order_Products();
             order_Products.setColor(searchSupport.get().getColor());
             order_Products.setQuantity(request.getQuantity());
+            order_Products.setOrder_id(searchOrder.get());
             searchProducts.get().getProducts_order().add(order_Products);
             searchSupport.get().getProducts_order().add(order_Products);
             searchAttribute.get().getProducts_order().add(order_Products);
-            order.getOrder_products().add(order_Products);
-            order.setOrder_User(User);
-            order.setTotalAmount(searchAttribute.get().getCostPrice() * request.getQuantity());
-            orderRepository.saveAndFlush(order);
+            searchOrder.get().getOrder_products().add(order_Products);
+            searchOrder.get().setOrder_User(user);
+            searchOrder.get().setTotalAmount(searchAttribute.get().getCostPrice() * request.getQuantity());
+            orderRepository.saveAndFlush(searchOrder.get());
             return ResponedGlobal.builder().code("1").messages("thành công").data("").build();
         } catch (Exception e) {
             System.out.println(e);
@@ -109,7 +133,6 @@ public class OrderServices {
                 return ResponedGlobal.builder().code("0").messages("không tìm thấy order_products").data("").build();
 
             }
-
             searchOrderProducts.get().getAttribute_id().getProducts_order().remove(searchOrderProducts.get());
             searchOrderProducts.get().getProducts_id().getProducts_order().remove(searchOrderProducts.get());
             searchOrderProducts.get().getSupports_id().getProducts_order().remove(searchOrderProducts.get());
@@ -126,33 +149,59 @@ public class OrderServices {
         }
     }
 
-    public boolean handleOrderRender(User user) throws Exception {
+    public ResponedGlobal handleOrderRender(User user) throws Exception {
         try {
-
-            return true;
+            List<shoppingcartResponed> lShoppingcartResponeds = new ArrayList<>();
+            Optional<Order> searchOrder = user.getUser_order().stream().filter(order -> order.isActive() == false)
+                    .findFirst();
+            if (searchOrder.isEmpty()) {
+                TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+                return ResponedGlobal.builder().code("0").messages("lỗi").data("").build();
+            }
+            for (Order_Products value : searchOrder.get().getOrder_products()) {
+                shoppingcartResponed item = new shoppingcartResponed();
+                item.setOrder_id(value.getOrder_id().getId());
+                item.setOrder_product_id(value.getId());
+                item.setQuantity(value.getQuantity());
+                item.setType(value.getColor());
+                item.setTitle(value.getProducts_id().getTitle());
+                item.setAttribute_id(value.getAttribute_id().getId());
+                item.setSupports_id(value.getSupports_id().getId());
+                lShoppingcartResponeds.add(item);
+            }
+            return ResponedGlobal.builder().code("1").messages("không tìm thấy attribute").data(lShoppingcartResponeds)
+                    .build();
         } catch (Exception e) {
             System.out.println(e);
-            return false;
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            return ResponedGlobal.builder().code("0").messages("lỗi").data(e).build();
         }
     }
 
     @Transactional
-    public ResponedGlobal handleBuy(List<OrderDTO> request, User user, RequestBuyItem requestMethod) throws Exception {
+    public ResponedGlobal handleBuy(String request, User user, RequestBuyItem requestMethod) throws Exception {
         try {
+            UUID convert = UUID.fromString(request);
+            Optional<Order> searchOrder = helper.handlefind(convert, orderRepository::findById).stream().findFirst();
+            if (searchOrder.isEmpty()) {
+                TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+                return ResponedGlobal.builder().code("0").messages("không tìm thấy order ").data("").build();
+            }
+            if (searchOrder.get().isActive() == true) {
+                TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+                return ResponedGlobal.builder().code("0").messages("lỗi").data("").build();
+            }
 
-            user.getUser_order().forEach(val -> {
-                Optional<OrderDTO> match = request.stream().filter(p -> p.getId().equals(val.getId())).findFirst();
-                Order_Products searchOrderProducts = val.getOrder_products().iterator().next();
-
-                if (match.isPresent()) {
-                    orderMapper.UpdateEntity(val, match.get());
-
-                    int discountAmount = (searchOrderProducts.getOrder_id().getTotalAmount()
-                            * requestMethod.getDiscount()) / 100;
-                    int finalAmount = searchOrderProducts.getOrder_id().getTotalAmount() - discountAmount;
-
-                }
-            });
+            searchOrder.get().setActive(true);
+            searchOrder.get().setCity(requestMethod.getCity());
+            searchOrder.get().setCountry(requestMethod.getCountry());
+            searchOrder.get().setNotes(requestMethod.getNotes());
+            searchOrder.get().setWard(requestMethod.getWard());
+            searchOrder.get().setProvince(requestMethod.getProvince());
+            searchOrder.get()
+                    .setTotalAmount(searchOrder.get().getTotalAmount() * (1 - requestMethod.getDiscount() / 100));
+            searchOrder.get().setReceivedAmount(requestMethod.getReceivedAmount());
+            orderRepository.save(searchOrder.get());
 
             return ResponedGlobal.builder().code("1").messages("thành công").data("").build();
         } catch (Exception e) {
@@ -165,6 +214,7 @@ public class OrderServices {
     @Transactional
     public ResponedGlobal handleUpdateQuantity(RequestUpdateQuantityItem request) throws Exception {
         try {
+
             Optional<Order_Products> searchOrderProducts = helper.handleFindOne(orderProductsRepository,
                     request.getOrder_id());
             if (searchOrderProducts.isEmpty()) {
@@ -175,18 +225,6 @@ public class OrderServices {
             int totalamount = searchOrderProducts.get().getAttribute_id().getCostPrice() * request.getQuantity();
             searchOrderProducts.get().getOrder_id().setTotalAmount(totalamount);
             orderProductsRepository.save(searchOrderProducts.get());
-
-            return ResponedGlobal.builder().code("1").messages("thành công").data("").build();
-        } catch (Exception e) {
-            System.out.println(e);
-            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-            return ResponedGlobal.builder().code("0").messages("lỗi").data(e).build();
-        }
-    }
-
-    public ResponedGlobal handleOrderWayBill() throws Exception {
-        try {
-
             return ResponedGlobal.builder().code("1").messages("thành công").data("").build();
         } catch (Exception e) {
             System.out.println(e);
