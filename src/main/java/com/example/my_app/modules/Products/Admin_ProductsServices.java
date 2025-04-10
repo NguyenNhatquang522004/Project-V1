@@ -297,7 +297,6 @@ public class Admin_ProductsServices implements IProducts {
 
                 productCustom.Helper_Products_Product_Supports(products, products_Supports);
                 for (ProductsSupportAttributeDTO value1 : value.getProducts_Supports_Products_Support_Attribute()) {
-
                     Products_Support_Attribute products_Support_Attribute = supportsAttributeMapper.toEntity(value1);
                     productCustom.Helper_Product_Supports_Attribute(products_Supports, products_Support_Attribute);
                 }

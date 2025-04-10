@@ -47,7 +47,7 @@ spring:
     name: my-app
   
   datasource:
-    url: jdbc:mysql://localhost:3306/bank
+    url: jdbc:mysql://localhost:3306/bank1
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -57,7 +57,7 @@ spring:
 
   data:
     mongodb:
-      uri: mongodb://localhost:27017/chats
+      uri: mongodb://localhost:27017/project_v1
 
   redis:
     host: 127.0.0.1
@@ -82,3 +82,4 @@ jwt:
   expiration: 3600000
  
 
+jdk.http.auth.tunneling.disabledSchemes: Basic

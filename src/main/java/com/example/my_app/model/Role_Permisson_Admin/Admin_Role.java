@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+import com.example.my_app.Enum.Role_Permission.StatusRole;
 import com.example.my_app.model.Admin.Department;
 import com.example.my_app.model.Admin.Employee;
 import com.example.my_app.model.Base.TimeBase;
@@ -50,6 +51,8 @@ public class Admin_Role extends TimeBase {
     @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnore
     Employee role_Employee;
+
+  
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
     @JoinTable(name = "Admin_Role_Permisson", joinColumns = @JoinColumn(name = "Admin_Role_id"), inverseJoinColumns = @JoinColumn(name = "Admin_Permission_id"))

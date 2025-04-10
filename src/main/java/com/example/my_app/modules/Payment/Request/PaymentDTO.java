@@ -13,6 +13,6 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PaymentDTO {
-    public String paymentUrl;   
+    public String paymentUrl;
 
 }

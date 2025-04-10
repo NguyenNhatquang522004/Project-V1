@@ -25,14 +25,11 @@ public class Products_SupportsDTO {
   UUID id;
   String url;
   String color;
+  String codecolor;
   @JsonProperty("isActive")
   boolean isActive;
   ProductsDTO products_id;
   Set<ProductsSupportAttributeDTO> products_Supports_Products_Support_Attribute;
 
-
 }
 
-// Lấy id của Products (nếu không cần ánh xạ toàn bộ entity)
-
-// Các quan hệ chuyển sang DTO tương ứng

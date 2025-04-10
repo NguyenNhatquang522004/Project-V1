@@ -46,9 +46,6 @@ public class Products_Supports extends TimeBase {
         String codecolor;
         boolean isActive;
 
-        @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "supports_id", orphanRemoval = true)
-        @JsonIgnore
-        Set<Order_Products> products_order = new HashSet<>();
 
         @ManyToOne(fetch = FetchType.EAGER)
         @JoinColumn(name = "Products_id", nullable = false)

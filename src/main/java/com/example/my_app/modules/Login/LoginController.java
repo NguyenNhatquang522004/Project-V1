@@ -25,11 +25,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.my_app.Enum.Role_Permission.StatusRole;
 import com.example.my_app.common.ResponedGlobal;
+import com.example.my_app.custom.Helper.Helper;
+import com.example.my_app.model.Admin.Employee;
 import com.example.my_app.model.User.User;
 import com.example.my_app.modules.Auth.JwtServices;
 import com.example.my_app.modules.Auth.DTO.AuthDTO;
-import com.example.my_app.modules.ForgotPassWord.DTO.ForgotPassWordDTO;
+
 import com.example.my_app.modules.Login.DTO.GetDataGoogleDTO;
 import com.example.my_app.modules.Login.DTO.LoginNormalDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -52,21 +55,23 @@ public class LoginController {
 
         AuthenticationManager authenticationManager;
 
+        Helper helper;
+
         @Autowired
         public LoginController(LoginServices loginServices, AuthenticationManager authenticationManager,
-                        JwtServices jwtServices) {
+                        JwtServices jwtServices, Helper helper) {
                 this.loginServices = loginServices;
                 this.authenticationManager = authenticationManager;
                 this.jwtServices = jwtServices;
-
+                this.helper = helper;
         }
 
-        @Transactional
         @PostMapping(path = "/Public/Login/Normal", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
         public ResponseEntity<ResponedGlobal> handleNormalLogin(@RequestBody @Valid LoginNormalDTO request,
                         HttpServletResponse response)
                         throws Exception {
                 try {
+                        System.out.println("123");
                         Optional<User> searchUser = loginServices.handleFetchByEmail(request);
                         if (searchUser.isEmpty() == true) {
                                 return new ResponseEntity<ResponedGlobal>(
@@ -88,7 +93,7 @@ public class LoginController {
                         Set<String> permissions = loginServices.handleGetPermisson(searchUser);
                         AuthDTO authDTO = AuthDTO.builder()
                                         .username(userDetails.getUsername())
-                                        .role(searchUser.get().getUser_role().getDescription())
+                                        .role(StatusRole.Customers)
                                         .permission(permissions)
                                         .build();
                         String data = objectMapper.writeValueAsString(authDTO);
@@ -101,7 +106,10 @@ public class LoginController {
                         response.addCookie(cookieAccessToken);
                         response.addCookie(cookieRefreshToken);
                         return new ResponseEntity<ResponedGlobal>(
-                                        ResponedGlobal.builder().data(jwtServices.generateToken(data)).code("1")
+                                        ResponedGlobal.builder()
+                                                        .data(jwtServices.generateToken(data,
+                                                                        StatusRole.Customers.toString()))
+                                                        .code("1")
                                                         .messages("thành công").build(),
                                         HttpStatus.OK);
                 } catch (Exception e) {
@@ -136,11 +144,11 @@ public class LoginController {
                                                                 .build(),
                                                 HttpStatus.OK);
                         }
-                        Authentication authentication = authenticationManager.authenticate(
-                                        new UsernamePasswordAuthenticationToken(
-                                                        request.getPrincipal().getAttribute("email"),
-                                                        request.getPrincipal().getAttribute("name")));
-                        System.out.println(authentication.getAuthorities());
+                        // Authentication authentication = authenticationManager.authenticate(
+                        //                 new UsernamePasswordAuthenticationToken(
+                        //                                 request.getPrincipal().getAttribute("email"),
+                        //                                 request.getPrincipal().getAttribute("name")));
+                        // System.out.println(authentication.getAuthorities());
                         Set<String> permissions = loginServices.handleGetPermisson(addUser);
                         AuthDTO authDTO = AuthDTO.builder()
                                         .username(addUser.get().getEmail())
@@ -157,7 +165,10 @@ public class LoginController {
                         response.addCookie(cookieAccessToken);
                         response.addCookie(cookieRefreshToken);
                         return new ResponseEntity<ResponedGlobal>(
-                                        ResponedGlobal.builder().data(jwtServices.generateToken(data)).code("1")
+                                        ResponedGlobal.builder()
+                                                        .data(jwtServices.generateToken(data,
+                                                                        StatusRole.Staff.toString()))
+                                                        .code("1")
                                                         .messages("thành công").build(),
                                         HttpStatus.OK);
                 } catch (Exception e) {
@@ -168,4 +179,55 @@ public class LoginController {
                 }
         }
 
+        @Transactional
+        @PostMapping(path = "/Public/admin/Login", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+        public ResponseEntity<ResponedGlobal> handleAdminLogin(@RequestBody @Valid LoginNormalDTO request,
+                        HttpServletResponse response) throws Exception {
+                try {
+                        Optional<Employee> searchEmp = loginServices.handleFetcAdminhByEmail(request);
+                        if (searchEmp.isEmpty()) {
+                                return new ResponseEntity<ResponedGlobal>(
+                                                ResponedGlobal.builder().data("").code("0").messages("lỗi").build(),
+                                                HttpStatus.BAD_REQUEST);
+                        }
+                        boolean checkpassword = loginServices.handleDecode(request.getPassword(),
+                                        searchEmp.get().getPassword());
+                        if (!checkpassword) {
+                                return new ResponseEntity<ResponedGlobal>(
+                                                ResponedGlobal.builder().data("").code("0").messages("lỗi").build(),
+                                                HttpStatus.BAD_REQUEST);
+                        }
+                        Authentication authentication = authenticationManager.authenticate(
+                                        new UsernamePasswordAuthenticationToken(
+                                                        request.getEmail(),
+                                                        request.getPassword()));
+                        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+                        Set<String> permissions = loginServices.handleGetAdminPermisson(searchEmp.get());
+                        Set<String> department = loginServices.handleGetDeparment(searchEmp.get());
+                        AuthDTO authDTO = AuthDTO.builder()
+                                        .username(userDetails.getUsername())
+                                        .role(searchEmp.get().getStatusRole())
+                                        .permission(permissions)
+                                        .deparment(department)
+                                        .build();
+                        String data = objectMapper.writeValueAsString(authDTO);
+                        String encodedData = URLEncoder.encode(data, StandardCharsets.UTF_8);
+                        Cookie cookieAccessToken = loginServices.handleCookie("accessToken",
+                                        encodedData, 36000, false,
+                                        false);
+                        Cookie cookieRefreshToken = loginServices.handleCookie("refeshToken",
+                                        UUID.randomUUID().toString(), 36000, false,
+                                        false);
+                        response.addCookie(cookieAccessToken);
+                        response.addCookie(cookieRefreshToken);
+                        return new ResponseEntity<ResponedGlobal>(
+                                        ResponedGlobal.builder().data("").code("1")
+                                                        .messages("thành công").build(),
+                                        HttpStatus.OK);
+                } catch (Exception e) {
+                        return new ResponseEntity<ResponedGlobal>(
+                                        ResponedGlobal.builder().data("").code("0").messages("lỗi").build(),
+                                        HttpStatus.BAD_REQUEST);
+                }
+        }
 }

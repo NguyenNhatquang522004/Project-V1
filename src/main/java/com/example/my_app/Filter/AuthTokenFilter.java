@@ -11,6 +11,8 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.example.my_app.Enum.Role_Permission.StatusRole;
+import com.example.my_app.modules.Auth.AdminDetailsService;
 import com.example.my_app.modules.Auth.CustomUserDetailsService;
 import com.example.my_app.modules.Auth.JwtServices;
 
@@ -26,6 +28,9 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     @Autowired
     private CustomUserDetailsService userDetailsService;
 
+    @Autowired
+    private AdminDetailsService adminDetailsService;
+
     @Override
     protected void doFilterInternal(
             @NonNull HttpServletRequest request,
@@ -33,15 +38,26 @@ public class AuthTokenFilter extends OncePerRequestFilter {
             @NonNull FilterChain filterChain) throws ServletException, IOException {
         try {
             String jwt = parseJwt(request);
+
             if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
                 String username = jwtUtils.getUsernameFromToken(jwt);
-                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                        userDetails,
-                        null,
-                        userDetails.getAuthorities());
-                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(authentication);
+                String userType = jwtUtils.getClaimFromToken(jwt, "role", String.class);
+                UserDetails userDetails = null;
+                if (userType.equals(StatusRole.Staff.toString())) {
+                    userDetails = adminDetailsService.loadUserByUsername(username);
+                }
+                if (userType.equals(StatusRole.Customers.toString())) {
+                    userDetails = userDetailsService.loadUserByUsername(username);
+                }
+                if (userDetails != null) {
+                    UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+                            userDetails,
+                            null,
+                            userDetails.getAuthorities());
+                    authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                }
+
             }
         } catch (Exception e) {
             System.out.println("Cannot set user authentication: " + e);

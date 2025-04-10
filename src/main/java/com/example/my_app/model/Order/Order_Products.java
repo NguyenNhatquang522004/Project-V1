@@ -49,16 +49,6 @@ public class Order_Products extends TimeBase {
     Order order_id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "Products_id", nullable = false)
-    @JsonIgnore
-    Products products_id;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "supports_id", nullable = false)
-    @JsonIgnore
-    Products_Supports supports_id;
-
-    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "attribute_id", nullable = false)
     @JsonIgnore
     Products_Support_Attribute attribute_id;

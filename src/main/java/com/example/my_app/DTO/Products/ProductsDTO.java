@@ -8,6 +8,7 @@ import com.example.my_app.DTO.Order.OrderDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+import jakarta.persistence.Column;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 
@@ -27,6 +28,8 @@ public class ProductsDTO {
     int minPrice;
     int maxPrice;
     int totalBUY;
+    String title;
+    String url;
     @JsonProperty("isActive")
     boolean isActive;
     Set<Products_SupportsDTO> products_support;

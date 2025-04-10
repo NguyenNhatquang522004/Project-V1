@@ -13,7 +13,6 @@ import com.example.my_app.model.Order.Order;
 import com.example.my_app.model.Role_Permission.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -89,7 +88,8 @@ public class User extends TimeBase {
     @JsonIgnore
     Set<Address> user_address = new HashSet<>();
 
-    // @OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL }, mappedBy = "user_id", orphanRemoval = true)
+    // @OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL }, mappedBy =
+    // "user_id", orphanRemoval = true)
     // @JsonIgnore
     // Set<OrderStatusHistory> user_orderHistory = new HashSet<>();
 
@@ -100,8 +100,5 @@ public class User extends TimeBase {
     @OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL }, orphanRemoval = true, mappedBy = "order_User")
     @JsonIgnore
     Set<Order> user_order = new HashSet<>();
-
-
-    
 
 }

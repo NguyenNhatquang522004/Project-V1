@@ -87,8 +87,7 @@ public class OrderServices {
                 order_Products.setColor(searchSupport.get().getColor());
                 order_Products.setQuantity(request.getQuantity());
                 order_Products.setOrder_id(order);
-                searchProducts.get().getProducts_order().add(order_Products);
-                searchSupport.get().getProducts_order().add(order_Products);
+
                 searchAttribute.get().getProducts_order().add(order_Products);
                 order.getOrder_products().add(order_Products);
                 order.setOrder_User(user);
@@ -100,8 +99,6 @@ public class OrderServices {
             order_Products.setColor(searchSupport.get().getColor());
             order_Products.setQuantity(request.getQuantity());
             order_Products.setOrder_id(searchOrder.get());
-            searchProducts.get().getProducts_order().add(order_Products);
-            searchSupport.get().getProducts_order().add(order_Products);
             searchAttribute.get().getProducts_order().add(order_Products);
             searchOrder.get().getOrder_products().add(order_Products);
             searchOrder.get().setOrder_User(user);
@@ -134,8 +131,7 @@ public class OrderServices {
 
             }
             searchOrderProducts.get().getAttribute_id().getProducts_order().remove(searchOrderProducts.get());
-            searchOrderProducts.get().getProducts_id().getProducts_order().remove(searchOrderProducts.get());
-            searchOrderProducts.get().getSupports_id().getProducts_order().remove(searchOrderProducts.get());
+
             searchOrderProducts.get().getOrder_id().getOrder_products().remove(searchOrderProducts.get());
             searchOrder.get().getOrder_User().getUser_order().remove(searchOrder.get());
             orderRepository.delete(searchOrder.get());
@@ -164,9 +160,9 @@ public class OrderServices {
                 item.setOrder_product_id(value.getId());
                 item.setQuantity(value.getQuantity());
                 item.setType(value.getColor());
-                item.setTitle(value.getProducts_id().getTitle());
+                item.setTitle(value.getAttribute_id().getProducts_Supports_id().getProducts_id().getTitle());
                 item.setAttribute_id(value.getAttribute_id().getId());
-                item.setSupports_id(value.getSupports_id().getId());
+                item.setSupports_id(value.getAttribute_id().getProducts_Supports_id().getProducts_id().getId());
                 lShoppingcartResponeds.add(item);
             }
             return ResponedGlobal.builder().code("1").messages("không tìm thấy attribute").data(lShoppingcartResponeds)
@@ -179,10 +175,11 @@ public class OrderServices {
     }
 
     @Transactional
-    public ResponedGlobal handleBuy(String request, User user, RequestBuyItem requestMethod) throws Exception {
+    public ResponedGlobal handleBuy(RequestBuyItem requestMethod) throws Exception {
         try {
-            UUID convert = UUID.fromString(request);
-            Optional<Order> searchOrder = helper.handlefind(convert, orderRepository::findById).stream().findFirst();
+
+            Optional<Order> searchOrder = helper.handlefind(requestMethod.getOrder_id(), orderRepository::findById)
+                    .stream().findFirst();
             if (searchOrder.isEmpty()) {
                 TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
                 return ResponedGlobal.builder().code("0").messages("không tìm thấy order ").data("").build();

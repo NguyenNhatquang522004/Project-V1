@@ -53,8 +53,8 @@ public class Helper {
         // Optimize image and write to the ByteArrayOutputStream
         Thumbnails.of(image)
                 .size(maxSize, maxSize)
-                .outputFormat("WEBP") 
-                .outputQuality((double) quality) 
+                .outputFormat("WEBP")
+                .outputQuality((double) quality)
                 .toOutputStream(baos);
 
         // Return the byte array

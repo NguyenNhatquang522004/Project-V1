@@ -13,10 +13,15 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.my_app.Enum.Role_Permission.StatusRole;
 import com.example.my_app.Enum.user.StatusUserEntry;
 import com.example.my_app.Mapper.User.UserMapper;
+import com.example.my_app.Repository.Employee.EmployeeRepository;
 import com.example.my_app.Repository.User.UserRepository;
 import com.example.my_app.custom.CustomRepository.RoleCustom;
+import com.example.my_app.model.Admin.Department;
+import com.example.my_app.model.Admin.Employee;
 import com.example.my_app.model.Role_Permission.Permission;
 import com.example.my_app.model.Role_Permission.Role;
+import com.example.my_app.model.Role_Permisson_Admin.Admin_Permisson;
+import com.example.my_app.model.Role_Permisson_Admin.Admin_Role;
 import com.example.my_app.model.User.User;
 import com.example.my_app.modules.Login.DTO.GetDataGoogleDTO;
 import com.example.my_app.modules.Login.DTO.LoginNormalDTO;
@@ -33,19 +38,26 @@ public class LoginServices {
     UserMapper userMapper;
     PasswordEncoder passwordEncoder;
     RoleCustom roleCustom;
+    EmployeeRepository employeeRepository;
 
     @Autowired
     public LoginServices(UserMapper userMapper, UserRepository userRepository, PasswordEncoder passwordEncoder,
-            RoleCustom roleCustom) {
+            RoleCustom roleCustom, EmployeeRepository employeeRepository) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
         this.passwordEncoder = passwordEncoder;
         this.roleCustom = roleCustom;
+        this.employeeRepository = employeeRepository;
     }
 
     @Transactional
     public Optional<User> handleFetchByEmail(LoginNormalDTO data) throws Exception {
         return userRepository.findByEmail(data.getEmail());
+    }
+
+    @Transactional
+    public Optional<Employee> handleFetcAdminhByEmail(LoginNormalDTO data) throws Exception {
+        return employeeRepository.findByEmail(data.getEmail());
     }
 
     @Transactional
@@ -96,6 +108,25 @@ public class LoginServices {
                 .collect(Collectors.toSet()); // Collect into a Set<String>
     }
 
+    @Transactional
+    public Set<String> handleGetAdminPermisson(Employee data) throws Exception {
+        return data.getEmployee_Role().stream()
+                .flatMap(adminRole -> adminRole.getAdmin_Role_Permisson().stream())
+                .map(Admin_Permisson::getTitle)
+                .collect(Collectors.toSet());
+
+    }
+
+    @Transactional
+    public Set<String> handleGetDeparment(Employee data) throws Exception {
+        return data.getEmployee_Role().stream()
+                .map(Admin_Role::getRole_Department)
+                .map(Department::getDescription)
+                .map(Enum::name)
+                .collect(Collectors.toSet());
+
+    }
+
     public Cookie handleCookie(String name, String data, int age, boolean Secure, boolean HttpOnly) {
 
         Cookie cookie = new Cookie(name, data);
@@ -105,7 +136,4 @@ public class LoginServices {
         return cookie;
     }
 
-
-
-    
 }

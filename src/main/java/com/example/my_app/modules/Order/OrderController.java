@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.my_app.common.ResponedGlobal;
+import com.example.my_app.modules.Order.Request.RequestOrderItem;
 import com.example.my_app.modules.Products.Request.RequestAdd;
 
 @RestController
@@ -20,8 +21,8 @@ public class OrderController {
         this.orderServices = orderServices;
     }
 
-    @PostMapping(path = "/admin/order/Item", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResponedGlobal> handlAddnewItem(@RequestBody RequestAdd request)
+    @PostMapping(path = "/Public/order/Item", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResponedGlobal> handlAddnewItem(@RequestBody RequestOrderItem request)
             throws Exception {
         try {
 

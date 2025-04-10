@@ -1,6 +1,5 @@
 package com.example.my_app.modules.Products;
 
-
 import java.util.Optional;
 import java.util.UUID;
 
@@ -27,7 +26,7 @@ import com.example.my_app.modules.Products.Request.RequestUpdate;
 import jakarta.transaction.Transactional;
 
 @RestController
-@RequestMapping(path = "/admin/Products")
+@RequestMapping(path = "/Public/Products")
 public class Admin_ProductsController {
         private final Admin_ProductsServices productsServices;
 
@@ -60,8 +59,8 @@ public class Admin_ProductsController {
                 }
         }
 
-        @DeleteMapping(path = "/Delete", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
         @Transactional
+        @DeleteMapping(path = "/Delete", produces = MediaType.APPLICATION_JSON_VALUE)
         public ResponseEntity<ResponedGlobal> handlDeleteProducts(@RequestParam("id") String request) throws Exception {
 
                 try {

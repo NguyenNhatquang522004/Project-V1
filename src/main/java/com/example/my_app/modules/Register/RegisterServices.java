@@ -12,10 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.my_app.Enum.Role_Permission.StatusRole;
 import com.example.my_app.Enum.user.StatusUserEntry;
 import com.example.my_app.Mapper.User.UserMapper;
-
+import com.example.my_app.Repository.Employee.EmployeeRepository;
 import com.example.my_app.Repository.Role.RoleRepository;
 import com.example.my_app.Repository.User.UserRepository;
 import com.example.my_app.custom.CustomRepository.RoleCustom;
+import com.example.my_app.model.Admin.Employee;
 import com.example.my_app.model.Role_Permission.Role;
 import com.example.my_app.model.User.User;
 import com.example.my_app.modules.Register.DTO.RegisterStepOneDTO;
@@ -38,14 +39,17 @@ public class RegisterServices {
 
     RoleCustom roleCustom;
 
+    EmployeeRepository employeeRepository;
+
     @Autowired
     public RegisterServices(UserRepository userRepository, UserMapper userMapper, PasswordEncoder passwordEncoder,
-            RoleRepository roleRepository, RoleCustom roleCustom) {
+            RoleRepository roleRepository, RoleCustom roleCustom, EmployeeRepository employeeRepository) {
         this.userMapper = userMapper;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.roleRepository = roleRepository;
         this.roleCustom = roleCustom;
+        this.employeeRepository = employeeRepository;
     }
 
     public boolean CheckEmail(String data) throws Exception {
@@ -58,8 +62,22 @@ public class RegisterServices {
         }
     }
 
+    public boolean CheckEmailAdmin(String data) throws Exception {
+        try {
+            Optional<Employee> searchUser = employeeRepository.findByEmail(data);
+            return searchUser.isPresent();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
     Optional<User> handleFetchByEmail(String data) throws Exception {
         return userRepository.findByEmail(data);
+    }
+
+    Optional<Employee> handleFetchByEmailAdmin(String data) throws Exception {
+        return employeeRepository.findByEmail(data);
     }
 
     @Transactional
@@ -67,6 +85,22 @@ public class RegisterServices {
         try {
             User user = userMapper.toUser(data);
             userRepository.save(user);
+            return true;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+
+    }
+
+    @Transactional
+    boolean handleaddUseradmin(RegisterStepOneDTO data) throws Exception {
+        try {
+            Employee user = new Employee();
+            user.setCode(data.getCode());
+            user.setCode_expired(data.getCode_expired());
+            user.setEmail(data.getEmail());
+            employeeRepository.saveAndFlush(user);
             return true;
         } catch (Exception e) {
             System.out.println(e.getMessage());

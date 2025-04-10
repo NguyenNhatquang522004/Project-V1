@@ -39,6 +39,7 @@ import jakarta.persistence.EntityManager;
 @EnableCaching
 @EntityScan(basePackages = "com.example.my_app.model")
 @EnableJpaRepositories(basePackages = "com.example.my_app.Repository")
+
 public class MyAppApplication implements CommandLineRunner {
 
 	@Autowired
@@ -72,11 +73,11 @@ public class MyAppApplication implements CommandLineRunner {
 	@Override
 	@Transactional
 	public void run(String... args) throws Exception {
-		for (StatusPermission value : StatusPermission.values()) {
-			Permission permission = new Permission();
-			permission.setDescription(value);
-			permissionRepository.save(permission);
-		}
+		// for (StatusPermission value : StatusPermission.values()) {
+		// Permission permission = new Permission();
+		// permission.setDescription(value);
+		// permissionRepository.save(permission);
+		// }
 
 		for (StatusBrandsProducts value : StatusBrandsProducts.values()) {
 			Products_Brands pBrands = new Products_Brands();
@@ -88,14 +89,15 @@ public class MyAppApplication implements CommandLineRunner {
 			pBrands.setCategory(value.toString());
 			categoryRepository.save(pBrands);
 		}
-		User user = new User();
-		user.setPassword(passwordEncoder.encode("123"));
-		user.setEmail("nguyennhatquang522004@gmail.com");
-		user.setUsername("nguyennhatquang");
-		userRepository.save(user);
-		Role check = roleCustom.handleDefaultPermissionRole(StatusRole.Customers, user);
-		user.setUser_role(check);
-		userRepository.save(user);
+		// User user = new User();
+		// user.setPassword(passwordEncoder.encode("123"));
+		// user.setEmail("nguyennhatquang522004@gmail.com");
+		// user.setUsername("nguyennhatquang");
+		// userRepository.save(user);
+		// Role check = roleCustom.handleDefaultPermissionRole(StatusRole.Customers,
+		// user);
+		// user.setUser_role(check);
+		// userRepository.save(user);
 	}
 
 }

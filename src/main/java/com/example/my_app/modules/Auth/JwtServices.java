@@ -8,6 +8,7 @@ import javax.crypto.SecretKey;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
@@ -29,9 +30,10 @@ public class JwtServices {
         this.key = Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
     }
 
-    public String generateToken(String username) {
+    public String generateToken(String username, String type) {
         return Jwts.builder()
                 .setSubject(username)
+                .claim("role", type)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
                 .signWith(key, SignatureAlgorithm.HS256)
@@ -44,6 +46,15 @@ public class JwtServices {
                 .parseClaimsJws(token)
                 .getBody()
                 .getSubject();
+    }
+
+    public <T> T getClaimFromToken(String token, String claimName, Class<T> type) {
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+        return claims.get(claimName, type);
     }
 
     public boolean validateJwtToken(String token) {

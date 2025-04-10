@@ -20,5 +20,6 @@ public class AuthDTO {
     String username;
     StatusRole role;
     Set<String> permission;
+    Set<String> deparment;
 
 }

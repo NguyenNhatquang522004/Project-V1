@@ -75,10 +75,6 @@ public class Products extends TimeBase {
     // "products_id", orphanRemoval = true)
     // Set<Products_sales> products_sales = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "products_id", orphanRemoval = true)
-    @JsonIgnore
-    Set<Order_Products> products_order = new HashSet<>();
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Category_id", nullable = false)
     @JsonIgnore

@@ -21,9 +21,7 @@ public class RegisterStepOneDTO {
     @Email(message = "Email is not valid", regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
     @NotEmpty(message = "Email cannot be empty")
     String email;
-
-    @Builder.Default
-    String code = String.format("%040d", new BigInteger(UUID.randomUUID().toString().replace("-", ""), 16));
+    String code;
     @Builder.Default
     LocalDateTime code_expired = LocalDateTime.now();
 

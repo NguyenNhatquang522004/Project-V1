@@ -28,5 +28,5 @@ public class RequestAdd {
 
     List<ProductsImgDTO> urlData;
 
-    List<Products_SupportsDTO> ProductsSupportData;
+    List<Products_SupportsDTO> productsSupportData;
 }
