@@ -23,13 +23,12 @@ import lombok.experimental.FieldDefaults;
 public class shoppingcartResponed {
     UUID order_id;
     UUID Order_product_id;
-    UUID products_id;
     UUID supports_id;
     UUID attribute_id;
     int quantity;
     String title;
     String type;
     int price;
-
+    String url;
 
 }

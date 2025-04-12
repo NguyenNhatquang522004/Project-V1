@@ -1,5 +1,6 @@
 package com.example.my_app.DTO.Products;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -12,6 +13,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
@@ -20,6 +22,7 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Products_SupportsDTO {
   @JsonDeserialize(using = AutoDeserializer.class)
   UUID id;
@@ -29,7 +32,6 @@ public class Products_SupportsDTO {
   @JsonProperty("isActive")
   boolean isActive;
   ProductsDTO products_id;
-  Set<ProductsSupportAttributeDTO> products_Supports_Products_Support_Attribute;
+  Set<ProductsSupportAttributeDTO> products_Supports_Products_Support_Attribute = new HashSet<>();
 
 }
-

@@ -1,6 +1,10 @@
 package com.example.my_app.modules.ProductsDetail.Responed;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import com.example.my_app.DTO.Products.ProductsSupportAttributeDTO;
+import com.example.my_app.DTO.Products.Products_SupportsDTO;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -12,11 +16,12 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @NoArgsConstructor
 @AllArgsConstructor
-public class CartResponed {
+public class DetailResponed {
     String id;
-    String url;
+    List<String> url = new ArrayList<>();
     String title;
-    List<String> codeColor;
     int maxprice;
     int minprice;
+    List<Products_SupportsDTO> support = new ArrayList<>();
+    List<ProductsSupportAttributeDTO> att;
 }

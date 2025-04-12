@@ -40,6 +40,7 @@ public class Order_Products extends TimeBase {
     UUID id;
     String color;
     int quantity;
+    int price;
 
     @Enumerated(EnumType.STRING)
     StutusSizeProducts stutusSizeProducts;

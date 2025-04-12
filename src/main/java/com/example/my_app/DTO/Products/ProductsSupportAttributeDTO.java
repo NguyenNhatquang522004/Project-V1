@@ -9,6 +9,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
@@ -17,6 +18,7 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class ProductsSupportAttributeDTO {
     @JsonDeserialize(using = AutoDeserializer.class)
     UUID id;
@@ -27,6 +29,8 @@ public class ProductsSupportAttributeDTO {
     int costPrice;
 
     int quantity;
+
+    UUID support_id;
 
     Products_SupportsDTO products_Supports_id;
 }

@@ -16,10 +16,9 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RequestDeleteItem {
-    @JsonDeserialize(using = AutoDeserializer.class)
-    UUID order_id;
+
     @JsonDeserialize(using = AutoDeserializer.class)
     UUID order_products_id;
-    @JsonDeserialize(using = AutoDeserializer.class)
-    UUID user_id;
+    // @JsonDeserialize(using = AutoDeserializer.class)
+    // UUID user_id;
 }

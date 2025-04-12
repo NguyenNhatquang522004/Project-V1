@@ -3,6 +3,7 @@ package com.example.my_app.modules.Order.Request;
 import java.util.UUID;
 
 import com.example.my_app.Configuration.AutoDeserializer;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import lombok.AccessLevel;
@@ -16,16 +17,17 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RequestBuyItem {
-    int discount;
-    int receivedAmount;
-    int totalAmount;
+   int receivedAmount;
+    @JsonProperty("Country")
     String Country;
+    @JsonProperty("Province")
     String Province;
+    @JsonProperty("City")
     String City;
+    @JsonProperty("Ward")
     String Ward;
     String notes;
     @JsonDeserialize(using = AutoDeserializer.class)
-    UUID user_id;
-    @JsonDeserialize(using = AutoDeserializer.class)
     UUID order_id;
+    String type;
 }

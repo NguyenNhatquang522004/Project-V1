@@ -44,8 +44,8 @@ public class Products_Supports extends TimeBase {
         String url;
         String color;
         String codecolor;
-        boolean isActive;
-
+        
+        boolean active;
 
         @ManyToOne(fetch = FetchType.EAGER)
         @JoinColumn(name = "Products_id", nullable = false)

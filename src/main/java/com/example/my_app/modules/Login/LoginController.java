@@ -145,9 +145,9 @@ public class LoginController {
                                                 HttpStatus.OK);
                         }
                         // Authentication authentication = authenticationManager.authenticate(
-                        //                 new UsernamePasswordAuthenticationToken(
-                        //                                 request.getPrincipal().getAttribute("email"),
-                        //                                 request.getPrincipal().getAttribute("name")));
+                        // new UsernamePasswordAuthenticationToken(
+                        // request.getPrincipal().getAttribute("email"),
+                        // request.getPrincipal().getAttribute("name")));
                         // System.out.println(authentication.getAuthorities());
                         Set<String> permissions = loginServices.handleGetPermisson(addUser);
                         AuthDTO authDTO = AuthDTO.builder()
@@ -155,7 +155,6 @@ public class LoginController {
                                         .role(addUser.get().getUser_role().getDescription())
                                         .permission(permissions)
                                         .build();
-
                         String data = objectMapper.writeValueAsString(authDTO);
                         Cookie cookieAccessToken = loginServices.handleCookie("accessToken", data, 36000, false,
                                         false);

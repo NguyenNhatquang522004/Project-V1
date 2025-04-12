@@ -28,17 +28,16 @@ public class PaymentController {
         }
 
         @GetMapping(path = "/Public/creat_payment")
-        public ResponseEntity<ResponedGlobal> createpayment(HttpServletRequest request,
-                        @RequestBody RequestBuyItem data)
+        public ResponseEntity<ResponedGlobal> createpayment(HttpServletRequest request)
                         throws Exception {
                 try {
-                        ResponedGlobal buy = orderServices.handleBuy(data);
-                        if (buy.getCode().equals("0")) {
-                                return new ResponseEntity<ResponedGlobal>(
-                                                ResponedGlobal.builder().data("").code("0")
-                                                                .messages(buy.getData().toString()).build(),
-                                                HttpStatus.BAD_REQUEST);
-                        }
+                        // ResponedGlobal buy = orderServices.handleBuy(data);
+                        // if (buy.getCode().equals("0")) {
+                        // return new ResponseEntity<ResponedGlobal>(
+                        // ResponedGlobal.builder().data("").code("0")
+                        // .messages(buy.getData().toString()).build(),
+                        // HttpStatus.BAD_REQUEST);
+                        // }
                         return new ResponseEntity<ResponedGlobal>(
                                         ResponedGlobal.builder().data(paymentSevices.createVnPayPayment(request))
                                                         .code("1")
