@@ -227,10 +227,15 @@ public class OrderServices {
             searchOrder.get().setNotes(requestMethod.getNotes());
             searchOrder.get().setWard(requestMethod.getWard());
             searchOrder.get().setProvince(requestMethod.getProvince());
+
             if (requestMethod.getType().equals("1")) {
                 searchOrder.get().setReceivedAmount(requestMethod.getReceivedAmount());
             } else {
                 searchOrder.get().setReceivedAmount(0);
+            }
+            for (Order_Products value : searchOrder.get().getOrder_products()) {
+                value.getAttribute_id().getProducts_Supports_id().getProducts_id().setTotalBUY(
+                        value.getAttribute_id().getProducts_Supports_id().getProducts_id().getTotalBUY() + 1);
             }
             orderRepository.save(searchOrder.get());
 

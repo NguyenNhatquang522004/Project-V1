@@ -26,7 +26,6 @@ import lombok.experimental.FieldDefaults;
 public class ProductsDTO {
     @JsonDeserialize(using = AutoDeserializer.class)
     UUID id;
-    String name;
     int quantity;
     int minPrice;
     int maxPrice;

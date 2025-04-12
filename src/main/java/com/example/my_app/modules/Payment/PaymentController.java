@@ -58,7 +58,7 @@ public class PaymentController {
                         @RequestParam("vnp_BankTranNo") String vnpBankTranNo,
                         @RequestParam("vnp_CardType") String vnpCardType,
                         @RequestParam("vnp_OrderInfo") String vnpOrderInfo,
-                        @RequestParam("vnp_PayLocalDateTime") String vnpPayLocalDateTime,
+                        @RequestParam("vnp_PayDate") String vnp_PayDate,
                         @RequestParam("vnp_ResponseCode") String vnpResponseCode,
                         @RequestParam("vnp_TmnCode") String vnpTmnCode,
                         @RequestParam("vnp_TransactionNo") String vnpTransactionNo,

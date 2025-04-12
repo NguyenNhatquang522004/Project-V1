@@ -42,8 +42,6 @@ public class Products extends TimeBase {
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
     @Column(nullable = true)
-    String name;
-    @Column(nullable = true)
     int quantity;
     @Column(nullable = true)
     int minPrice;

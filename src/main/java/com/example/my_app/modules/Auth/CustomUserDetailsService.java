@@ -1,5 +1,6 @@
 package com.example.my_app.modules.Auth;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -24,11 +25,14 @@ public class CustomUserDetailsService implements UserDetailsService {
         public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
                 User user = userRepository.findByEmail(email).orElseThrow(
                                 () -> new UsernameNotFoundException("User Not Found with username: " + email));
-                List<GrantedAuthority> authorities = Optional.ofNullable(user.getUser_role())
-                                .stream()
-                                .map(role -> new SimpleGrantedAuthority(
-                                                "ROLE_" + role.getDescription().toString().toUpperCase()))
-                                .collect(Collectors.toList());
+                List<GrantedAuthority> authorities = new ArrayList<>();
+                String roleName = "ROLE_" + user.getUser_role().getDescription().name().toUpperCase();
+                authorities.add(new SimpleGrantedAuthority(roleName));
+                // List<GrantedAuthority> authorities = Optional.ofNullable(user.getUser_role())
+                // .stream()
+                // .map(role -> new SimpleGrantedAuthority(
+                // "ROLE_" + role.getDescription().toString().toUpperCase()))
+                // .collect(Collectors.toList());
                 return new org.springframework.security.core.userdetails.User(
                                 user.getEmail(),
                                 user.getPassword(),
