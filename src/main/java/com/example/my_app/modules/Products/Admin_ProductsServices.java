@@ -1,5 +1,6 @@
 package com.example.my_app.modules.Products;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
@@ -35,6 +37,7 @@ import com.example.my_app.Repository.Products.ProductRepository;
 import com.example.my_app.Repository.Products.ProductRepositoryPanigation;
 import com.example.my_app.Repository.Products.SupportsAttributeRepository;
 import com.example.my_app.Repository.Products.SupportsRepository;
+import com.example.my_app.common.ResponedGlobal;
 import com.example.my_app.custom.CustomRepository.ProductCustom;
 import com.example.my_app.model.Product.Products;
 import com.example.my_app.model.Product.ProductsCategory;
@@ -46,6 +49,8 @@ import com.example.my_app.modules.IServices.IProducts;
 import com.example.my_app.modules.Products.Request.RequestAdd;
 import com.example.my_app.modules.Products.Request.RequestUpdate;
 import com.example.my_app.modules.Products.Responed.ResponedProducts;
+
+import lombok.val;
 
 @Service
 public class Admin_ProductsServices implements IProducts {
@@ -99,7 +104,7 @@ public class Admin_ProductsServices implements IProducts {
     }
 
     @Transactional
-    public boolean addNewProducts(RequestAdd request) throws Exception {
+    public ResponedGlobal addNewProducts(RequestAdd request) throws Exception {
         try {
             Products products = productMapper.toEntity(request.getProductsData());
             handleProductsSupportAndAttribute(request.getProductsSupportData(), products);
@@ -107,23 +112,23 @@ public class Admin_ProductsServices implements IProducts {
             Optional<ProductsCategory> searchCategory = handleFindOneCategory(request.getCategoryData().getCategory());
             if (searchCategory.isEmpty()) {
                 TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-                return false;
+                return ResponedGlobal.builder().data("").code("0").messages("lỗi khong tim thấy cate").build();
             }
 
             Optional<Products_Brands> searchBrands = handleFindOneBrands(request.getBrandsData().getBrands());
             if (searchBrands.isEmpty()) {
                 TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-                return false;
+                return ResponedGlobal.builder().data("").code("0").messages("lỗi khong tim thấy brad").build();
             }
             searchCategory.get().getProducts().add(products);
             searchBrands.get().getProducts().add(products);
             products.setProducts_Brands_id(searchBrands.get());
             products.setProductsCategory(searchCategory.get());
-            productRepository.saveAndFlush(products);
-            return true;
+            productRepository.save(products);
+            return ResponedGlobal.builder().data("").code("1").messages("thành công").build();
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            return false;
+            return ResponedGlobal.builder().data("").code("0").messages(e.toString()).build();
         }
     }
 
@@ -139,16 +144,18 @@ public class Admin_ProductsServices implements IProducts {
                     updateProductsSupport(request.getProductsSupportDataUpdate(), products),
                     handleProductsSupportAndAttributeAsync(request.getProductsSupportDataAdd(), products),
                     handleImgProductsAsync(products, request.getUrlDataNew()))
-                    .thenRun(() -> productRepository.saveAndFlush(products))
-                    .join();
+                    .thenApplyAsync(v -> productRepository.save(products))
+                    .join(); 
+
             return true;
         } catch (Exception e) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             return false;
         }
     }
 
     @Async("asyncTaskExecutor")
-    @Transactional
+    @Transactional(propagation = Propagation.NESTED)
     public CompletableFuture<Void> handleUpdateProducts(Products products, ProductsDTO request)
             throws Exception {
         try {
@@ -161,13 +168,13 @@ public class Admin_ProductsServices implements IProducts {
     }
 
     @Async("asyncTaskExecutor")
-    @Transactional
+    @Transactional(propagation = Propagation.NESTED)
     public CompletableFuture<Void> handleUpdateCategory(Products products, ProductsCategoryDTO request)
             throws Exception {
         try {
             System.out.println(Thread.currentThread());
 
-            if (products.getProductsCategory().getCategory() != request.getCategory()) {
+            if(!products.getProductsCategory().getCategory().equals(request.getCategory()))  {
                 products.getProductsCategory().getProducts().remove(products);
                 Optional<ProductsCategory> searchCategory = handleFindOneCategory(
                         request.getCategory());
@@ -183,7 +190,7 @@ public class Admin_ProductsServices implements IProducts {
     }
 
     @Async("asyncTaskExecutor")
-    @Transactional
+    @Transactional(propagation = Propagation.NESTED)
     public CompletableFuture<Void> handleUpdateBrands(Products products, ProductsBrandDTO request) throws Exception {
         try {
             if (products.getProducts_Brands_id().getBrands() != request.getBrands()) {
@@ -201,7 +208,7 @@ public class Admin_ProductsServices implements IProducts {
     }
 
     @Async("asyncTaskExecutor")
-    @Transactional
+    @Transactional(propagation = Propagation.NESTED)
     public CompletableFuture<Void> handleDeleteManySupport(List<UUID> request, Products products) throws Exception {
         try {
             System.out.println(Thread.currentThread());
@@ -218,7 +225,7 @@ public class Admin_ProductsServices implements IProducts {
     }
 
     @Async("asyncTaskExecutor")
-    @Transactional
+    @Transactional(propagation = Propagation.NESTED)
     public CompletableFuture<Void> handleDeleteimg(Products products, List<UUID> request) throws Exception {
         try {
             if (request.size() > 0) {
@@ -232,7 +239,7 @@ public class Admin_ProductsServices implements IProducts {
     }
 
     @Async("asyncTaskExecutor")
-    @Transactional
+    @Transactional(propagation = Propagation.NESTED)
     public CompletableFuture<Void> updateProductsSupport(List<Products_SupportsDTO> request, Products products)
             throws Exception {
         try {
@@ -274,7 +281,7 @@ public class Admin_ProductsServices implements IProducts {
     }
 
     @Async("asyncTaskExecutor")
-    @Transactional
+    @Transactional(propagation = Propagation.NESTED)
     public CompletableFuture<Void> handleImgProductsAsync(Products products, List<ProductsImgDTO> request)
             throws Exception {
         try {
@@ -307,7 +314,7 @@ public class Admin_ProductsServices implements IProducts {
     }
 
     @Async("asyncTaskExecutor")
-    @Transactional
+    @Transactional(propagation = Propagation.NESTED)
     public CompletableFuture<Void> handleProductsSupportAndAttributeAsync(List<Products_SupportsDTO> request,
             Products products)
             throws Exception {
@@ -421,12 +428,67 @@ public class Admin_ProductsServices implements IProducts {
         }
     }
 
-    public Page<Products> handlePanigation(int page, int size) throws Exception {
+    public ResponedGlobal handlePanigation() throws Exception {
         try {
-            Pageable pageRequest = PageRequest.of(page, size);
-            return productRepositoryPanigation.findAll(pageRequest);
+
+            List<Products> searchProducts = productRepository.findAll();
+            List<ResponedProducts> responedProducts = new ArrayList<>();
+            List<ProductsImgDTO> setimg = new ArrayList<>();
+            for (Products value : searchProducts) {
+                ResponedProducts itemp = new ResponedProducts();
+                ProductsDTO item = new ProductsDTO();
+                item.setId(value.getId());
+                item.setActive(value.getIsActive());
+                item.setMaxPrice(value.getMaxPrice());
+                item.setMinPrice(value.getMinPrice());
+                item.setQuantity(value.getQuantity());
+                item.setTitle(value.getTitle());
+                item.setTotalBUY(value.getTotalBUY());
+                item.setUrl(value.getUrl());
+                item.setActive(true);
+                ProductsBrandDTO item2 = new ProductsBrandDTO();
+                item2.setBrands(value.getProducts_Brands_id().getBrands());
+                item2.setId(value.getProducts_Brands_id().getId());
+                ProductsCategoryDTO item3 = new ProductsCategoryDTO();
+                item3.setId(value.getProductsCategory().getId());
+                item3.setCategory(value.getProductsCategory().getCategory());
+
+                for (Products_img value1 : value.getProducts_img()) {
+                    ProductsImgDTO item4 = new ProductsImgDTO();
+                    item4.setId(value1.getId());
+                    item4.setUrl(value1.getUrl());
+                    setimg.add(item4);
+                }
+                for (Products_Supports value2 : value.getProducts_support()) {
+                    Products_SupportsDTO item5 = new Products_SupportsDTO();
+                    item5.setId(value2.getId());
+                    item5.setCodecolor(value2.getCodecolor());
+                    item5.setActive(true);
+                    item5.setColor(value2.getColor());
+                    item5.setUrl(value2.getUrl());
+                    Set<ProductsSupportAttributeDTO> productsSupportAttributeDTOs = new HashSet<>();
+                    for (Products_Support_Attribute value3 : value2.getProducts_Supports_Products_Support_Attribute()) {
+                        ProductsSupportAttributeDTO item6 = new ProductsSupportAttributeDTO();
+                        item6.setId(value3.getId());
+                        item6.setCostPrice(value3.getCostPrice());
+                        item6.setQuantity(value3.getQuantity());
+                        item6.setSize(value3.getSize());
+                        item6.setSellingPrice(value3.getSellingPrice());
+                        productsSupportAttributeDTOs.add(item6);
+                    }
+                    item5.setProducts_Supports_Products_Support_Attribute(productsSupportAttributeDTOs);
+                    itemp.getProductsSupportData().add(item5);
+                    itemp.setProductsData(item);
+                    itemp.setBrandsData(item2);
+                    itemp.setCategoryData(item3);
+                    itemp.setUrlData(setimg);
+                    responedProducts.add(itemp);
+                }
+
+            }
+            return ResponedGlobal.builder().code("1").data(responedProducts).messages("").build();
         } catch (Exception e) {
-            return null;
+            return ResponedGlobal.builder().code("0").data("").messages(e.toString()).build();
         }
     }
 

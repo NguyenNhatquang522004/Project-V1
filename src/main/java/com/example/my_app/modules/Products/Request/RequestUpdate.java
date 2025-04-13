@@ -9,6 +9,7 @@ import com.example.my_app.DTO.Products.ProductsCategoryDTO;
 import com.example.my_app.DTO.Products.ProductsDTO;
 import com.example.my_app.DTO.Products.ProductsImgDTO;
 import com.example.my_app.DTO.Products.Products_SupportsDTO;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -30,10 +31,10 @@ public class RequestUpdate {
     List<UUID> urlDataDelete;
 
     List<ProductsImgDTO> urlDataNew;
-
+    @JsonProperty("ProductsSupportDataAdd")
     List<Products_SupportsDTO> ProductsSupportDataAdd;
-
+    @JsonProperty("ProductsSupportDataUpdate")
     List<Products_SupportsDTO> ProductsSupportDataUpdate;
-
+    @JsonProperty("ProductsSupportDataDelete")
     List<UUID> ProductsSupportDataDelete;
 }

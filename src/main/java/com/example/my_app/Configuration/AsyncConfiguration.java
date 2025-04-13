@@ -14,14 +14,12 @@ public class AsyncConfiguration {
 
     @Bean("asyncTaskExecutor")
     public Executor asyncTaskExecutor() {
-        ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
-        taskExecutor.setCorePoolSize(20);
-        taskExecutor.setMaxPoolSize(100);
-        taskExecutor.setQueueCapacity(150);
-        taskExecutor.setThreadNamePrefix("AsyncTaskThread-");
-        taskExecutor.initialize();
-        ThreadPoolExecutor executor = taskExecutor.getThreadPoolExecutor();
+        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+        executor.setCorePoolSize(50);
+        executor.setMaxPoolSize(200);
+        executor.setQueueCapacity(500);
+        executor.setThreadNamePrefix("Async-");
+        executor.initialize();
         return executor;
-
     }
 }

@@ -15,10 +15,16 @@ public interface ProductMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "products_support", ignore = true)
     @Mapping(target = "products_img", ignore = true)
-
     @Mapping(target = "productsCategory", ignore = true)
     @Mapping(target = "products_Brands_id", ignore = true)
     Products toEntity(ProductsDTO request);
+
+   
+    @Mapping(target = "products_support", ignore = true)
+    @Mapping(target = "products_img", ignore = true)
+    @Mapping(target = "productsCategory", ignore = true)
+    @Mapping(target = "products_Brands_id", ignore = true)
+    Products toEntity1(ProductsDTO request);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "products_support", ignore = true)

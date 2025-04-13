@@ -1,5 +1,8 @@
 package com.example.my_app.modules.Login.DTO;
 
+import java.util.List;
+import java.util.Set;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,9 +15,12 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @NoArgsConstructor
 @AllArgsConstructor
-public class GetDataGoogleDTO {
-
-    String picture;
+public class Responeduser {
+    String id;
+    String role;
+    Set<String> permission;
     String name;
-    String email;
+    String url;
+    
+
 }

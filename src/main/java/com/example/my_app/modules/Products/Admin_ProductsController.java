@@ -39,11 +39,13 @@ public class Admin_ProductsController {
         public ResponseEntity<ResponedGlobal> handlAddProducts(@RequestBody RequestAdd request)
                         throws Exception {
                 try {
-                        boolean add = productsServices.addNewProducts(request);
-                        if (add == false) {
+                        ResponedGlobal add = productsServices.addNewProducts(request);
+
+                        if (add.getCode().equals("0")) {
+                                System.out.println(add.getMessages().toString());
                                 return new ResponseEntity<ResponedGlobal>(
                                                 ResponedGlobal.builder().data("").code("0")
-                                                                .messages("lỗi").build(),
+                                                                .messages(add.getMessages()).build(),
                                                 HttpStatus.BAD_REQUEST);
                         }
                         return new ResponseEntity<ResponedGlobal>(
@@ -60,10 +62,11 @@ public class Admin_ProductsController {
         }
 
         @Transactional
-        @DeleteMapping(path = "/Delete", produces = MediaType.APPLICATION_JSON_VALUE)
+        @DeleteMapping(path = "/Delete", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
         public ResponseEntity<ResponedGlobal> handlDeleteProducts(@RequestParam("id") String request) throws Exception {
 
                 try {
+                        System.out.println(request);
                         UUID convertUuid = UUID.fromString(request);
                         Optional<Products> searchProducts = productsServices.handleFindOneProducts(convertUuid);
                         if (searchProducts.isEmpty()) {
@@ -166,7 +169,7 @@ public class Admin_ProductsController {
         public ResponseEntity<ResponedGlobal> handlUpLocalDateTimeProducts(@RequestBody RequestUpdate request)
                         throws Exception {
                 try {
-
+System.out.println(request.toString());
                         Optional<Products> products = productsServices
                                         .handleFindOneProducts(request.getProductsData().getId());
                         if (products.isEmpty()) {
@@ -232,6 +235,28 @@ public class Admin_ProductsController {
                         return new ResponseEntity<ResponedGlobal>(
                                         ResponedGlobal.builder().data("").code("0")
                                                         .messages("thành công").build(),
+                                        HttpStatus.BAD_REQUEST);
+                }
+        }
+
+        @GetMapping(path = "/Render/all", produces = MediaType.APPLICATION_JSON_VALUE)
+        public ResponseEntity<ResponedGlobal> handlRenderall() throws Exception {
+                try {
+                        ResponedGlobal data = productsServices.handlePanigation();
+                        if (data.getCode().equals("0")) {
+                                return new ResponseEntity<ResponedGlobal>(
+                                                ResponedGlobal.builder().data("").code("0")
+                                                                .messages(data.getMessages()).build(),
+                                                HttpStatus.BAD_REQUEST);
+                        }
+                        return new ResponseEntity<ResponedGlobal>(
+                                        ResponedGlobal.builder().data(data.getData()).code("1")
+                                                        .messages("thành công").build(),
+                                        HttpStatus.OK);
+                } catch (Exception e) {
+                        return new ResponseEntity<ResponedGlobal>(
+                                        ResponedGlobal.builder().data("").code("0")
+                                                        .messages(e.toString()).build(),
                                         HttpStatus.BAD_REQUEST);
                 }
         }

@@ -5,7 +5,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,7 +22,6 @@ import com.example.my_app.model.Role_Permission.Role;
 import com.example.my_app.model.Role_Permisson_Admin.Admin_Permisson;
 import com.example.my_app.model.Role_Permisson_Admin.Admin_Role;
 import com.example.my_app.model.User.User;
-import com.example.my_app.modules.Login.DTO.GetDataGoogleDTO;
 import com.example.my_app.modules.Login.DTO.LoginNormalDTO;
 
 import jakarta.servlet.http.Cookie;
@@ -36,16 +34,16 @@ import lombok.experimental.FieldDefaults;
 public class LoginServices {
     UserRepository userRepository;
     UserMapper userMapper;
-    PasswordEncoder passwordEncoder;
+
     RoleCustom roleCustom;
     EmployeeRepository employeeRepository;
 
     @Autowired
-    public LoginServices(UserMapper userMapper, UserRepository userRepository, PasswordEncoder passwordEncoder,
+    public LoginServices(UserMapper userMapper, UserRepository userRepository,
             RoleCustom roleCustom, EmployeeRepository employeeRepository) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
-        this.passwordEncoder = passwordEncoder;
+
         this.roleCustom = roleCustom;
         this.employeeRepository = employeeRepository;
     }
@@ -60,41 +58,8 @@ public class LoginServices {
         return employeeRepository.findByEmail(data.getEmail());
     }
 
-    @Transactional
-    public boolean handleDecode(String request, String user_data) throws Exception {
-        return passwordEncoder.matches(request, user_data);
-    }
-
-    @Transactional
-    public Optional<User> handleAddUser(GetDataGoogleDTO request) throws Exception {
-        try {
-            User user = new User();
-            user.setUrl(request.getPicture());
-            user.setStatusEntry(StatusUserEntry.Google);
-            user.setUsername(request.getName());
-            user.setEmail(request.getEmail());
-            Role initRole = roleCustom.handleDefaultPermissionRole(StatusRole.Customers, user);
-            if (initRole == null) {
-                return null;
-            }
-            user.setUser_role(initRole);
-            userRepository.save(user);
-            return Optional.of(user);
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    @Transactional
-    public boolean handleFindbyEmailAndStatusEntry(GetDataGoogleDTO request) throws Exception {
-        try {
-            Optional<User> searchUser = userRepository.findByEmailAndStatusEntry(request.getEmail(),
-                    StatusUserEntry.Google);
-            return searchUser.isPresent();
-        } catch (Exception e) {
-            return false;
-        }
-    }
+   
+  
 
     @Transactional
     public Set<String> handleGetPermisson(Optional<User> data) throws Exception {

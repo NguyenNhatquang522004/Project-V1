@@ -16,7 +16,6 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.my_app.DTO.Products.ProductsBrandDTO;
@@ -37,6 +36,7 @@ import com.example.my_app.Repository.Products.CategoryRepository;
 import com.example.my_app.Repository.Role.RoleRepository;
 
 import com.example.my_app.Repository.User.UserRepository;
+import com.example.my_app.common.ResponedGlobal;
 import com.example.my_app.custom.CustomRepository.RoleCustom;
 import com.example.my_app.model.Product.ProductsCategory;
 import com.example.my_app.model.Product.Products_Brands;
@@ -45,7 +45,6 @@ import com.example.my_app.model.Role_Permission.Role;
 import com.example.my_app.model.User.User;
 import com.example.my_app.modules.Products.Admin_ProductsServices;
 import com.example.my_app.modules.Products.Request.RequestAdd;
-import com.example.my_app.modules.ProductsDetail.ProductsServices;
 
 import jakarta.persistence.EntityManager;
 
@@ -61,9 +60,6 @@ public class MyAppApplication implements CommandLineRunner {
 
 	@Autowired
 	UserRepository userRepository;
-
-	@Autowired
-	PasswordEncoder passwordEncoder;
 
 	@Autowired
 	RoleCustom roleCustom;
@@ -204,8 +200,9 @@ public class MyAppApplication implements CommandLineRunner {
 		int totalImages = imageUrls.size();
 
 		// Tạo danh sách sample cho 100 sản phẩm sử dụng các URL ảnh có sẵn
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 2; i++) {
 			UUID productId = UUID.randomUUID();
+			System.out.println(productId);
 
 			ProductsDTO product = ProductsDTO.builder()
 					.id(productId)
@@ -294,18 +291,31 @@ public class MyAppApplication implements CommandLineRunner {
 		}
 		List<RequestAdd> a = buildSampleRequestList();
 		for (RequestAdd value : a) {
-			boolean b = productsServices.addNewProducts(value);
+			ResponedGlobal b = productsServices.addNewProducts(value);
 			System.out.println(b);
 		}
+
 		User user = new User();
-		user.setPassword(passwordEncoder.encode("123"));
+		user.setPassword("123");
 		user.setEmail("nguyennhatquang522004@gmail.com");
 		user.setUsername("nguyennhatquang");
+		user.setUrl("https://images.pexels.com/photos/2292953/pexels-photo-2292953.jpeg");
 		userRepository.save(user);
 		Role check = roleCustom.handleDefaultPermissionRole(StatusRole.Customers,
 				user);
 		user.setUser_role(check);
 		userRepository.save(user);
+
+		User user1 = new User();
+		user1.setPassword("1234");
+		user1.setEmail("nhatquang@gmail.com");
+		user.setUsername("nguyennhatquang1");
+		user1.setUrl("https://images.pexels.com/photos/2292953/pexels-photo-2292953.jpeg");
+		userRepository.save(user1);
+		Role check1 = roleCustom.handleDefaultPermissionRole(StatusRole.Staff,
+				user1);
+		user1.setUser_role(check1);
+		userRepository.save(user1);
 	}
 
 }

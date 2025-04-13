@@ -17,7 +17,7 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RequestBuyItem {
-   int receivedAmount;
+    int receivedAmount;
     @JsonProperty("Country")
     String Country;
     @JsonProperty("Province")
@@ -29,5 +29,6 @@ public class RequestBuyItem {
     String notes;
     @JsonDeserialize(using = AutoDeserializer.class)
     UUID order_id;
+
     String type;
 }

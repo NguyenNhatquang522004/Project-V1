@@ -51,7 +51,7 @@ public class RegisterController {
     public ResponseEntity<ResponedGlobal> handleRegisterStepOne(
             @RequestBody @Valid RegisterStepOneDTO request) throws Exception {
         try {
-
+            System.out.println(request.toString());
             boolean searchEmail = registerServices.CheckEmail(request.getEmail());
             if (searchEmail) {
                 return new ResponseEntity<ResponedGlobal>(
@@ -96,7 +96,7 @@ public class RegisterController {
                         HttpStatus.BAD_REQUEST);
             }
             boolean checkCodeExpired = registerServices.handleValidTime(searchUser.get().getCode_expired());
-            if (!checkCodeExpired) {
+            if (checkCodeExpired == false) {
                 return new ResponseEntity<ResponedGlobal>(
                         ResponedGlobal.builder().data("").code("0").messages("code đã hết hạn").build(),
                         HttpStatus.BAD_REQUEST);
@@ -135,8 +135,6 @@ public class RegisterController {
                         ResponedGlobal.builder().data("").code("0").messages("không tìm thấy User").build(),
                         HttpStatus.BAD_REQUEST);
             }
-            String hashPass = registerServices.handleHashPassword(request.getPassword());
-            request.setPassword(hashPass);
             boolean upLocalDateTimeUser = registerServices.handleUpLocalDateTimeUser(request, searchUser.get());
             if (!upLocalDateTimeUser) {
                 return new ResponseEntity<ResponedGlobal>(
@@ -234,9 +232,6 @@ public class RegisterController {
                         ResponedGlobal.builder().data("").code("0").messages("không tìm thấy User").build(),
                         HttpStatus.BAD_REQUEST);
             }
-            String hashPass = registerServices.handleHashPassword(request.getPassword());
-            request.setPassword(hashPass);
-            searchUser.get().setEmail(hashPass);
             employeeRepository.saveAndFlush(searchUser.get());
 
             return new ResponseEntity<ResponedGlobal>(

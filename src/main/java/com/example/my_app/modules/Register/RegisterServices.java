@@ -29,7 +29,7 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class RegisterServices {
 
-    PasswordEncoder passwordEncoder;
+
 
     UserRepository userRepository;
 
@@ -42,11 +42,11 @@ public class RegisterServices {
     EmployeeRepository employeeRepository;
 
     @Autowired
-    public RegisterServices(UserRepository userRepository, UserMapper userMapper, PasswordEncoder passwordEncoder,
+    public RegisterServices(UserRepository userRepository, UserMapper userMapper, 
             RoleRepository roleRepository, RoleCustom roleCustom, EmployeeRepository employeeRepository) {
         this.userMapper = userMapper;
         this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
+
         this.roleRepository = roleRepository;
         this.roleCustom = roleCustom;
         this.employeeRepository = employeeRepository;
@@ -153,12 +153,5 @@ public class RegisterServices {
         }
     }
 
-    String handleHashPassword(String data) throws Exception {
-        try {
-            String Hash = passwordEncoder.encode(data);
-            return Hash;
-        } catch (Exception e) {
-            return null;
-        }
-    }
+   
 }

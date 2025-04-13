@@ -7,7 +7,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,8 +25,7 @@ public class ForgotPassWordService {
     @Autowired
     Helper helper;
 
-    @Autowired
-    PasswordEncoder passwordEncoder;
+
 
     @Autowired
     SenderEmail senderEmail;
@@ -76,10 +75,8 @@ public class ForgotPassWordService {
     @Transactional
     public ResponedGlobal handleStepThree(User user, String password) throws Exception {
         try {
-            String hash = handleHashPassword(password);
-            if (hash == null) {
-                return ResponedGlobal.builder().code("0").data("").messages("lỗi hash").build();
-            }
+       
+         
             user.setPassword(password);
             userRepository.saveAndFlush(user);
             return ResponedGlobal.builder().code("1").data(user.getEmail()).messages("").build();
@@ -97,13 +94,6 @@ public class ForgotPassWordService {
         }
     }
 
-    String handleHashPassword(String data) throws Exception {
-        try {
-            String Hash = passwordEncoder.encode(data);
-            return Hash;
-        } catch (Exception e) {
-            return null;
-        }
-    }
+  
 
 }

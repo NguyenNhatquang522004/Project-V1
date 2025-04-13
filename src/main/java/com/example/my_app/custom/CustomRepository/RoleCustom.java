@@ -58,7 +58,7 @@ public class RoleCustom implements IRoleCustom {
                     role.setDescription(StatusRole.Customers);
                     role.setRole_user(user);
                     role.setRole_permission(searchSpecificPermissionCustomers);
-                    roleRepository.saveAndFlush(role);
+                    roleRepository.save(role);
                     break;
                 case Owner:
 
@@ -80,11 +80,10 @@ public class RoleCustom implements IRoleCustom {
                     role.setDescription(StatusRole.Owner);
                     role.setRole_user(user);
                     role.setRole_permission(searchSpecificPermissionOwner);
-                    roleRepository.saveAndFlush(role);
+                    roleRepository.save(role);
 
                     break;
                 case Staff:
-
                     List<StatusPermission> allowedPermissionsStaff = List.of(
                             StatusPermission.UpLocalDateTime,
                             StatusPermission.Create,
@@ -103,7 +102,7 @@ public class RoleCustom implements IRoleCustom {
                     role.setDescription(StatusRole.Staff);
                     role.setRole_user(user);
                     role.setRole_permission(searchSpecificPermissionStaff);
-                    roleRepository.saveAndFlush(role);
+                    roleRepository.save(role);
 
                     break;
                 default:

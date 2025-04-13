@@ -60,7 +60,7 @@ public class OrderServices {
     @Transactional
     public ResponedGlobal handleAddNew(RequestOrderItem request) throws Exception {
         try {
-            Optional<User> searchUser = userRepository.findAll().stream().findFirst();
+            Optional<User> searchUser = helper.handlefind(request.getUser_id(), userRepository::findById);
             if (searchUser.isEmpty()) {
                 TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
                 return ResponedGlobal.builder().code("0").messages("không tìm thấy user").data("").build();
