@@ -169,9 +169,9 @@ public class OrderServices {
     }
 
     @Transactional
-    public ResponedGlobal handleOrderRender() throws Exception {
+    public ResponedGlobal handleOrderRender(UUID id) throws Exception {
         try {
-            Optional<User> searchUser = userRepository.findAll().stream().findFirst();
+            Optional<User> searchUser = helper.handlefind(id, userRepository::findById);
             if (searchUser.isEmpty()) {
                 TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
                 return ResponedGlobal.builder().code("0").messages("không tìm thấy user").data("").build();
@@ -239,7 +239,7 @@ public class OrderServices {
             }
             orderRepository.save(searchOrder.get());
 
-            return ResponedGlobal.builder().code("1").messages("thành công").data("").build();
+            return ResponedGlobal.builder().code("1").messages("thành công").data(searchOrder.get().getId().toString()).build();
         } catch (Exception e) {
             System.out.println(e);
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();

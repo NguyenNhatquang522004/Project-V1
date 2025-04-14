@@ -135,18 +135,17 @@ public class Admin_ProductsServices implements IProducts {
     @Transactional
     public boolean UpdateProducts(RequestUpdate request, Products products) throws Exception {
         try {
-            CompletableFuture.allOf(
-                    handleUpdateProducts(products, request.getProductsData()),
-                    handleUpdateCategory(products, request.getCategoryData()),
-                    handleUpdateBrands(products, request.getBrandsData()),
-                    handleDeleteManySupport(request.getProductsSupportDataDelete(), products),
-                    handleDeleteimg(products, request.getUrlDataDelete()),
-                    updateProductsSupport(request.getProductsSupportDataUpdate(), products),
-                    handleProductsSupportAndAttributeAsync(request.getProductsSupportDataAdd(), products),
-                    handleImgProductsAsync(products, request.getUrlDataNew()))
-                    .thenApplyAsync(v -> productRepository.save(products))
-                    .join(); 
+            // Xử lý đồng bộ tất cả các task
+            handleUpdateProducts(products, request.getProductsData());
+            handleUpdateCategory(products, request.getCategoryData());
+            handleUpdateBrands(products, request.getBrandsData());
+            handleDeleteManySupport(request.getProductsSupportDataDelete(), products);
+            handleDeleteimg(products, request.getUrlDataDelete());
+            updateProductsSupport(request.getProductsSupportDataUpdate(), products);
+            handleProductsSupportAndAttribute(request.getProductsSupportDataAdd(), products);
+            handleImgProducts(products, request.getUrlDataNew());
 
+            productRepository.save(products);
             return true;
         } catch (Exception e) {
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
@@ -154,109 +153,63 @@ public class Admin_ProductsServices implements IProducts {
         }
     }
 
-    @Async("asyncTaskExecutor")
     @Transactional(propagation = Propagation.NESTED)
-    public CompletableFuture<Void> handleUpdateProducts(Products products, ProductsDTO request)
-            throws Exception {
-        try {
-            System.out.println(Thread.currentThread());
-            productMapper.updateEntity(products, request);
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        return CompletableFuture.completedFuture(null);
+    public void handleUpdateProducts(Products products, ProductsDTO request) throws Exception {
+        productMapper.updateEntity(products, request);
     }
 
-    @Async("asyncTaskExecutor")
     @Transactional(propagation = Propagation.NESTED)
-    public CompletableFuture<Void> handleUpdateCategory(Products products, ProductsCategoryDTO request)
-            throws Exception {
-        try {
-            System.out.println(Thread.currentThread());
-
-            if(!products.getProductsCategory().getCategory().equals(request.getCategory()))  {
-                products.getProductsCategory().getProducts().remove(products);
-                Optional<ProductsCategory> searchCategory = handleFindOneCategory(
-                        request.getCategory());
-                if (searchCategory.isEmpty()) {
-                    TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-                }
-                products.setProductsCategory(searchCategory.get());
+    public void handleUpdateCategory(Products products, ProductsCategoryDTO request) throws Exception {
+        if (!products.getProductsCategory().getCategory().equals(request.getCategory())) {
+            products.getProductsCategory().getProducts().remove(products);
+            Optional<ProductsCategory> searchCategory = handleFindOneCategory(request.getCategory());
+            if (searchCategory.isEmpty()) {
+                throw new RuntimeException("Category not found");
             }
-        } catch (Exception e) {
-            System.out.println(e);
+            products.setProductsCategory(searchCategory.get());
         }
-        return CompletableFuture.completedFuture(null);
     }
 
-    @Async("asyncTaskExecutor")
     @Transactional(propagation = Propagation.NESTED)
-    public CompletableFuture<Void> handleUpdateBrands(Products products, ProductsBrandDTO request) throws Exception {
-        try {
-            if (products.getProducts_Brands_id().getBrands() != request.getBrands()) {
-                products.getProducts_Brands_id().getProducts().remove(products);
-                Optional<Products_Brands> searchBrands = handleFindOneBrands(request.getBrands());
-                if (searchBrands.isEmpty()) {
-                    TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-                }
-                products.setProducts_Brands_id(searchBrands.get());
+    public void handleUpdateBrands(Products products, ProductsBrandDTO request) throws Exception {
+        if (products.getProducts_Brands_id().getBrands() != request.getBrands()) {
+            products.getProducts_Brands_id().getProducts().remove(products);
+            Optional<Products_Brands> searchBrands = handleFindOneBrands(request.getBrands());
+            if (searchBrands.isEmpty()) {
+                throw new RuntimeException("Brand not found");
             }
-        } catch (Exception e) {
-            System.out.println(e);
+            products.setProducts_Brands_id(searchBrands.get());
         }
-        return CompletableFuture.completedFuture(null);
     }
 
-    @Async("asyncTaskExecutor")
     @Transactional(propagation = Propagation.NESTED)
-    public CompletableFuture<Void> handleDeleteManySupport(List<UUID> request, Products products) throws Exception {
-        try {
-            System.out.println(Thread.currentThread());
-
-            if (request.size() > 0) {
-                List<Products_Supports> searchProducts_Supports = supportsRepository
-                        .findAllById(request);
-                products.getProducts_support().removeAll(searchProducts_Supports);
-            }
-        } catch (Exception e) {
-            System.out.println(e);
+    public void handleDeleteManySupport(List<UUID> request, Products products) throws Exception {
+        if (request.size() > 0) {
+            List<Products_Supports> searchProducts_Supports = supportsRepository.findAllById(request);
+            products.getProducts_support().removeAll(searchProducts_Supports);
         }
-        return CompletableFuture.completedFuture(null);
+    }
+    
+    @Transactional(propagation = Propagation.NESTED)
+    public void handleDeleteimg(Products products, List<UUID> request) throws Exception {
+        if (request.size() > 0) {
+            List<Products_img> searchImg = imgRepository.findAllById(request);
+            products.getProducts_img().removeAll(searchImg);
+        }
     }
 
-    @Async("asyncTaskExecutor")
     @Transactional(propagation = Propagation.NESTED)
-    public CompletableFuture<Void> handleDeleteimg(Products products, List<UUID> request) throws Exception {
-        try {
-            if (request.size() > 0) {
-                List<Products_img> searchImg = imgRepository.findAllById(request);
-                products.getProducts_img().removeAll(searchImg);
-            }
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        return CompletableFuture.completedFuture(null);
-    }
+    public void updateProductsSupport(List<Products_SupportsDTO> request, Products products) throws Exception {
+        for (Products_SupportsDTO value : request) {
 
-    @Async("asyncTaskExecutor")
-    @Transactional(propagation = Propagation.NESTED)
-    public CompletableFuture<Void> updateProductsSupport(List<Products_SupportsDTO> request, Products products)
-            throws Exception {
-        try {
-            for (Products_SupportsDTO value : request) {
-                Optional<Products_Supports> searchSupport = products.getProducts_support()
-                        .stream()
-                        .filter(data -> data.getId().equals(value.getId()))
-                        .findFirst();
-                if (searchSupport.isEmpty()) {
-                    continue;
-                }
-                supportsMapper.updateEntity(searchSupport.get(), value);
-            }
-        } catch (Exception e) {
-            System.out.println(e);
+            Optional<Products_Supports> searchSupport = products.getProducts_support()
+                    .stream()
+                    .filter(data -> data.getId().equals(value.getId()))
+                    .findFirst();
+            if (searchSupport.isEmpty())
+                continue;
+            supportsMapper.updateEntity(searchSupport.get(), value);
         }
-        return CompletableFuture.completedFuture(null);
     }
 
     @Transactional(readOnly = true)
@@ -280,19 +233,12 @@ public class Admin_ProductsServices implements IProducts {
         }
     }
 
-    @Async("asyncTaskExecutor")
     @Transactional(propagation = Propagation.NESTED)
-    public CompletableFuture<Void> handleImgProductsAsync(Products products, List<ProductsImgDTO> request)
-            throws Exception {
-        try {
-            for (ProductsImgDTO value : request) {
-                Products_img products_img = imgMapper.toEntity(value);
-                productCustom.Helper_Product_Img(products_img, products);
-            }
-        } catch (Exception e) {
-            System.out.println(e);
+    public void handleImgProductsAsync(Products products, List<ProductsImgDTO> request) throws Exception {
+        for (ProductsImgDTO value : request) {
+            Products_img products_img = imgMapper.toEntity(value);
+            productCustom.Helper_Product_Img(products_img, products);
         }
-        return CompletableFuture.completedFuture(null);
     }
 
     public void handleProductsSupportAndAttribute(List<Products_SupportsDTO> request, Products products)
@@ -313,26 +259,17 @@ public class Admin_ProductsServices implements IProducts {
 
     }
 
-    @Async("asyncTaskExecutor")
     @Transactional(propagation = Propagation.NESTED)
-    public CompletableFuture<Void> handleProductsSupportAndAttributeAsync(List<Products_SupportsDTO> request,
-            Products products)
+    public void handleProductsSupportAndAttributeAsync(List<Products_SupportsDTO> request, Products products)
             throws Exception {
-        try {
-            System.out.println(Thread.currentThread());
-            for (Products_SupportsDTO value : request) {
-                Products_Supports products_Supports = supportsMapper.toEntity(value);
-                productCustom.Helper_Products_Product_Supports(products, products_Supports);
-                for (ProductsSupportAttributeDTO value1 : value.getProducts_Supports_Products_Support_Attribute()) {
-
-                    Products_Support_Attribute products_Support_Attribute = supportsAttributeMapper.toEntity(value1);
-                    productCustom.Helper_Product_Supports_Attribute(products_Supports, products_Support_Attribute);
-                }
+        for (Products_SupportsDTO value : request) {
+            Products_Supports products_Supports = supportsMapper.toEntity(value);
+            productCustom.Helper_Products_Product_Supports(products, products_Supports);
+            for (ProductsSupportAttributeDTO value1 : value.getProducts_Supports_Products_Support_Attribute()) {
+                Products_Support_Attribute products_Support_Attribute = supportsAttributeMapper.toEntity(value1);
+                productCustom.Helper_Product_Supports_Attribute(products_Supports, products_Support_Attribute);
             }
-        } catch (Exception e) {
-            System.out.println(e);
         }
-        return CompletableFuture.completedFuture(null);
     }
 
     @Transactional
@@ -433,8 +370,9 @@ public class Admin_ProductsServices implements IProducts {
 
             List<Products> searchProducts = productRepository.findAll();
             List<ResponedProducts> responedProducts = new ArrayList<>();
-            List<ProductsImgDTO> setimg = new ArrayList<>();
             for (Products value : searchProducts) {
+                List<ProductsImgDTO> setimg = new ArrayList<>();
+                System.out.println(value.getId().toString());
                 ResponedProducts itemp = new ResponedProducts();
                 ProductsDTO item = new ProductsDTO();
                 item.setId(value.getId());
@@ -482,9 +420,9 @@ public class Admin_ProductsServices implements IProducts {
                     itemp.setBrandsData(item2);
                     itemp.setCategoryData(item3);
                     itemp.setUrlData(setimg);
-                    responedProducts.add(itemp);
-                }
 
+                }
+                responedProducts.add(itemp);
             }
             return ResponedGlobal.builder().code("1").data(responedProducts).messages("").build();
         } catch (Exception e) {

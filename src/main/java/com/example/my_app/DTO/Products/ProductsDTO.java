@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import com.example.my_app.Configuration.AutoDeserializer;
 import com.example.my_app.DTO.Order.OrderDTO;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -39,4 +40,10 @@ public class ProductsDTO {
     Set<OrderDTO> products_order;
     ProductsCategoryDTO productsCategory;
     ProductsCategoryDTO products_Brands_id;
+
+    @JsonCreator
+    public static ProductsDTO create(String idValue) {
+        UUID id = UUID.fromString(idValue);
+        return ProductsDTO.builder().id(id).build();
+    }
 }

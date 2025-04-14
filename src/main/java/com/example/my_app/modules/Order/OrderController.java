@@ -1,5 +1,7 @@
 package com.example.my_app.modules.Order;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -9,9 +11,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.my_app.common.ResponedGlobal;
+import com.example.my_app.common.SenderEmail;
 import com.example.my_app.modules.Order.Request.RequestBuyItem;
 import com.example.my_app.modules.Order.Request.RequestDeleteItem;
 import com.example.my_app.modules.Order.Request.RequestOrderItem;
@@ -21,10 +25,12 @@ import com.example.my_app.modules.Products.Request.RequestAdd;
 @RestController
 public class OrderController {
         private final OrderServices orderServices;
+        private final SenderEmail senderEmail;
 
         @Autowired
-        public OrderController(OrderServices orderServices) {
+        public OrderController(OrderServices orderServices, SenderEmail senderEmail) {
                 this.orderServices = orderServices;
+                this.senderEmail = senderEmail;
         }
 
         @PostMapping(path = "/Public/order/add/item", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -62,8 +68,16 @@ public class OrderController {
                                                                 .messages(add.getMessages().toString()).build(),
                                                 HttpStatus.BAD_REQUEST);
                         }
+                        boolean send = senderEmail.handleSenderEmai("nguyennhatquang522004@gmail.com",
+                                        add.getData().toString());
+                        if (send == false) {
+                                return new ResponseEntity<ResponedGlobal>(
+                                                ResponedGlobal.builder().data("").code("0")
+                                                                .messages("lỗi gửi email").build(),
+                                                HttpStatus.BAD_REQUEST);
+                        }
                         return new ResponseEntity<ResponedGlobal>(
-                                        ResponedGlobal.builder().data("").code("1")
+                                        ResponedGlobal.builder().data(add.getData()).code("1")
                                                         .messages("thành công").build(),
                                         HttpStatus.OK);
                 } catch (Exception e) {
@@ -76,10 +90,11 @@ public class OrderController {
         }
 
         @GetMapping(path = "/Public/order/render", produces = MediaType.APPLICATION_JSON_VALUE)
-        public ResponseEntity<ResponedGlobal> handlRender()
+        public ResponseEntity<ResponedGlobal> handlRender(@RequestParam("id") String request)
                         throws Exception {
                 try {
-                        ResponedGlobal add = orderServices.handleOrderRender();
+                        UUID id = UUID.fromString(request);
+                        ResponedGlobal add = orderServices.handleOrderRender(id);
                         if (add.getCode().equals("0")) {
                                 return new ResponseEntity<ResponedGlobal>(
                                                 ResponedGlobal.builder().data("").code("0")

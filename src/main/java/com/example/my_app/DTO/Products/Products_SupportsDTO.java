@@ -5,7 +5,7 @@ import java.util.Set;
 import java.util.UUID;
 
 import com.example.my_app.Configuration.AutoDeserializer;
-
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -34,4 +34,9 @@ public class Products_SupportsDTO {
   ProductsDTO products_id;
   Set<ProductsSupportAttributeDTO> products_Supports_Products_Support_Attribute = new HashSet<>();
 
+  @JsonCreator
+  public static Products_SupportsDTO create(String idValue) {
+    UUID id = UUID.fromString(idValue);
+    return Products_SupportsDTO.builder().id(id).build();
+  }
 }

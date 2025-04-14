@@ -309,7 +309,7 @@ public class MyAppApplication implements CommandLineRunner {
 		User user1 = new User();
 		user1.setPassword("1234");
 		user1.setEmail("nhatquang@gmail.com");
-		user.setUsername("nguyennhatquang1");
+		user1.setUsername("quang");
 		user1.setUrl("https://images.pexels.com/photos/2292953/pexels-photo-2292953.jpeg");
 		userRepository.save(user1);
 		Role check1 = roleCustom.handleDefaultPermissionRole(StatusRole.Staff,

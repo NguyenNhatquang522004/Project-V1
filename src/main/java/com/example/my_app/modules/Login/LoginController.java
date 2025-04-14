@@ -69,6 +69,7 @@ public class LoginController {
                         Responeduser response1 = new Responeduser();
                         response1.setId(searchUser.get().getId().toString());
                         response1.setName(searchUser.get().getUsername());
+                        System.out.println(searchUser.get().getUsername());
                         response1.setRole(searchUser.get().getUser_role().getDescription().name());
                         response1.setUrl(searchUser.get().getUrl());
                         response1.setPermission(a);
